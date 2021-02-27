@@ -1,0 +1,82 @@
+.card{
+  border: 2px solid #CEC4C4;
+  border-radius: 10px;
+  height: 170px;
+  width: 370px;
+  margin-top: 0px;
+  background-color: white;
+}
+.backCard{
+  border: 2px solid #CEC4C4;
+  border-radius: 10px;
+  height: 170px;
+  width: 370px;
+  top: 70px;
+  left: 400px;
+  position: absolute;
+  margin-top: 57px;
+}
+hr{
+  margin-top: 20px;
+  height: 35px;
+  border-width:0;
+  color:#CEC4C4;
+  background-color:#CEC4C4;
+  opacity: 0.4;
+}
+ #ccn{
+   height: 30px;
+   width: 230px;
+   font-size: 18px;
+   text-indent: 20px;
+   margin-top: 3px;
+ }
+ #cardNumber span{
+   display: block;
+ }
+ #cardNumber{
+   margin-left: 20px;
+   margin-top: 55px;
+ }
+ #expires{
+   margin-left: 20px;
+ }
+ #expires span{
+   font-size: 20px;
+   padding-left: 5px;
+   padding-right: 5px;
+   color: grey;
+ }
+ #expires input{
+   height: 25px;
+   width: 70px;
+   color: grey;
+   text-align: center;
+ }
+ #cvv span{
+   display: block;
+   padding-left: 5px;
+   padding-right: 5px;
+   color: grey;
+   font-weight: bold;
+ }
+ #cvv span span{
+   display: inline;
+   font-size: 14px;
+ }
+#cvv input{
+  height: 25px;
+  width: 70px;
+  color: grey;
+  text-align: center;
+}
+#cvv {
+  position: absolute;
+  right: 1px;
+}
+#agreement h4{
+  display: inline;
+}
+#agreement{
+  margin-top: 10px;
+}

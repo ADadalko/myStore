@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "mystore-8491b": {
+      "hosting": {
+        "myStore": [
+          "mystore-8491b"
+        ]
+      }
+    }
+  }
+}
