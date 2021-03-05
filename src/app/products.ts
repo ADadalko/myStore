@@ -1,20 +1,56 @@
 export const products = [
   {
     id: 1,
-    name: 'Phone XL',
-    price: 799,
-    description: 'A large phone with one of the best screens'
+    name: 'Смартфон APPLE iPhone 11 64GB Black',
+    price: 2199,
+    description: ''
   },
   {
     id: 2,
-    name: 'Phone Mini',
-    price: 699,
-    description: 'A great phone with one of the best cameras'
+    name: 'Смартфон APPLE iPhone SE 64GB White',
+    price: 1399,
+    description: ''
   },
   {
     id: 3,
-    name: 'Phone Standard',
-    price: 299,
+    name: 'Смартфон APPLE iPhone XR 64GB Black',
+    price: 1799,
+    description: ''
+  },
+  {
+    id: 4,
+    name: 'Телевизор SAMSUNG UE50TU7570UXRU',
+    price: 1359,
+    description: ''
+  },
+  {
+    id: 5,
+    name: 'Телевизор LG 49UN74006LA',
+    price: 1329,
+    description: ''
+  },
+  {
+    id: 6,
+    name: 'Телевизор SONY KD-49XG7005',
+    price: 1969,
+    description: ''
+  },
+  {
+    id: 7,
+    name: 'Планшет Apple iPad 10.2" 32GB',
+    price: 1099,
+    description: ''
+  },
+  {
+    id: 8,
+    name: 'Планшет SAMSUNG Galaxy Tab A 8.0',
+    price: 449,
+    description: ''
+  },
+  {
+    id: 9,
+    name: 'Планшет Huawei MatePad T 10s',
+    price: 599,
     description: ''
   }
 ];

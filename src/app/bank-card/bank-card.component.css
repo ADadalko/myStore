@@ -1,3 +1,17 @@
+h3{
+  text-align: center;
+}
+label{
+  display: inline;
+}
+form{
+  width: 100%;
+}
+.bankCard{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .card{
   border: 2px solid #CEC4C4;
   border-radius: 10px;
@@ -5,16 +19,19 @@
   width: 370px;
   margin-top: 0px;
   background-color: white;
+  margin-bottom: 5px;
 }
 .backCard{
   border: 2px solid #CEC4C4;
   border-radius: 10px;
   height: 170px;
   width: 370px;
-  top: 70px;
-  left: 400px;
-  position: absolute;
-  margin-top: 57px;
+}
+.images{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 5px;
 }
 hr{
   margin-top: 20px;
@@ -35,8 +52,9 @@ hr{
    display: block;
  }
  #cardNumber{
+   font-weight: bold;
    margin-left: 20px;
-   margin-top: 55px;
+   margin-top: 10px;
  }
  #expires{
    margin-left: 20px;
@@ -71,12 +89,29 @@ hr{
   text-align: center;
 }
 #cvv {
-  position: absolute;
-  right: 1px;
-}
-#agreement h4{
-  display: inline;
+  float: right;
+  margin-right: 4px;
 }
 #agreement{
   margin-top: 10px;
+  text-align: center;
+}
+button{
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  width: auto;
+  height: auto;
+}
+
+@media only screen
+  and (max-device-width: 736px)
+  and (min-device-width: 414px)
+{
+  .card{
+    width: 300px;
+  }
+  .backCard{
+    width: 300px;
+  }
 }

@@ -1,26 +1,34 @@
 <h3>Here you can link the bank card to your account</h3>
-<form (submit)="onSubmit()">
-  <div class="card">
-    <div id="cardNumber">
-      <span>Your card number</span>
-      <input id="ccn" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
+<form [formGroup]="bankCardForm" (ngSubmit)="onSubmit()">
+  <div class="bankCard">
+    <div class="card">
+      <div class="images">
+        <img width="50" src="./assets/images/visaLogo.png">
+        <img width="50" src="./assets/images/mastercardLogo.png">
+        <img width="50" src="./assets/images/belcardLogo.png">
+        <img width="50" src="./assets/images/maestroLogo.png">
+      </div>
+      <div id="cardNumber">
+        <span>Your card number</span>
+        <input id="ccn" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
+      </div>
+      <div id="expires">
+        <input type="number" max="12" min="1" placeholder="MM">
+        <span>/</span>
+        <input type="number" min="2021" max="2025" placeholder="YY" >
+      </div>
     </div>
-    <div id="expires">
-      <input type="number" max="12" min="1" placeholder="MM">
-      <span>/</span>
-      <input type="number" min="2021" max="2025" placeholder="YY" >
-    </div>
-  </div>
-  <div class="backCard">
-    <hr id="stripe">
-    <div id="cvv">
-      <span>CVV<span class="material-icons">help</span></span>
-      <input type="number" maxlength="3" placeholder="xxx">
+    <div class="backCard">
+      <hr id="stripe">
+      <div id="cvv">
+        <span>CVV<span class="material-icons">help</span></span>
+        <input type="number" min="0" maxlength="3" placeholder="xxx">
+      </div>
     </div>
   </div>
   <div id="agreement">
-    <input type="checkbox">
-    <h4>I agree with all the rules</h4>
+    <input id="agreementCheck" type="checkbox">
+    <label for="agreementCheck">I agree with all the rules</label>
   </div>
   <button type="submit">Add card</button>
 </form>
