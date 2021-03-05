@@ -4,8 +4,17 @@
 
 .products{
   text-align: center;
+  margin-top: 10px;
+  margin-right: 5px;
+  margin-left: 2px;
+  gap: 5px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+}
+
+.product{
+  height: 200px;
+  border: 2px solid lightslategrey;
 }
 
 .slider > a:hover{
@@ -86,6 +95,13 @@ img {
 and (max-device-width: 736px)
 and (min-device-width: 414px)
 {
+  .products{
+    text-align: center;
+    margin-top: 10px;
+    gap: 5px;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
   .slider{
     width: 100%;
   }
@@ -103,6 +119,13 @@ and (max-device-width: 736px)
 and (min-device-width: 414px)
   and (orientation: landscape)
 {
+  .products{
+    text-align: center;
+    margin-top: 10px;
+    gap: 5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
   .slider{
     width: 500px;
   }
