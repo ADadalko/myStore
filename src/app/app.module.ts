@@ -11,6 +11,7 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { CartComponent } from './cart/cart.component';
 import { ShippingComponent } from './shipping/shipping.component';
 import { BankCardComponent } from './bank-card/bank-card.component';
+import { MainPageComponent } from './main-page/main-page.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { BankCardComponent } from './bank-card/bank-card.component';
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot([
-      { path: '', component: ProductListComponent },
+      { path: '', component: MainPageComponent },
+      { path: 'products', component: ProductListComponent },
       { path: 'products/:productId', component: ProductDetailsComponent },
       { path: 'cart', component: CartComponent },
       { path: 'shipping', component: ShippingComponent },
@@ -32,7 +34,8 @@ import { BankCardComponent } from './bank-card/bank-card.component';
     ProductDetailsComponent,
     CartComponent,
     ShippingComponent,
-    BankCardComponent
+    BankCardComponent,
+    MainPageComponent
   ],
   bootstrap: [
     AppComponent

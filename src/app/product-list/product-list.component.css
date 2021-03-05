@@ -7,6 +7,7 @@
   margin-top: 10px;
   margin-right: 5px;
   margin-left: 2px;
+  margin-bottom: 10px;
   gap: 5px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -15,80 +16,6 @@
 .product{
   height: 200px;
   border: 2px solid lightslategrey;
-}
-
-.slider > a:hover{
-  opacity: 0.7;
-}
-
-.slider {
-  width: 700px;
-  text-align: center;
-  margin-top: 10px;
-  margin-right: auto;
-  margin-left: auto;
-}
-
-.slides {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-}
-
-.slides::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-.slides::-webkit-scrollbar-thumb {
-  background: lightslategrey;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
-}
-
-.slides > div {
-  scroll-snap-align: start;
-  flex-shrink: 0;
-  width: 700px;
-  height: 30vh;
-  color: lightslategrey;
-  margin-right: 20px;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
-  background: #eee;
-  transform-origin: center center;
-  transform: scale(1);
-  transition: transform 0.5s;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 100px;
-}
-
-img {
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.slider > a {
-  display: inline-flex;
-  width: 15px;
-  height: 15px;
-  background: lightslategrey;
-  text-decoration: none;
-  align-items: center;
-  margin: 2px;
-  position: relative;
-}
-
-.slider > a:active {
-  top: 1px;
 }
 
 @media only screen
@@ -101,15 +28,6 @@ and (min-device-width: 414px)
     gap: 5px;
     display: grid;
     grid-template-columns: 1fr;
-  }
-  .slider{
-    width: 100%;
-  }
-  .slides > div{
-    width: 100%;
-  }
-  .slider > a {
-    display: none;
   }
 }
 
@@ -125,16 +43,5 @@ and (min-device-width: 414px)
     gap: 5px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-  }
-  .slider{
-    width: 500px;
-  }
-  .slides > div{
-    width: 500px;
-    height: 40vh;
-  }
-
-  .slider > a {
-    display: none;
   }
 }
