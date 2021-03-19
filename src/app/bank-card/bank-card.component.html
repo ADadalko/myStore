@@ -1,4 +1,4 @@
-<h3>Привязать банковскую карту</h3>
+<h3>Add your bank card</h3>
 <form [formGroup]="bankCardForm" (ngSubmit)="onSubmit()">
   <div class="bankCard">
     <div class="card">
@@ -9,7 +9,7 @@
         <img width="50" src="./assets/images/maestroLogo.png">
       </div>
       <div id="cardNumber">
-        <span>Номер карты</span>
+        <span>Your card number</span>
         <input id="ccn" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
       </div>
       <div id="expires">
@@ -28,7 +28,7 @@
   </div>
   <div id="agreement">
     <input id="agreementCheck" type="checkbox">
-    <label for="agreementCheck">Я согласен с условиями соглашения</label>
+    <label for="agreementCheck">I agree with all the rules</label>
   </div>
-  <button type="submit">Добавить  карту</button>
+  <button type="submit">Add card</button>
 </form>

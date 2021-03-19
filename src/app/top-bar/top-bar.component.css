@@ -1,9 +1,79 @@
-#choices a{
-  margin: 2px;
+#choices{
+  display: grid;
+  width: 100%;
+  grid-template-columns: 0.1fr 4fr 1fr 1fr 1fr;
+  gap: 5px;
+  align-items: center;
 }
 
-a{
-  margin-right: 20px;
+a.button{
+  justify-self: center;
+  align-self: stretch;
+}
+
+
+#marker{
+  cursor: pointer;
+  font-size: 50px;
+  color: #ededed;
+  transition: 0.3s;
+  text-shadow: 0 0 6px #ededed;
+}
+
+#marker:hover{
+  opacity: 0.7;
+}
+
+.sidenav {
+  margin-top: 90px;
+  height: 800px;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #3d3d3d;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 30px;
+}
+
+.sidenav a {
+  padding: 8px 32px 8px 32px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #f73859;
+  display: block;
+  width: 200px;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  opacity: 0.7;
+}
+
+.sidenav {
+  position: absolute;
+  top: 0;
+  font-size: 36px;
+}
+
+#logo{
+  width: 80px;
+  height: auto;
+  border: 1px solid red;
+}
+
+img{
+  width: 80px;
+}
+
+.button{
+  background-color: #3d3d3d;
+}
+
+i.material-icons{
+  color: #f73859;
 }
 
 input{
@@ -12,23 +82,61 @@ input{
   background-position: 4px;
   padding-left: 50px;
   background-size: 30px;
-  margin-bottom: 2px;
-  font-size: 20px;
-  width: 400px;
-  height: 40px;
+  border: none;
+  height: 45px;
+  border-radius: 40px;
+  justify-self: right;
+  box-shadow: 0 0 6px #ededed;
 }
 
 @media only screen
 and (max-device-width: 736px)
 and (min-device-width: 414px)
 {
-  a > h1{
-    display: none;
-  }
-  span{
-    display: none;
+  #choices{
+    display: grid;
+    width: 100%;
+    gap: 5px;
+    align-items: center;
   }
   input{
-    width: 250px;
+    width: 150px;
+    border-radius: 20px;
+  }
+  #marker{
+    font-size: 40px;
+  }
+  img{
+    width: 80px;
+  }
+  #logo{
+    width: 80px;
+    padding-left: 0;
+  }
+}
+
+@media only screen
+and (max-device-width: 736px)
+and (min-device-width: 414px)
+and (orientation: landscape)
+{
+  #choices{
+    display: grid;
+    width: 100%;
+    gap: 5px;
+    align-items: center;
+  }
+  #marker{
+    font-size: 50px;
+  }
+  img{
+    width: 100px;
+  }
+  input{
+    width: unset;
+    border-radius: 40px;
+  }
+  #logo{
+    width: 100px;
   }
 }

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { products } from '../products';
-import { CartService } from '../cart.service';
+import { CartService } from '../services/cart.service';
+import {ProductService} from '../services/product.service';
+import {Product} from '../product';
 
 @Component({
   selector: 'app-product-details',
@@ -10,21 +11,30 @@ import { CartService } from '../cart.service';
   styleUrls: ['./product-details.component.css']
 })
 export class ProductDetailsComponent implements OnInit {
-  product;
+
+  products: Product[];
+
   constructor(
     private route: ActivatedRoute,
-    private cartService: CartService
+    private cartService: CartService,
+    private productService: ProductService
   ) { }
+
   addToCart(product): void {
+    console.log(product)
     this.cartService.addToCart(product);
     window.alert('Товар был добавлен в корзину!');
   }
+
   ngOnInit(): void {
-    // First get the product id from the current route.
+
     const routeParams = this.route.snapshot.paramMap;
     const productIdFromRoute = Number(routeParams.get('productId'));
+    console.log(productIdFromRoute);
 
-    // Find the product that correspond with the id provided in route.
-    this.product = products.find(product => product.id === productIdFromRoute);
+    this.productService.getProductById(productIdFromRoute).subscribe(product => {
+      this.products = product;
+    });
+
   }
 }

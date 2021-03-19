@@ -1,5 +1,17 @@
-<input id="search" type="search" placeholder="Поиск">
+<div id="mySidenav" style="width: 0" class="sidenav">
+  <a [routerLink]="['/products']">Все товары</a>
+  <a [routerLink]="['/products']">Смартфоны</a>
+  <a [routerLink]="['/products']">Планшеты</a>
+  <a [routerLink]="['/products']">Телевизоры</a>
+  <a [routerLink]="['/products']">Фитнес трекеры</a>
+  <a [routerLink]="['/products']">Смарт часы</a>
+</div>
 <div id="choices">
-  <a routerLink="/cart" class="button fancy-button"><i class="material-icons">shopping_cart</i><span>Корзина</span></a>
-  <a routerLink="/card" class="button fancy-button"><i class="material-icons">payment</i><span>Методы оплаты</span></a>
+  <span id="marker"  (click)="openNav();">&#9776;</span>
+  <a [routerLink]="['/']" id="logo">
+    <img src="./assets/images/Logo.png">
+  </a>
+  <a routerLink="/cart" class="button fancy-button"><i class="material-icons">shopping_cart</i></a>
+  <a routerLink="/card" class="button fancy-button"><i class="material-icons">payment</i></a>
+  <input id="search" type="search" placeholder="Поиск">
 </div>

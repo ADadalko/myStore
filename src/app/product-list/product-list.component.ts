@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
-import { products } from '../products';
+import { ProductService } from '../services/product.service';
+import {Subscription} from 'rxjs';
+import {Product} from '../product';
 
 @Component({
   selector: 'app-product-list',
@@ -8,15 +11,31 @@ import { products } from '../products';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-  products = products;
-  constructor() { }
+  products: Product[];
+  product: Product[];
+  type: string;
+  private querySubscription: Subscription;
+
+  constructor(private productService: ProductService, private activateRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-  }
-  share(): void {
-    window.alert('The product has been shared!');
-  }
-  onNotify(): void {
-    window.alert('You will be notified when the product goes on sale');
+    this.productService.getProductById(1).subscribe(product => {
+      this.product = product;
+    });
+
+    this.querySubscription = this.activateRoute.queryParams.subscribe(
+      (queryParam: any) => {
+        this.type = queryParam['type'];
+        console.log(this.type)
+      }
+    );
+
+    this.productService.getProducts(this.type).subscribe(products => {
+      this.products = products;
+      console.log(this.products[0].chars);
+      for (const [key, value] of Object.entries(this.products[0].chars)) {
+        console.log(`${key}: ${value}`);
+      }
+    })
   }
 }

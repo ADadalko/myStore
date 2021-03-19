@@ -52,5 +52,41 @@ export const products = [
     name: 'Планшет Huawei MatePad T 10s',
     price: 599,
     description: ''
+  },
+  {
+    id: 10,
+    name: 'Смарт часы',
+    price: 599,
+    description: ''
+  },
+  {
+    id: 11,
+    name: 'Смарт часы',
+    price: 599,
+    description: ''
+  },
+  {
+    id: 12,
+    name: 'Смарт часы',
+    price: 599,
+    description: ''
+  },
+  {
+    id: 13,
+    name: 'Фитнес-браслет XIAOMI Mi Smart Band 5',
+    price: 99,
+    description: ''
+  },
+  {
+    id: 14,
+    name: 'Фитнес-браслет XIAOMI Mi Smart Band 5',
+    price: 599,
+    description: ''
+  },
+  {
+    id: 15,
+    name: 'Фитнес-браслет XIAOMI Mi Smart Band 5',
+    price: 599,
+    description: ''
   }
 ];

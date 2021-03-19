@@ -1,9 +1,9 @@
 <div class="products">
-  <div class="product" *ngFor="let product of products">
-    <h3>
-      <a [title]="product.name + ' details'" [routerLink]="['/products', product.id]">
-        {{ product.name }}
-      </a>
-    </h3>
-  </div>
+  <a  *ngFor="let product of products" [title]="product.model" [routerLink]="['/products', product.id]">
+    <div class="product">
+        <h3>
+          {{ product.model }}
+        </h3>
+    </div>
+  </a>
 </div>

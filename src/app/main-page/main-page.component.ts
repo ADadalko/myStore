@@ -12,11 +12,4 @@ export class MainPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openNav(): void{
-    document.getElementById("mySidenav").style.width = "200px";
-  }
-
-  closeNav(): void{
-    document.getElementById("mySidenav").style.width = "0";
-  }
 }

@@ -6,21 +6,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-#logo h1{
-  background-color: lightslategrey;
-  margin: 0;
-  margin-bottom: -5px;
-  color: #eee;
-  font-weight: lighter;
-}
-
 body {
   margin: 0;
 }
+
 a {
   cursor: pointer;
-  color: lightslategrey;
+  color: #3d3d3d;
   text-decoration: none;
+  transition: 0.3s;
 }
 
 a:hover {
@@ -28,11 +22,11 @@ a:hover {
 }
 
 input {
-  font-size: 14px;
+  font-size: 20px;
   border-radius: 2px;
-  border: 1px solid #BDBDBD;
   padding: 8px 10px;
-  margin-bottom: 10px;
+  border: 2px solid #3d3d3d;
+  background-color: #ededed;
 }
 
 label {
@@ -46,12 +40,13 @@ label {
 .button, button {
   display: inline-flex;
   align-items: center;
-  padding: 8px 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
   border-radius: 2px;
-  font-size: 14px;
+  font-size: 20px;
   cursor: pointer;
-  background-color: lightslategrey;
-  color: #eee;
+  color: #ededed;
+  background-color: #3d3d3d;
   border: none;
 }
 
@@ -67,27 +62,19 @@ label {
 
 .fancy-button {
   background-color: #eee;
-  color: lightslategrey;
+  color: black;
 }
 
 .fancy-button i.material-icons {
-  color: lightslategrey;
-  padding-right: 5px;
+  color: #353535;
+  font-size: 50px;
 }
 
 app-top-bar {
   width: 100%;
-  background-color: lightslategrey;
+  background-color: #3d3d3d;
   padding: 16px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-
-app-top-bar h1 {
-  color: #eee;
-  margin: 0;
+  display: block;
 }
 
 .cart-item, .shipping-item {
