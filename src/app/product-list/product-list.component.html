@@ -1,9 +1,11 @@
 <div class="products">
   <a  *ngFor="let product of products" [title]="product.model" [routerLink]="['/products', product.id]">
     <div class="product">
-        <h3>
-          {{ product.model }}
-        </h3>
+      <h3>
+        {{ product.model }}
+      </h3>
+      <img [src]="product.img">
     </div>
+    <p>{{ product.description }}</p>
   </a>
 </div>

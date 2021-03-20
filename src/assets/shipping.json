@@ -1,14 +1,14 @@
 [
   {
-    "type": "На следующий день",
+    "type": "Tomorrow",
     "price": 20
   },
   {
-    "type": "Через 2 дня",
+    "type": "2 days",
     "price": 10
   },
   {
-    "type": "В течение недели",
+    "type": "This Week",
     "price": 5
   }
 ]

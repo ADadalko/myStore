@@ -1,10 +1,11 @@
 <div id="mySidenav" style="width: 0" class="sidenav">
-  <a [routerLink]="['/products']">Все товары</a>
-  <a [routerLink]="['/products']">Смартфоны</a>
-  <a [routerLink]="['/products']">Планшеты</a>
-  <a [routerLink]="['/products']">Телевизоры</a>
-  <a [routerLink]="['/products']">Фитнес трекеры</a>
-  <a [routerLink]="['/products']">Смарт часы</a>
+  <a [routerLink]="['/products']" [queryParams]="{'type':'all'}">All Products</a>
+  <a [routerLink]="['/products']" [queryParams]="{'type':'phones'}">Phones</a>
+  <a [routerLink]="['/products']" [queryParams]="{'type':'tablets'}">Tablets</a>
+  <a [routerLink]="['/products']" [queryParams]="{'type':'tvs'}">TVs</a>
+  <a [routerLink]="['/products']" [queryParams]="{'type':'trackers'}">Fitness Trackers</a>
+  <a [routerLink]="['/products']" [queryParams]="{'type':'watches'}">Smart Watches</a>
+  <a [routerLink]="['/shipping']">fffff</a>
 </div>
 <div id="choices">
   <span id="marker"  (click)="openNav();">&#9776;</span>
@@ -13,5 +14,5 @@
   </a>
   <a routerLink="/cart" class="button fancy-button"><i class="material-icons">shopping_cart</i></a>
   <a routerLink="/card" class="button fancy-button"><i class="material-icons">payment</i></a>
-  <input id="search" type="search" placeholder="Поиск">
+  <input id="search" type="search" placeholder="Find your device">
 </div>

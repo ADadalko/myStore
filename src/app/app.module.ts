@@ -25,7 +25,7 @@ import { environment } from '../environments/environment';
     AngularFireDatabaseModule,
     RouterModule.forRoot([
       { path: '', component: MainPageComponent },
-      { path: 'products', component: ProductListComponent },
+      { path: 'products', component: ProductListComponent},
       { path: 'products/:productId', component: ProductDetailsComponent },
       { path: 'cart', component: CartComponent },
       { path: 'shipping', component: ShippingComponent },

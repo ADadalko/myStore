@@ -19,9 +19,6 @@ export class ProductListComponent implements OnInit {
   constructor(private productService: ProductService, private activateRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.productService.getProductById(1).subscribe(product => {
-      this.product = product;
-    });
 
     this.querySubscription = this.activateRoute.queryParams.subscribe(
       (queryParam: any) => {
@@ -33,8 +30,9 @@ export class ProductListComponent implements OnInit {
     this.productService.getProducts(this.type).subscribe(products => {
       this.products = products;
       console.log(this.products[0].chars);
+      //Пройтись по keys
       for (const [key, value] of Object.entries(this.products[0].chars)) {
-        console.log(`${key}: ${value}`);
+        console.log(key + value);
       }
     })
   }

@@ -13,9 +13,18 @@
   grid-template-columns: 1fr 1fr 1fr;
 }
 
-.product{
-  height: 200px;
-  border: 2px solid #3d3d3d;
+.products p{
+  align-items: end;
+}
+
+img{
+  width: 60%;
+}
+
+a{
+  background-color: white;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 @media only screen

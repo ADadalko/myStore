@@ -23,23 +23,35 @@
   </div>
 </div>
 <div id="categories">
-  <h3>
-    <a [routerLink]="['/products']" [queryParams]="{'type':'all'}">All Products</a>
-  </h3>
-  <h3>
-    <a [routerLink]="['/products']" [queryParams]="{'type':'phones'}">Phones</a>
-  </h3>
-  <h3>
-    <a [routerLink]="['/products']" [queryParams]="{'type':'tablets'}">Tablets</a>
-  </h3>
-  <h3>
-    <a [routerLink]="['/products']" [queryParams]="{'type':'tvs'}">TVs</a>
-  </h3>
-  <h3>
-    <a [routerLink]="['/products']" [queryParams]="{'type':'trackers'}">Fitness Trackers</a>
-  </h3>
-  <h3>
-    <a [routerLink]="['/products']" [queryParams]="{'type':'watches'}">Smart Watches</a>
-  </h3>
+  <a [routerLink]="['/products']" [queryParams]="{'type':'all'}">
+    <h3>
+      All Products
+    </h3>
+  </a>
+  <a [routerLink]="['/products']" [queryParams]="{'type':'phones'}">
+    <h3>
+      Phones
+    </h3>
+  </a>
+  <a [routerLink]="['/products']" [queryParams]="{'type':'tablets'}">
+    <h3>
+      Tablets
+    </h3>
+  </a>
+  <a [routerLink]="['/products']" [queryParams]="{'type':'tvs'}">
+    <h3>
+      TVs
+    </h3>
+  </a>
+  <a [routerLink]="['/products']" [queryParams]="{'type':'trackers'}">
+    <h3>
+      Fitness Trackers
+    </h3>
+  </a>
+  <a [routerLink]="['/products']" [queryParams]="{'type':'watches'}">
+    <h3>
+      Smart Watches
+    </h3>
+  </a>
 </div>
 

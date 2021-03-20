@@ -81,8 +81,10 @@ img {
 }
 
 h3{
-  border: 1px solid #3d3d3d;
+  padding: 5px;
+  border-radius: 5px;
   height: 80px;
+  background-color: white;
 }
 
 

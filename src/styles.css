@@ -1,5 +1,6 @@
 * {
-  font-family: 'Roboto', Arial, sans-serif;
+  font-family: 'Raleway', sans-serif;
+  font-weight: bold;
   color: #616161;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
@@ -8,6 +9,7 @@
 
 body {
   margin: 0;
+  background-color: #dedede;
 }
 
 a {
