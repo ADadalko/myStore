@@ -5,14 +5,15 @@
   <a [routerLink]="['/products']" [queryParams]="{'type':'tvs'}">TVs</a>
   <a [routerLink]="['/products']" [queryParams]="{'type':'trackers'}">Fitness Trackers</a>
   <a [routerLink]="['/products']" [queryParams]="{'type':'watches'}">Smart Watches</a>
-  <a [routerLink]="['/shipping']">fffff</a>
 </div>
 <div id="choices">
   <span id="marker"  (click)="openNav();">&#9776;</span>
   <a [routerLink]="['/']" id="logo">
     <img src="./assets/images/Logo.png">
   </a>
-  <a routerLink="/cart" class="button fancy-button"><i class="material-icons">shopping_cart</i></a>
-  <a routerLink="/card" class="button fancy-button"><i class="material-icons">payment</i></a>
+  <div id="cartAndPayment">
+    <a routerLink="/cart" class="button fancy-button"><i class="material-icons">shopping_cart</i></a>
+    <a routerLink="/card" class="button fancy-button"><i class="material-icons">payment</i></a>
+  </div>
   <input id="search" type="search" placeholder="Find your device">
 </div>

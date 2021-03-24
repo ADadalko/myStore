@@ -1,14 +1,14 @@
 [
   {
     "type": "Tomorrow",
-    "price": 20
-  },
-  {
-    "type": "2 days",
     "price": 10
   },
   {
-    "type": "This Week",
+    "type": "2 days",
     "price": 5
+  },
+  {
+    "type": "This Week",
+    "price": 2
   }
 ]

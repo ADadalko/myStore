@@ -1,5 +1,5 @@
 <div class="products">
-  <a  *ngFor="let product of products" [title]="product.model" [routerLink]="['/products', product.id]">
+  <a  *ngFor="let product of products | async" [title]="product.model" [routerLink]="['/products', product.id]">
     <div class="product">
       <h3>
         {{ product.model }}
@@ -7,5 +7,6 @@
       <img [src]="product.img">
     </div>
     <p>{{ product.description }}</p>
+    <button (click)="addToCart(product)">Add to card</button>
   </a>
 </div>

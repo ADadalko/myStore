@@ -18,6 +18,7 @@ import { environment } from '../environments/environment';
 
 @NgModule({
   imports: [
+    RouterModule,
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,

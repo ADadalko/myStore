@@ -1,21 +1,24 @@
 #choices{
   display: grid;
   width: 100%;
-  grid-template-columns: 0.1fr 4fr 1fr 1fr 1fr;
+  grid-template-columns: 0.1fr 4fr 5fr 1fr;
   gap: 5px;
   align-items: center;
 }
 
 a.button{
-  justify-self: center;
   align-self: stretch;
+}
+
+#cartAndPayment{
+  justify-self: right;
 }
 
 
 #marker{
   cursor: pointer;
   font-size: 50px;
-  color: #ededed;
+  color: #dedede;
   transition: 0.3s;
   text-shadow: 0 0 6px #ededed;
 }
@@ -26,7 +29,7 @@ a.button{
 
 .sidenav {
   margin-top: 110px;
-  height: 832px;
+  height: 100vw;
   width: 0;
   position: fixed;
   z-index: 1;
@@ -101,6 +104,9 @@ and (min-device-width: 414px)
   input{
     width: 150px;
     border-radius: 20px;
+  }
+  input::placeholder{
+    color: transparent;
   }
   #marker{
     font-size: 40px;

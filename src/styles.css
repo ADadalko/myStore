@@ -7,28 +7,41 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
+.container{
+  margin-top: 120px;
+}
+
+h3{
+  text-align: center;
+  font-size: 2vw;
+}
+
+h4{
+  font-size: 1vw;
+}
+
+body{
   margin: 0;
   background-color: #dedede;
 }
 
-a {
+a{
   cursor: pointer;
   color: #3d3d3d;
   text-decoration: none;
   transition: 0.3s;
 }
 
-a:hover {
+a:hover{
   opacity: 0.7;
 }
 
-input {
+input{
   font-size: 20px;
   border-radius: 2px;
   padding: 8px 10px;
   border: 2px solid #3d3d3d;
-  background-color: #ededed;
+  background-color: #dedede;
 }
 
 label {
@@ -44,31 +57,31 @@ label {
   align-items: center;
   padding-top: 8px;
   padding-bottom: 8px;
-  border-radius: 2px;
   font-size: 20px;
   cursor: pointer;
-  color: #ededed;
+  color: #f73859;
   background-color: #3d3d3d;
   border: none;
+  border-radius: 10px;
+  transition: 0.3s;
 }
 
 .button:hover, button:hover {
   opacity: 0.7;
-  font-weight: normal;
+  font-weight: bold;
 }
 
-.button:disabled, button:disabled {
-  opacity: 0.7;
-  cursor: auto;
+button:focus{
+  outline: none;
 }
 
 .fancy-button {
-  background-color: #eee;
+  background-color: #dedede;
   color: black;
 }
 
 .fancy-button i.material-icons {
-  color: #353535;
+  color: #3d3d3d;
   font-size: 50px;
 }
 
@@ -77,6 +90,10 @@ app-top-bar {
   background-color: #3d3d3d;
   padding: 16px;
   display: block;
+  top: 0;
+  position: fixed;
+  overflow: hidden;
+  z-index: 2;
 }
 
 .cart-item, .shipping-item {
@@ -89,5 +106,5 @@ app-top-bar {
   padding: 16px 32px;
   margin-bottom: 8px;
   border-radius: 2px;
-  background-color: #eee;
+  background-color: #ededed;
 }

@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import { ProductService } from '../services/product.service';
-import {Subscription} from 'rxjs';
+import {Observable} from 'rxjs';
 import {Product} from '../product';
+import {switchMap} from 'rxjs/operators';
+import {CartService} from '../services/cart.service';
 
 @Component({
   selector: 'app-product-list',
@@ -11,29 +13,25 @@ import {Product} from '../product';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-  products: Product[];
+  products: Observable<Product[]>;
   product: Product[];
-  type: string;
-  private querySubscription: Subscription;
 
-  constructor(private productService: ProductService, private activateRoute: ActivatedRoute) {}
+  constructor(private productService: ProductService,
+              private router: Router,
+              private activateRoute: ActivatedRoute,
+              private cartService: CartService,) {}
+
+  addToCart(product): void {
+    console.log(product)
+    this.cartService.addToCart(product);
+    window.alert('Товар был добавлен в корзину!');
+  }
 
   ngOnInit(): void {
 
-    this.querySubscription = this.activateRoute.queryParams.subscribe(
-      (queryParam: any) => {
-        this.type = queryParam['type'];
-        console.log(this.type)
-      }
-    );
-
-    this.productService.getProducts(this.type).subscribe(products => {
-      this.products = products;
-      console.log(this.products[0].chars);
-      //Пройтись по keys
-      for (const [key, value] of Object.entries(this.products[0].chars)) {
-        console.log(key + value);
-      }
-    })
+    this.products = this.activateRoute.queryParams.pipe(switchMap(product => {
+      return this.productService.getProducts(product.type || "");
+    }));
   }
+
 }
