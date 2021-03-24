@@ -3,7 +3,7 @@
   margin-right: auto;
   display: grid;
   grid-template-columns: 1fr 2fr;
-  grid-template-rows: 1fr 0.5fr 1fr 0.5fr 0.5fr;
+  grid-template-rows: 1fr 0.5fr 0.1fr 0.5fr 0.5fr;
   margin-top: 10px;
   margin-bottom: 10px;
   width: 70%;
@@ -12,39 +12,45 @@
   padding: 5px;
 }
 
-#price{
-  margin: 0;
-  font-size: 2vw;
-  border-radius: 5px;
-  align-self: center;
-}
-
 img{
-  grid-row: 1/7;
+  grid-row: 1/6;
   width: 100%;
   align-self: center;
 }
 
+#country, #reviewsNumber h4, #vendor{
+  margin: 0;
+}
+
 #buttons{
-  display: flex;
-  justify-content: flex-end;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#price{
+  grid-row: 1/2;
+  margin: 0;
+  font-size: 2vw;
+  border-radius: 5px;
+  align-self: center;
+  justify-self: center;
 }
 
 #buttons a{
+  margin: 2px;
+  grid-row: 1/2;
   font-size: 2vw;
   padding: 5px;
+  align-self: center;
+  justify-self: end;
 }
 
 #buttons i{
-  font-size: 2vw;
+  font-size: 1.5vw;
 }
 
-#reviewsNumber{
-  align-self: center;
-}
-
-#reviewsNumber h4{
-  margin: 0;
+i.material-icons{
+  vertical-align: center;
 }
 
 .rating-result span {
@@ -60,4 +66,14 @@ img{
 }
 .rating-result > span.active {
   color: #f73859;
+}
+
+
+@media only screen
+and (max-device-width: 736px)
+and (min-device-width: 414px)
+{
+  #head{
+    width: 100%;
+  }
 }
