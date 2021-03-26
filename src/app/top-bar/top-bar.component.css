@@ -15,24 +15,20 @@ a.button{
 }
 
 
-#marker{
-  cursor: pointer;
-  font-size: 50px;
+#marker i{
+  text-shadow: 0 0 5px #dedede;
   color: #dedede;
-  transition: 0.3s;
-  text-shadow: 0 0 6px #ededed;
 }
 
 #marker:hover{
   opacity: 0.7;
 }
 
-.sidenav {
-  margin-top: 110px;
+#mySidenav {
+  margin-top: 85px;
   height: 100vw;
   width: 0;
   position: fixed;
-  z-index: 1;
   top: 0;
   left: 0;
   background-color: #3d3d3d;
@@ -41,7 +37,7 @@ a.button{
   padding-top: 30px;
 }
 
-.sidenav a {
+#mySidenav a {
   padding: 8px 32px 8px 32px;
   text-decoration: none;
   font-size: 18px;
@@ -51,23 +47,23 @@ a.button{
   transition: 0.3s;
 }
 
-.sidenav a:hover {
+#mySidenav a:hover {
   opacity: 0.7;
 }
 
-.sidenav {
+#mySidenav {
   position: absolute;
   top: 0;
-  font-size: 36px;
+  font-size: 1vw;
 }
 
 #logo{
-  width: 80px;
+  width: 50px;
   height: auto;
 }
 
 img{
-  width: 80px;
+  width: 50px;
 }
 
 .button{
@@ -98,25 +94,16 @@ and (min-device-width: 414px)
   #choices{
     display: grid;
     width: 100%;
+    grid-template-columns: 0.1fr 0.1fr 2fr 0.1fr;
     gap: 5px;
     align-items: center;
   }
   input{
-    width: 150px;
+    width: 31vw;
     border-radius: 20px;
   }
   input::placeholder{
     color: transparent;
-  }
-  #marker{
-    font-size: 40px;
-  }
-  img{
-    width: 80px;
-  }
-  #logo{
-    width: 80px;
-    padding-left: 0;
   }
 }
 
@@ -131,17 +118,8 @@ and (orientation: landscape)
     gap: 5px;
     align-items: center;
   }
-  #marker{
-    font-size: 50px;
-  }
-  img{
-    width: 100px;
-  }
   input{
     width: unset;
     border-radius: 40px;
-  }
-  #logo{
-    width: 100px;
   }
 }

@@ -2,7 +2,35 @@
   box-sizing: border-box;
 }
 
-.products{
+#descriptionLink{
+  display: grid;
+  padding: 5px;
+}
+
+#buttons a{
+  margin: 2px;
+  margin-bottom: 5px;
+  grid-row: 1/2;
+  font-size: 2vw;
+  padding: 5px;
+  align-self: center;
+  justify-self: end;
+}
+
+#buttons i{
+  font-size: 1.5vw;
+}
+
+i.material-icons{
+  vertical-align: center;
+}
+
+#product{
+  background-color: white;
+  border-radius: 5px;
+}
+
+#products{
   text-align: center;
   margin-top: 10px;
   margin-right: 2px;
@@ -13,25 +41,22 @@
   grid-template-columns: 1fr 1fr 1fr;
 }
 
-.products p{
-  align-items: end;
+p{
+  align-self: end;
 }
 
 img{
+  align-self: center;
+  justify-self: center;
   width: 60%;
 }
 
-a{
-  background-color: white;
-  padding: 5px;
-  border-radius: 5px;
-}
 
 @media only screen
 and (max-device-width: 736px)
 and (min-device-width: 414px)
 {
-  .products{
+  #products{
     text-align: center;
     margin-top: 10px;
     gap: 5px;
@@ -46,7 +71,7 @@ and (max-device-width: 736px)
 and (min-device-width: 414px)
   and (orientation: landscape)
 {
-  .products{
+  #products{
     text-align: center;
     margin-top: 10px;
     gap: 5px;

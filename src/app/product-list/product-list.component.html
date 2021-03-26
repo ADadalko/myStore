@@ -1,12 +1,15 @@
-<div class="products">
-  <a  *ngFor="let product of products | async" [title]="product.model" [routerLink]="['/products', product.id]">
-    <div class="product">
+<div id="products">
+  <div id="product" *ngFor="let product of products | async" [title]="product.model">
+    <a id="descriptionLink" [routerLink]="['/products', product.id]">
       <h3>
         {{ product.model }}
       </h3>
       <img [src]="product.img">
+      <h4>{{ product.description }}</h4>
+    </a>
+    <div id="buttons">
+      <a class="button fancy-button" (click)="addToCart(product)"><i class="material-icons">compare</i>+</a>
+      <a class="button fancy-button" (click)="addToCart(product)"><i class="material-icons">shopping_cart</i>Add to cart</a>
     </div>
-    <p>{{ product.description }}</p>
-    <button (click)="addToCart(product)">Add to card</button>
-  </a>
+  </div>
 </div>

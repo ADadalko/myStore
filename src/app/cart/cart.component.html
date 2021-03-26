@@ -2,7 +2,7 @@
 
 <div class="cart-item" *ngFor="let item of items">
   <span>{{ item.model }} </span>
-  <span>{{ item.price | currency: 'BYN' }}</span>
+  <span>{{ item.price | currency }}</span>
 </div>
 
 <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">

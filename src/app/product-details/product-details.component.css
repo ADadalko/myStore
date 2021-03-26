@@ -4,27 +4,155 @@
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-template-rows: 1fr 0.5fr 0.1fr 0.5fr 0.5fr;
-  margin-top: 10px;
-  margin-bottom: 10px;
   width: 70%;
   background-color: white;
   border-radius: 5px;
   padding: 5px;
+  margin-bottom: 1vh;
+}
+
+
+#chars{
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  background-color: white;
+  padding: 5px;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#chars h3{
+  font-size: 1.5vw;
+}
+
+#chars span{
+  text-transform: uppercase;
+}
+
+#chars h4{
+  display: flex;
+  background-color: #dedede;
+  justify-content: space-between;
+  font-size: 1.5vw;
+}
+
+#char{
+  padding: 1vw;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+
+
+
+#reviews{
+  display: grid;
+  background-color: white;
+  padding: 5px;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  margin-bottom: 10px;
+}
+
+#reviews h3{
+  font-size: 1.5vw;
+}
+
+#reviews h4{
+  display: grid;
+  grid-template-rows: 1fr 1.5fr;
+  grid-template-columns: 1fr 3fr;
+  background-color: #dedede;
+}
+
+#review{
+  padding: 1vw;
+  margin: 5px;
+  border-radius: 5px;
+  height: 1fr;
+}
+
+#review span{
+  align-self: center;
+}
+
+#usersReview{
+  padding: 1vw;
+  margin: 5px;
+  border-radius: 5px;
+  justify-content: center;
+}
+
+p{
+  justify-self: center;
+  align-self: center;
+}
+
+textarea{
+  font-size: 1vw;
+  grid-row: 2/3;
+  grid-column: 2/3;
+  resize: none;
+  border-radius: 5px;
+  border: none;
+}
+
+#formContainer{
+  display: grid;
+  gap: 5px;
+  grid-row: 2/3;
+  grid-column: 1/2;
+}
+
+#usersReview a{
+  background-color: white;
+  justify-self: center;
+  align-self: center;
+  border-radius: 5px;
+  margin: 2px;
+  font-size: 1vw;
+  padding: 0.5vw;
 }
 
 img{
   grid-row: 1/6;
-  width: 100%;
+  width: 95%;
+  justify-self: center;
   align-self: center;
 }
 
-#country, #reviewsNumber h4, #vendor{
+
+
+#country, #reviewsNumber h4, #country{
   margin: 0;
 }
+
+
 
 #buttons{
   display: grid;
   grid-template-columns: 1fr 1fr;
+}
+
+#buttons a{
+  margin: 2px;
+  grid-row: 1/2;
+  font-size: 2vw;
+  padding: 0.5vw;
+  align-self: center;
+  justify-self: end;
+}
+
+#buttons i{
+  font-size: 1.7vw;
+}
+
+i.material-icons{
+  vertical-align: center;
 }
 
 #price{
@@ -36,29 +164,15 @@ img{
   justify-self: center;
 }
 
-#buttons a{
-  margin: 2px;
-  grid-row: 1/2;
-  font-size: 2vw;
-  padding: 5px;
-  align-self: center;
-  justify-self: end;
-}
 
-#buttons i{
-  font-size: 1.5vw;
-}
 
-i.material-icons{
-  vertical-align: center;
-}
 
 .rating-result span {
   padding: 0;
   font-size: 2vw;
   margin: 0 3px;
   line-height: 1;
-  color: lightgrey;
+  color: #dedede;
   text-shadow: 1px 1px #bbb;
 }
 .rating-result > span:before {
@@ -67,6 +181,64 @@ i.material-icons{
 .rating-result > span.active {
   color: #f73859;
 }
+.rating-mini {
+  text-shadow: 1px 1px #bbb;
+  grid-row: 1/3;
+  align-self: center;
+  justify-self: center;
+  display: inline-block;
+  font-size: 0;
+}
+.rating-mini span {
+  padding: 0;
+  font-size: 2vw;
+  line-height: 1;
+  color: lightgrey;
+}
+.rating-mini > span:before {
+  content: '★';
+}
+.rating-mini > span.active {
+  color: #f73859;
+}
+.rating-area {
+  text-shadow: 1px 1px #bbb;
+  justify-self: center;
+  align-self: center;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.rating-area:not(:checked) > input {
+  display: none;
+}
+.rating-area:not(:checked) > label {
+  float: right;
+  padding: 0;
+  cursor: pointer;
+  font-size: 2vw;
+  line-height: 32px;
+  color: lightgrey
+}
+.rating-area:not(:checked) > label:before {
+  content: '★';
+}
+.rating-area > input:checked ~ label {
+  color: #f73859;
+}
+.rating-area:not(:checked) > label:hover,
+.rating-area:not(:checked) > label:hover ~ label {
+  color: #f73859;
+}
+.rating-area > input:checked + label:hover,
+.rating-area > input:checked + label:hover ~ label,
+.rating-area > input:checked ~ label:hover,
+.rating-area > input:checked ~ label:hover ~ label,
+.rating-area > label:hover ~ input:checked ~ label {
+  color: #f73859;
+}
+.rate-area > label:active {
+  position: relative;
+}
 
 
 @media only screen
@@ -74,6 +246,14 @@ and (max-device-width: 736px)
 and (min-device-width: 414px)
 {
   #head{
+    width: 100%;
+  }
+
+  #chars{
+    width: 100%;
+  }
+
+  #reviews{
     width: 100%;
   }
 }

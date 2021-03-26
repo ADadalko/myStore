@@ -6,5 +6,6 @@ export interface Product{
   img: string,
   model: string,
   price: number,
+  reviews: [],
   type: string,
 }

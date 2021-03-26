@@ -5,7 +5,6 @@
 .slider {
   width: 700px;
   text-align: center;
-  margin-top: 10px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -78,19 +77,26 @@ a{
 
 img{
   width: 60%;
+  align-self: center;
+  justify-self: center;
+  margin-bottom: 10px;
 }
 
 h3{
+  display: grid;
+  grid-template-rows: 0.1fr 3fr;
   padding: 5px;
   border-radius: 5px;
   background-color: white;
 }
 
-
 @media only screen
 and (max-device-width: 736px)
 and (min-device-width: 414px)
 {
+  img{
+    width: 100%;
+  }
   .slider{
     width: 100%;
   }
@@ -102,18 +108,17 @@ and (min-device-width: 414px)
   }
 }
 
-
 @media only screen
 and (max-device-width: 736px)
 and (min-device-width: 414px)
 and (orientation: landscape)
 {
   .slider{
-    width: 500px;
+    width: 100%;
   }
   .slides > div{
-    width: 500px;
-    height: 40vh;
+    width: 100%;
+    height: 70vh;
   }
 
   .slider > a {

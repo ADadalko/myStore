@@ -8,7 +8,7 @@
 }
 
 .container{
-  margin-top: 120px;
+  margin-top: 100px;
 }
 
 h3{
@@ -45,11 +45,8 @@ input{
 }
 
 label {
-  font-size: 12px;
-  font-weight: bold;
   margin-bottom: 4px;
   display: block;
-  text-transform: uppercase;
 }
 
 .button, button {
@@ -77,23 +74,22 @@ button:focus{
 
 .fancy-button {
   background-color: #dedede;
-  color: black;
+  color: #616161;
 }
 
 .fancy-button i.material-icons {
-  color: #3d3d3d;
+  color: #616161;
   font-size: 50px;
 }
 
 app-top-bar {
   width: 100%;
   background-color: #3d3d3d;
-  padding: 16px;
+  padding: 10px;
   display: block;
   top: 0;
   position: fixed;
-  overflow: hidden;
-  z-index: 2;
+  z-index: 1;
 }
 
 .cart-item, .shipping-item {
@@ -107,4 +103,19 @@ app-top-bar {
   margin-bottom: 8px;
   border-radius: 2px;
   background-color: #ededed;
+}
+
+
+@media only screen
+and (max-device-width: 736px)
+and (min-device-width: 414px)
+{
+  h3{
+    text-align: center;
+    font-size: 4vw;
+  }
+
+  h4{
+    font-size: 3vw;
+  }
 }

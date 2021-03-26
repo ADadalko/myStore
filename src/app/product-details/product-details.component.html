@@ -1,4 +1,4 @@
-<div *ngFor="let product of products">
+<div id="page" *ngFor="let product of products">
 
   <div id="head">
     <h3>
@@ -15,28 +15,55 @@
         <span></span>
       </div>
     </div>
-    <h4 id="vendor">Apple</h4>
+    <h4 id="country">{{product.country}}</h4>
     <h4>
       {{product.description}}
     </h4>
     <div id="buttons">
       <h4 id="price">{{product.price | currency}}</h4>
-      <a class="button fancy-button" id="addToCart" (click)="addToCart(product)"><i class="material-icons">compare</i>+</a>
+      <a class="button fancy-button" (click)="addToCart(product)"><i class="material-icons">compare</i>+</a>
       <a class="button fancy-button" (click)="addToCart(product)"><i class="material-icons">shopping_cart</i>Add to cart</a>
     </div>
   </div>
 
-  <div class="chars">
+  <div id="chars">
+    <h3>Main Features</h3>
+    <h4 id="char" *ngFor="let char of chars">
+      <span>{{char[0]}}</span> <span>{{char[1]}}</span>
+    </h4>
+  </div>
 
+  <div id="reviews">
+    <h3>Reviews</h3>
+    <h4 id="usersReview">
+      <p>Add your review</p>
+      <div id="formContainer">
+        <div class="rating-area">
+          <input type="radio" id="star-5" name="rating" value="5">
+          <label for="star-5" title="Оценка «5»"></label>
+          <input type="radio" id="star-4" name="rating" value="4">
+          <label for="star-4" title="Оценка «4»"></label>
+          <input type="radio" id="star-3" name="rating" value="3">
+          <label for="star-3" title="Оценка «3»"></label>
+          <input type="radio" id="star-2" name="rating" value="2">
+          <label for="star-2" title="Оценка «2»"></label>
+          <input type="radio" id="star-1" name="rating" value="1">
+          <label for="star-1" title="Оценка «1»"></label>
+        </div>
+        <a>Send review</a>
+      </div>
+      <textarea maxlength="500"></textarea>
+    </h4>
+    <h4 id="review" *ngFor="let review of reviews">
+      <div class="rating-mini">
+        <span class="active"></span>
+        <span class="active"></span>
+        <span class="active"></span>
+        <span></span>
+        <span></span>
+      </div>
+      <span>{{review.user}}</span> <span>{{review.date.toDate() | date: "medium"}}</span>
+    </h4>
   </div>
 </div>
-
-<!--chars: Map<string,string>-->
-<!--country: string,-->
-<!--description: string,-->
-<!--id: number,-->
-<!--img: string,-->
-<!--model: string,-->
-<!--price: number,-->
-<!--type: string,-->
 

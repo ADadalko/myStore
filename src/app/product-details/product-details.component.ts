@@ -4,6 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { CartService } from '../services/cart.service';
 import {ProductService} from '../services/product.service';
 import {Product} from '../product';
+import {Review} from '../review';
+import firebase from 'firebase';
+import TIMESTAMP = firebase.database.ServerValue.TIMESTAMP;
 
 @Component({
   selector: 'app-product-details',
@@ -13,6 +16,8 @@ import {Product} from '../product';
 export class ProductDetailsComponent implements OnInit {
 
   products: Product[];
+  chars = [];
+  reviews: Review[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -34,7 +39,12 @@ export class ProductDetailsComponent implements OnInit {
 
     this.productService.getProductById(productIdFromRoute).subscribe(product => {
       this.products = product;
+      for(let entry of Object.entries(this.products[0].chars)){
+       this.chars.push(entry)
+      }
+      for(let value of Object.entries(this.products[0].reviews)) {
+        this.reviews.push(value[1]);
+      }
     });
-
   }
 }
