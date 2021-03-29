@@ -1,5 +1,5 @@
 export interface Product{
-  chars: Map<string,string>
+  chars: Map<string,string>,
   country: string,
   description: string,
   id: number,
@@ -8,4 +8,5 @@ export interface Product{
   price: number,
   reviews: [],
   type: string,
+  vendor: string
 }

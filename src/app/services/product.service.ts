@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Product} from '../product';
-import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
+import {AngularFirestore} from '@angular/fire/firestore';
 import {map} from 'rxjs/operators';
 
 
@@ -13,11 +13,11 @@ export class ProductService {
 
   constructor(private db: AngularFirestore) {}
 
-  getProducts(type):Observable<Product[]> {
-    if(type == 'all'){
+  getProducts(key, value):Observable<Product[]> {
+    if(value == 'all'){
       return this.db.collection<Product>('products').valueChanges();
     }else{
-    const collection = this.db.collection<Product>('products', ref => ref.where('type', '==', type))
+    const collection = this.db.collection<Product>('products', ref => ref.where(`${key}`, '==', value))
     return collection
       .valueChanges()
       .pipe(

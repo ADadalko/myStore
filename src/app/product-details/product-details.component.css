@@ -11,6 +11,14 @@
   margin-bottom: 1vh;
 }
 
+input{
+  border: 1px solid white;
+}
+
+input.ng-touched.ng-invalid, textarea.ng-touched.ng-invalid{
+  border:solid #f73859 1px;
+  border-radius: 5px;
+}
 
 #chars{
   border-top-right-radius: 5px;
@@ -64,7 +72,14 @@
 
 #reviews h4{
   display: grid;
-  grid-template-rows: 1fr 1.5fr;
+  grid-template-rows: 1fr 1.5fr 1fr;
+  grid-template-columns: 1fr 3fr;
+  background-color: #dedede;
+}
+
+#reviews form{
+  display: grid;
+  grid-template-rows: 0.1fr 1fr;
   grid-template-columns: 1fr 3fr;
   background-color: #dedede;
 }
@@ -80,7 +95,19 @@
   align-self: center;
 }
 
-#usersReview{
+#reviewText{
+  grid-row: 2/4;
+  align-self: center;
+}
+
+#reviewDate{
+  justify-self: center;
+  align-self: center;
+  grid-column: 1/2;
+  grid-row: 3/4;
+}
+
+form{
   padding: 1vw;
   margin: 5px;
   border-radius: 5px;
@@ -98,22 +125,34 @@ textarea{
   grid-column: 2/3;
   resize: none;
   border-radius: 5px;
-  border: none;
+  border: 1px solid white;
+  padding: 10px;
+}
+
+#inputName{
+  align-self: center;
+  justify-self: left;
+}
+
+#inputName input{
+  font-size: 1vw;
+  padding: 5px;
+  background-color: white;
 }
 
 #formContainer{
   display: grid;
-  gap: 5px;
+  gap: 8px;
   grid-row: 2/3;
   grid-column: 1/2;
 }
 
-#usersReview a{
+form button{
   background-color: white;
   justify-self: center;
+  color: #3d3d3d;
   align-self: center;
   border-radius: 5px;
-  margin: 2px;
   font-size: 1vw;
   padding: 0.5vw;
 }
@@ -184,7 +223,6 @@ i.material-icons{
 .rating-mini {
   text-shadow: 1px 1px #bbb;
   grid-row: 1/3;
-  align-self: center;
   justify-self: center;
   display: inline-block;
   font-size: 0;
@@ -215,8 +253,7 @@ i.material-icons{
   float: right;
   padding: 0;
   cursor: pointer;
-  font-size: 2vw;
-  line-height: 32px;
+  font-size: 2.5vw;
   color: lightgrey
 }
 .rating-area:not(:checked) > label:before {
@@ -245,12 +282,21 @@ i.material-icons{
 and (max-device-width: 736px)
 and (min-device-width: 414px)
 {
+  #reviews h4{
+    grid-template-rows: 1fr 1.5fr 3fr;
+    grid-template-columns: 1fr 3fr;
+  }
+
   #head{
     width: 100%;
   }
 
   #chars{
     width: 100%;
+  }
+
+  textarea{
+    font-size: 4vw;
   }
 
   #reviews{

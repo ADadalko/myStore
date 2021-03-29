@@ -1,23 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { CartService } from '../services/cart.service';
 import {ProductService} from '../services/product.service';
 import {Product} from '../product';
 import {Review} from '../review';
-import firebase from 'firebase';
-import TIMESTAMP = firebase.database.ServerValue.TIMESTAMP;
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css']
 })
-export class ProductDetailsComponent implements OnInit {
+export class ProductDetailsComponent implements OnInit{
 
   products: Product[];
   chars = [];
   reviews: Review[] = [];
+  averageMark;
+  numberOfMarks;
+
+  reviewForm : FormGroup = new FormGroup({
+    "userName": new FormControl("", Validators.required),
+    "review": new FormControl("", Validators.required),
+    "rating": new FormControl()
+  })
 
   constructor(
     private route: ActivatedRoute,
@@ -26,13 +36,11 @@ export class ProductDetailsComponent implements OnInit {
   ) { }
 
   addToCart(product): void {
-    console.log(product)
     this.cartService.addToCart(product);
     window.alert('Товар был добавлен в корзину!');
   }
 
   ngOnInit(): void {
-
     const routeParams = this.route.snapshot.paramMap;
     const productIdFromRoute = Number(routeParams.get('productId'));
     console.log(productIdFromRoute);
@@ -45,6 +53,18 @@ export class ProductDetailsComponent implements OnInit {
       for(let value of Object.entries(this.products[0].reviews)) {
         this.reviews.push(value[1]);
       }
+      var sum = 0;
+      var marks = [];
+      for(let i of this.reviews){
+        sum += i.mark;
+        marks.push(i.mark);
+      }
+      this.averageMark = Math.round(sum/marks.length);
+      this.numberOfMarks = marks.length
     });
+  }
+
+  submit() {
+    this.reviewForm.reset();
   }
 }

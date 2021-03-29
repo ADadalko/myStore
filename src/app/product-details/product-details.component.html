@@ -1,4 +1,4 @@
-<div id="page" *ngFor="let product of products">
+<div id="page" *ngFor="let product of products" xmlns="http://www.w3.org/1999/html">
 
   <div id="head">
     <h3>
@@ -6,13 +6,47 @@
     </h3>
     <img [src]="product.img">
     <div id="reviewsNumber">
-      <h4>0 reviews</h4>
-      <div class="rating-result">
-        <span class="active"></span>
-        <span class="active"></span>
-        <span class="active"></span>
-        <span></span>
-        <span></span>
+      <div class="rating-result" [ngSwitch]="averageMark">
+        <ng-template ngSwitchDefault>
+          <h4>There is no user reviews yet</h4>
+        </ng-template>
+        <ng-template ngSwitchCase="1">
+          <h4>{{numberOfMarks}} reviews</h4>
+          <span class="active"></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </ng-template>
+        <ng-template ngSwitchCase="2">
+          <span class="active"></span>
+          <span class="active"></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </ng-template>
+        <ng-template ngSwitchCase="3">
+          <span class="active"></span>
+          <span class="active"></span>
+          <span class="active"></span>
+          <span></span>
+          <span></span>
+        </ng-template>
+        <ng-template ngSwitchCase="4">
+          <h4>{{numberOfMarks}} reviews</h4>
+          <span class="active"></span>
+          <span class="active"></span>
+          <span class="active"></span>
+          <span class="active"></span>
+          <span></span>
+        </ng-template>
+        <ng-template ngSwitchCase="5">
+          <span class="active"></span>
+          <span class="active"></span>
+          <span class="active"></span>
+          <span class="active"></span>
+          <span class="active"></span>
+        </ng-template>
       </div>
     </div>
     <h4 id="country">{{product.country}}</h4>
@@ -35,34 +69,61 @@
 
   <div id="reviews">
     <h3>Reviews</h3>
-    <h4 id="usersReview">
-      <p>Add your review</p>
-      <div id="formContainer">
-        <div class="rating-area">
-          <input type="radio" id="star-5" name="rating" value="5">
-          <label for="star-5" title="Оценка «5»"></label>
-          <input type="radio" id="star-4" name="rating" value="4">
-          <label for="star-4" title="Оценка «4»"></label>
-          <input type="radio" id="star-3" name="rating" value="3">
-          <label for="star-3" title="Оценка «3»"></label>
-          <input type="radio" id="star-2" name="rating" value="2">
-          <label for="star-2" title="Оценка «2»"></label>
-          <input type="radio" id="star-1" name="rating" value="1">
-          <label for="star-1" title="Оценка «1»"></label>
+      <form [formGroup]="reviewForm" novalidate (ngSubmit)="submit()">
+        <p>Add your review</p>
+        <p id="inputName">
+          Your name
+          <input type="text" name="userName" formControlName="userName">
+        </p>
+        <div id="formContainer">
+          <div class="rating-area">
+            <input type="radio" id="star-5" name="rating" value="5" formControlName="rating">
+            <label for="star-5" title="Mark «5»"></label>
+            <input type="radio" id="star-4" name="rating" value="4" formControlName="rating">
+            <label for="star-4" title="Mark «4»"></label>
+            <input type="radio" id="star-3" name="rating" value="3" formControlName="rating">
+            <label for="star-3" title="Mark «3»"></label>
+            <input type="radio" id="star-2" name="rating" value="2" formControlName="rating">
+            <label for="star-2" title="Mark «2»"></label>
+            <input type="radio" id="star-1" name="rating" value="1" formControlName="rating">
+            <label for="star-1" title="Mark «1»"></label>
+          </div>
+          <button (click)="submit()" [disabled]="reviewForm.invalid">Send review</button>
         </div>
-        <a>Send review</a>
-      </div>
-      <textarea maxlength="500"></textarea>
-    </h4>
+        <textarea maxlength="500" formControlName="review"></textarea>
+      </form>
+
     <h4 id="review" *ngFor="let review of reviews">
-      <div class="rating-mini">
-        <span class="active"></span>
-        <span class="active"></span>
-        <span class="active"></span>
-        <span></span>
-        <span></span>
+      <div class="rating-mini" [ngSwitch]="review.mark">
+        <ng-template ngSwitchCase="1">
+          <span class="active"></span>
+        </ng-template>
+        <ng-template ngSwitchCase="2">
+          <span class="active"></span>
+          <span class="active"></span>
+        </ng-template>
+        <ng-template ngSwitchCase="3">
+          <span class="active"></span>
+          <span class="active"></span>
+          <span class="active"></span>
+        </ng-template>
+        <ng-template ngSwitchCase="4">
+          <span class="active"></span>
+          <span class="active"></span>
+          <span class="active"></span>
+          <span class="active"></span>
+        </ng-template>
+        <ng-template ngSwitchCase="5">
+          <span class="active"></span>
+          <span class="active"></span>
+          <span class="active"></span>
+          <span class="active"></span>
+          <span class="active"></span>
+        </ng-template>
       </div>
-      <span>{{review.user}}</span> <span>{{review.date.toDate() | date: "medium"}}</span>
+      <span>{{review.user}}</span>
+      <span id="reviewText">{{review.review}}</span>
+      <span id="reviewDate">{{review.date.toDate() | date: "medium"}}</span>
     </h4>
   </div>
 </div>

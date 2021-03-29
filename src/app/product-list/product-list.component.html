@@ -5,7 +5,8 @@
         {{ product.model }}
       </h3>
       <img [src]="product.img">
-      <h4>{{ product.description }}</h4>
+      <h4 id="description">{{ product.description }}</h4>
+      <h4 id="price">{{product.price | currency}}</h4>
     </a>
     <div id="buttons">
       <a class="button fancy-button" (click)="addToCart(product)"><i class="material-icons">compare</i>+</a>

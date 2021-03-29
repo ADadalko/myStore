@@ -2,6 +2,15 @@
   box-sizing: border-box;
 }
 
+#price{
+  font-size: 2vw;
+  margin: 1vh;
+}
+
+#description{
+  height: 2.5vh;
+}
+
 #descriptionLink{
   display: grid;
   padding: 5px;
@@ -62,6 +71,15 @@ and (min-device-width: 414px)
     gap: 5px;
     display: grid;
     grid-template-columns: 1fr;
+  }
+  #price{
+    font-size: 5vw;
+  }
+  #buttons a{
+    font-size: 5vw;
+  }
+  #buttons i{
+    font-size: 3.5vw;
   }
 }
 

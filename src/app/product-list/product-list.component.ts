@@ -30,7 +30,8 @@ export class ProductListComponent implements OnInit {
   ngOnInit(): void {
 
     this.products = this.activateRoute.queryParams.pipe(switchMap(product => {
-      return this.productService.getProducts(product.type || "");
+      console.log(Object.entries(product)[0][0], Object.entries(product)[0][1])
+      return this.productService.getProducts(Object.entries(product)[0][0], Object.entries(product)[0][1]);
     }));
   }
 
