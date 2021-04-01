@@ -18,5 +18,9 @@
     <a routerLink="/cart" class="button fancy-button"><i class="material-icons">compare</i></a>
     <a routerLink="/card" class="button fancy-button"><i class="material-icons">payment</i></a>
   </div>
-  <input id="search" type="search" placeholder="Find your device">
+  <input #searchInput (input)="search(searchInput.value)" id="search" type="search" placeholder="Find your device">
+  <a class="searchResult" (focusout)="searchInput.value = ''" (click)="searchInput.value = ''" [routerLink]="['/products', result.id]" *ngFor="let result of searchResults | async">
+    <img [src]="result.img">
+    {{result.model}}
+  </a>
 </div>

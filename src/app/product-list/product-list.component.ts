@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 
 import { ProductService } from '../services/product.service';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {Product} from '../product';
 import {switchMap} from 'rxjs/operators';
 import {CartService} from '../services/cart.service';
@@ -14,7 +14,7 @@ import {CartService} from '../services/cart.service';
 })
 export class ProductListComponent implements OnInit {
   products: Observable<Product[]>;
-  product: Product[];
+
 
   constructor(private productService: ProductService,
               private router: Router,
@@ -30,7 +30,6 @@ export class ProductListComponent implements OnInit {
   ngOnInit(): void {
 
     this.products = this.activateRoute.queryParams.pipe(switchMap(product => {
-      console.log(Object.entries(product)[0][0], Object.entries(product)[0][1])
       return this.productService.getProducts(Object.entries(product)[0][0], Object.entries(product)[0][1]);
     }));
   }

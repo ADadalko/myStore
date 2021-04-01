@@ -3,7 +3,7 @@ import Timestamp = firebase.firestore.Timestamp;
 
 export class Review {
   date: Timestamp
-  mark: number
+  rating: number
   review: string
   user: string
 }

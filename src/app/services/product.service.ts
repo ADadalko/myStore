@@ -1,8 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {Product} from '../product';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {map} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
+import firebase from 'firebase';
+import Timestamp = firebase.firestore.Timestamp;
 
 
 @Injectable({
@@ -10,6 +12,7 @@ import {map} from 'rxjs/operators';
 })
 export class ProductService {
   type: string;
+  previousData = [];
 
   constructor(private db: AngularFirestore) {}
 
@@ -28,7 +31,7 @@ export class ProductService {
     }
   }
 
-  getProductById(id: number): Observable<Product[]> {
+  getProductById(id: number): Observable<Product[]>{
     const collection = this.db.collection<Product>('products', ref => ref.where('id', '==', id))
     return collection
       .valueChanges()
@@ -37,6 +40,25 @@ export class ProductService {
           return products;
         })
       );
+  }
+
+  addReview(user: string, review: string, rating: number, date: Timestamp, productId: number): void{
+    const product = {
+      user: user,
+      review: review,
+      rating: rating,
+      date: date,
+    }
+    this.previousData = [];
+    this.previousData.push(product)
+    this.db.collection<Product>('products').doc(`${productId}`).get().subscribe(t=>{
+      for(let review of t.get('reviews')){
+        this.previousData.push(review)
+      }
+    });
+    setTimeout(()=>this.db.collection("products").doc(`${productId}`).set({
+      reviews: this.previousData
+    }, {merge: true}), 1000);
   }
 }
 
