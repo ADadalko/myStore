@@ -4,7 +4,6 @@ import {ActivatedRoute} from '@angular/router';
 import {CartService} from '../services/cart.service';
 import {ProductService} from '../services/product.service';
 import {Product} from '../product';
-import {Review} from '../review';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import firebase from 'firebase';
 import {Observable, Subscription} from 'rxjs';
