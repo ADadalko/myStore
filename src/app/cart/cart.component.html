@@ -15,15 +15,15 @@
 </h3>
 
 <div class="cart-item" *ngFor="let item of (cart | async)?.items">
-  <div [style.opacity]="!item.quantity ? '0.3' : 'unset'">
+  <div id="itemGrid" [style.opacity]="!item.quantity ? '0.3' : 'unset'">
     <h3>{{ item.model }}</h3>
     <img [src]="item.img">
     <h4>{{ item.description }}</h4>
-    <h3>{{ item.price | currency}}</h3>
     <div class="quantity">
       <button class="-" (click)="decreaseQuantity(item.model)">-</button>
       <h3>{{item.quantity}}</h3>
       <button id="+" (click)="increaseQuantity(item.model)">+</button>
     </div>
+    <h3>{{ item.price | currency}}</h3>
   </div>
 </div>

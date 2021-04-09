@@ -16,6 +16,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { environment } from '../environments/environment';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { SearchPipe } from './search.pipe';
+import { ComparisonComponent } from './comparison/comparison.component';
 
 @NgModule({
   imports: [
@@ -44,7 +45,8 @@ import { SearchPipe } from './search.pipe';
     BankCardComponent,
     MainPageComponent,
     CheckoutComponent,
-    SearchPipe
+    SearchPipe,
+    ComparisonComponent
   ],
   bootstrap: [
     AppComponent
