@@ -72,7 +72,7 @@
 
   <div id="reviews">
     <h3>Reviews</h3>
-      <form [formGroup]="reviewForm" novalidate (ngSubmit)="submit()">
+      <form [formGroup]="reviewForm" (ngSubmit)="submit()">
         <p>Add your review</p>
         <p id="inputName">
           Your name
@@ -95,25 +95,35 @@
         </div>
         <textarea maxlength="500" formControlName="review"></textarea>
       </form>
-    <h4 id="review" *ngFor="let review of product.reviews">
+    <h4 id="review" *ngFor="let review of product?.reviews">
       <div class="rating-mini" [ngSwitch]="review.rating">
         <ng-template ngSwitchCase="1">
           <span class="active"></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
         </ng-template>
         <ng-template ngSwitchCase="2">
           <span class="active"></span>
           <span class="active"></span>
+          <span></span>
+          <span></span>
+          <span></span>
         </ng-template>
         <ng-template ngSwitchCase="3">
           <span class="active"></span>
           <span class="active"></span>
           <span class="active"></span>
+          <span></span>
+          <span></span>
         </ng-template>
         <ng-template ngSwitchCase="4">
           <span class="active"></span>
           <span class="active"></span>
           <span class="active"></span>
           <span class="active"></span>
+          <span></span>
         </ng-template>
         <ng-template ngSwitchCase="5">
           <span class="active"></span>

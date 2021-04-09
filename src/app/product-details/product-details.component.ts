@@ -24,7 +24,7 @@ export class ProductDetailsComponent implements OnInit{
   reviewForm : FormGroup = new FormGroup({
     "userName": new FormControl("", Validators.required),
     "review": new FormControl("", Validators.required),
-    "rating": new FormControl()
+    "rating": new FormControl(null, [Validators.required])
   })
 
   constructor(
@@ -46,12 +46,14 @@ export class ProductDetailsComponent implements OnInit{
         map(product=>{
             let sum: number = 0;
             let marks = [];
-            for(let i of product[0].reviews){
-              sum += parseInt(String(i.rating));
-              marks.push(i.rating);
+            if(product[0].reviews) {
+              for (let i of product[0].reviews) {
+                sum += parseInt(String(i.rating));
+                marks.push(i.rating);
+              }
+              this.averageMark = Math.round(sum / marks.length);
+              this.numberOfMarks = marks.length
             }
-            this.averageMark = Math.round(sum/marks.length);
-            this.numberOfMarks = marks.length
           return product
       })
       )

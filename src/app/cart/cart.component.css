@@ -5,17 +5,51 @@ a{
   margin-right: auto;
 }
 
+h3.cart-item{
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
 div{
   height: auto;
   width: auto;
   margin-left: auto;
   margin-right: auto;
-  text-align: center;
+}
+
+.quantity{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.quantity button{
+  margin: 2vw;
+  width: 4vw;
+  font-size: 3vw;
 }
 
 button{
-  display: block;
+  font-size: 2vw;
+  display: inline;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 10px;
+}
+
+#buttons button{
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+img{
+  width: 40%;
+}
+
+@media only screen
+and (max-device-width: 736px)
+and (min-device-width: 414px)
+{
+  img{
+    width: 100%;
+  }
 }

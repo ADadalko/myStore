@@ -1,26 +1,31 @@
-<div id="mySidenav">
-  <a [routerLink]="['/products']" [queryParams]="{'type':'all'}">All Products</a>
-  <a [routerLink]="['/products']" [queryParams]="{'type':'phones'}">Phones</a>
-  <a [routerLink]="['/products']" [queryParams]="{'type':'tablets'}">Tablets</a>
-  <a [routerLink]="['/products']" [queryParams]="{'type':'tvs'}">TVs</a>
-  <a [routerLink]="['/products']" [queryParams]="{'type':'trackers'}">Fitness Trackers</a>
-  <a [routerLink]="['/products']" [queryParams]="{'type':'watches'}">Smart Watches</a>
-  <a [routerLink]="['/products']" [queryParams]="{'vendor':'Apple'}">Apple devices</a>
-  <a [routerLink]="['/products']" [queryParams]="{'vendor':'Samsung'}">Samsung devices</a>
-</div>
-<div id="choices">
-  <a (click)="openNav()" id="marker" class="button fancy-button"><i class="material-icons">reorder</i></a>
-  <a [routerLink]="['/']" id="logo">
-    <img src="./assets/images/Logo.png">
-  </a>
-  <div id="cartAndPayment">
-    <a routerLink="/cart" class="button fancy-button"><i class="material-icons">shopping_cart</i></a>
-    <a routerLink="/cart" class="button fancy-button"><i class="material-icons">compare</i></a>
-    <a routerLink="/card" class="button fancy-button"><i class="material-icons">payment</i></a>
+<div id="container">
+  <div id="mySidenav" (click)="openNav()">
+    <a [routerLink]="['/products']" [queryParams]="{'type':'all'}">All Products</a>
+    <a [routerLink]="['/products']" [queryParams]="{'type':'phones'}">Phones</a>
+    <a [routerLink]="['/products']" [queryParams]="{'type':'tablets'}">Tablets</a>
+    <a [routerLink]="['/products']" [queryParams]="{'type':'tvs'}">TVs</a>
+    <a [routerLink]="['/products']" [queryParams]="{'type':'trackers'}">Fitness Trackers</a>
+    <a [routerLink]="['/products']" [queryParams]="{'type':'watches'}">Smart Watches</a>
+    <a [routerLink]="['/products']" [queryParams]="{'vendor':'Apple'}">Apple devices</a>
+    <a [routerLink]="['/products']" [queryParams]="{'vendor':'Samsung'}">Samsung devices</a>
   </div>
-  <input #searchInput (input)="search(searchInput.value)" id="search" type="search" placeholder="Find your device">
-  <a class="searchResult" (focusout)="searchInput.value = ''" (click)="searchInput.value = ''" [routerLink]="['/products', result.id]" *ngFor="let result of searchResults | async">
-    <img [src]="result.img">
-    {{result.model}}
-  </a>
+  <div id="choices">
+    <a (click)="openNav()" id="marker" class="button fancy-button"><i class="material-icons">reorder</i></a>
+    <a [routerLink]="['/']" id="logo">
+      <img src="./assets/images/Logo.png">
+    </a>
+    <div id="cartAndPayment">
+      <a routerLink="/cart" class="button fancy-button"><i class="material-icons">shopping_cart</i></a>
+      <a routerLink="/cart" class="button fancy-button"><i class="material-icons">compare</i></a>
+      <a routerLink="/card" class="button fancy-button"><i class="material-icons">payment</i></a>
+    </div>
+    <input type="search" #productsName1 [(ngModel)]=productsName>
+  </div>
+  <div id="searchGrid" *ngIf="productsName1.value">
+    <div id="searchGridItem" *ngFor="let searchResult of productsForSearch | search: productsName">
+      <img [src]="searchResult.img">
+      <a (click)="productsName1.value=''" class="searchResult" [routerLink]="['/products', searchResult.id]">{{searchResult.model}}</a>
+    </div>
+  </div>
 </div>
+

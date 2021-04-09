@@ -1,28 +1,29 @@
-<h3>Cart</h3>
-
-<div class="cart-item" *ngFor="let item of items">
-  <span>{{ item.model }} </span>
-  <span>{{ item.price | currency }}</span>
+<div *ngIf="(cart | async)">
+  <h3>Cart</h3>
+  <h3 class="cart-item">
+    <span>Cart price is</span>
+    <span>{{(cart | async)?.bill | currency}}</span>
+    <div id="buttons">
+      <button [routerLink]="['/checkout']" class="button" type="submit">Checkout</button>
+      <button (click)="clearCart()">Clear cart</button>
+    </div>
+  </h3>
 </div>
 
-<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+<h3 *ngIf="!(cart | async)">
+  <span>Your cart is empty</span>
+</h3>
 
-  <div>
-    <label for="name">
-      Your name
-    </label>
-    <input id="name" type="text" formControlName="name">
+<div class="cart-item" *ngFor="let item of (cart | async)?.items">
+  <div [style.opacity]="!item.quantity ? '0.3' : 'unset'">
+    <h3>{{ item.model }}</h3>
+    <img [src]="item.img">
+    <h4>{{ item.description }}</h4>
+    <h3>{{ item.price | currency}}</h3>
+    <div class="quantity">
+      <button class="-" (click)="decreaseQuantity(item.model)">-</button>
+      <h3>{{item.quantity}}</h3>
+      <button id="+" (click)="increaseQuantity(item.model)">+</button>
+    </div>
   </div>
-
-  <div>
-    <label for="address">
-      Your address
-    </label>
-    <input id="address" type="text" formControlName="address">
-  </div>
-
-  <button (click)="clearCart()">Clear cart</button>
-  <button routerLink="/shipping">Delievery prices</button>
-  <button class="button" type="submit">Checkout</button>
-
-</form>
+</div>

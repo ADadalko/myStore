@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {Product} from '../product';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {map, tap} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
 
@@ -13,6 +13,7 @@ import Timestamp = firebase.firestore.Timestamp;
 export class ProductService {
   type: string;
   previousData = [];
+  products = [];
 
   constructor(private db: AngularFirestore) {}
 
@@ -35,11 +36,6 @@ export class ProductService {
     const collection = this.db.collection<Product>('products', ref => ref.where('id', '==', id))
     return collection
       .valueChanges()
-      .pipe(
-        map(products => {
-          return products;
-        })
-      );
   }
 
   addReview(user: string, review: string, rating: number, date: Timestamp, productId: number): void{
@@ -60,5 +56,5 @@ export class ProductService {
       reviews: this.previousData
     }, {merge: true}), 1000);
   }
-}
 
+}

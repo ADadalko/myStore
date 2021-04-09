@@ -29,6 +29,13 @@ a{
 
 #buttons i{
   font-size: 1.5vw;
+  color: #f73859;
+}
+
+#buttons a{
+  font-size: 2vw;
+  color: #f73859;
+  background-color: #3d3d3d;
 }
 
 i.material-icons{

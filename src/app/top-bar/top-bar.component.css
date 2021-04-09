@@ -1,22 +1,40 @@
+#container{
+  width: 100%;
+  background-color: #3d3d3d;
+  padding: 10px;
+  display: block;
+  top: 0;
+  position: fixed;
+  z-index: 1;
+}
+
 #choices{
   display: grid;
+  align-items: center;
   width: 100%;
   grid-template-columns: 0.1fr 4fr 5fr 1fr;
   gap: 5px;
+}
+
+#searchGrid{
+  width: 1fr;
+  right: 0;
+  position: fixed;
+  display: grid;
+  background-color: #3d3d3d;
+}
+
+#searchGridItem{
+  display: flex;
   align-items: center;
+  padding: 10px;
+  width: 1fr;
+  vertical-align: center;
 }
 
 a.searchResult{
+  padding: 10px;
   color: white;
-  background-color: #3d3d3d;
-  position: fixed;
-  right: 0;
-  top: 86px;
-  padding: 5px;
-  display: grid;
-  grid-template-columns: 0.1fr 1fr;
-  align-items: center;
-  justify-items: center;
 }
 
 a.button{

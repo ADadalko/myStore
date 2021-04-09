@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 import {AngularFirestore} from '@angular/fire/firestore';
+import {Observable} from 'rxjs';
+import {Cart} from '../cart';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  items = [];
+  previousBill;
   cartId;
   cartsRef;
 
@@ -16,36 +18,107 @@ export class CartService {
     private db: AngularFirestore
   ) {
     this.cartId = this.db.createId();
-    if(localStorage.getItem('cartKey') == null) localStorage.setItem('cartKey', this.cartId);
+    if (localStorage.getItem('cartKey') == null) localStorage.setItem('cartKey', this.cartId);
     this.cartsRef = this.db.collection("carts").doc(localStorage.getItem('cartKey'));
   }
 
-  addToCart(product){
-    this.items.push(product);
-    this.cartsRef.set(Object.assign({}, this.items), { merge: true });
-  }
-
-  getItems(){
-    this.items = [];
-    this.db.collection("carts").doc(localStorage.getItem('cartKey'))
-      .valueChanges()
-      .subscribe(item=>{
-        for(let i of Object.entries(item)){
-          this.items.push(i[1])
+  addToCart(product) {
+    let cart: Cart;
+    this.db.collection<Cart>('carts').doc(localStorage.getItem('cartKey')).get().toPromise().then(doc => {
+      if (doc.data()) {
+        cart = doc.data();
+        cart.items.forEach(item=>{
+          if(item.model == product.model) this.increaseQuantity(item.model);
+          else{
+            cart.items.push({
+              model: product.model,
+              price: product.price,
+              img: product.img,
+              description: product.description,
+              quantity: 1
+            })
+            cart.bill += product.price
+          }
+        })
+      } else {
+        cart = {
+          bill: product.price,
+          items: [{
+            model: product.model,
+            price: product.price,
+            img: product.img,
+            description: product.description,
+            quantity: 1
+          }]
         }
-        console.log(this.items[0].price)
-      });
-    return this.items;
+      }
+      return cart
+    })
+      .then(cart => {
+        console.log(cart.items)
+        let flags = [], unique = [];
+        for(let i = 0; i < cart.items.length; i++) {
+          if( flags[cart.items[i].model]) continue;
+          flags[cart.items[i].model] = true;
+          unique.push(cart.items[i]);
+        }
+        console.log(unique)
+        cart.items.splice(0, cart.items.length)
+        unique.forEach(item=>{
+          cart.items.push(item)
+        })
+        this.cartsRef.set((cart), {merge: true})
+      })
   }
 
-  clearCart(){
-    this.items = [];
+
+  getCart(): Observable<Cart> {
+    return this.db.collection('carts')
+      .doc<Cart>(localStorage.getItem('cartKey'))
+      .valueChanges();
+  }
+
+  clearCart() {
     this.cartsRef.delete();
-    return this.items;
   }
 
-  getShippingPrices() {
-    return this.http.get('/assets/shipping.json');
+  decreaseQuantity(model: string) {
+    let cart: Cart;
+    this.db.collection<Cart>('carts').doc(localStorage.getItem('cartKey')).get().toPromise().then((doc) => {
+      cart = doc.data();
+      return cart
+    })
+      .then(cart => {
+        cart.items.forEach(item => {
+          if(item.model == model){
+            item.quantity--;
+            cart.bill -= item.price;
+          }
+        })
+        return cart
+      })
+      .then(cart => {
+        this.cartsRef.set((cart), {merge: true});
+      })
   }
+
+  increaseQuantity(model: string) {
+    let cart: Cart;
+      this.db.collection<Cart>('carts').doc(localStorage.getItem('cartKey')).get().toPromise().then((doc) => {
+        cart = doc.data();
+        return cart
+      })
+        .then(cart=>{
+          cart.items.forEach(item=>{
+            if(item.model == model){
+              item.quantity++;
+              cart.bill += item.price;
+            }
+          })
+          return cart
+        })
+        .then(cart=>{
+        this.cartsRef.set((cart), { merge: true });
+      })
+    }
 }
-
