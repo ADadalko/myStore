@@ -25,7 +25,7 @@ export class CartService {
   addToCart(product) {
     let cart: Cart;
     this.db.collection<Cart>('carts').doc(localStorage.getItem('cartKey')).get().toPromise().then(doc => {
-      if (doc.data()) {
+      if (doc.data() && doc.data().bill!=0) {
         cart = doc.data();
         cart.items.forEach(item=>{
           if(item.model == product.model) this.increaseQuantity(item.model);
@@ -62,7 +62,6 @@ export class CartService {
           flags[cart.items[i].model] = true;
           unique.push(cart.items[i]);
         }
-        console.log(unique)
         cart.items.splice(0, cart.items.length)
         unique.forEach(item=>{
           cart.items.push(item)
@@ -121,4 +120,26 @@ export class CartService {
         this.cartsRef.set((cart), { merge: true });
       })
     }
+
+  removeItem(model: string) {
+    let cart: Cart;
+
+    this.db.collection<Cart>('carts').doc(localStorage.getItem('cartKey')).get().toPromise().then((doc) => {
+      cart = doc.data();
+      return cart
+    })
+      .then(cart=>{
+        let newCart = [];
+        cart.items.forEach(item=>{
+          if(item.model != model) newCart.push(item)
+        })
+        cart.items.splice(0, cart.items.length)
+        cart.bill = 0
+        newCart.forEach(item=>{
+          cart.items.push(item)
+          cart.bill += item.price
+        })
+        this.cartsRef.set((cart), {merge: true})
+      })
+  }
 }

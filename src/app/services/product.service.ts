@@ -5,6 +5,8 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {map} from 'rxjs/operators';
 import firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
+import {Comparison} from '../comparison';
+import {Cart} from '../cart';
 
 
 @Injectable({
@@ -13,7 +15,6 @@ import Timestamp = firebase.firestore.Timestamp;
 export class ProductService {
   type: string;
   previousData = [];
-  products = [];
 
   constructor(private db: AngularFirestore) {}
 
@@ -47,14 +48,47 @@ export class ProductService {
     }
     this.previousData = [];
     this.previousData.push(product)
-    this.db.collection<Product>('products').doc(`${productId}`).get().subscribe(t=>{
-      for(let review of t.get('reviews')){
+    this.db.collection<Product>('products').doc(`${productId}`).get().toPromise().then(doc=>{
+      for(let review of doc.data().reviews){
         this.previousData.push(review)
       }
-    });
-    setTimeout(()=>this.db.collection("products").doc(`${productId}`).set({
-      reviews: this.previousData
-    }, {merge: true}), 1000);
+      return this.previousData
+    }).then(data=>{
+      this.db.collection("products").doc(`${productId}`).set({
+        reviews: data
+      }, {merge: true})
+    })
   }
 
+  addToComparison(product){
+    this.previousData = [];
+    this.previousData.push({
+      vendor: product.vendor,
+      chars: product.chars,
+      country: product.country,
+      description: product.description,
+      img: product.img,
+      model: product.model,
+      price: product.price,
+    })
+    this.db.collection<Comparison>('comparison').doc(localStorage.getItem('cartKey')).get().toPromise().then(doc=>{
+      if(doc.data()){
+      for(let item of doc.data().items){
+        this.previousData.push(item)
+      }}
+      return this.previousData
+    }).then(data=>{
+      this.db.collection('comparison').doc(localStorage.getItem('cartKey')).set({
+        items: data
+      }, {merge: true})
+    })
+  }
+
+  getComparison(): Observable<Comparison>{
+   return this.db.collection<Comparison>('comparison').doc(localStorage.getItem('cartKey')).valueChanges()
+  }
+
+  clearComparison(){
+    this.db.collection<Comparison>('comparison').doc(localStorage.getItem('cartKey')).delete();
+  }
 }

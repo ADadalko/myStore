@@ -32,7 +32,8 @@ import { ComparisonComponent } from './comparison/comparison.component';
       {path: 'products/:productId', component: ProductDetailsComponent},
       {path: 'cart', component: CartComponent},
       {path: 'card', component: BankCardComponent},
-      {path: 'checkout', component: CheckoutComponent}
+      {path: 'checkout', component: CheckoutComponent},
+      {path: 'comparison', component: ComparisonComponent}
     ]),
     FormsModule
   ],

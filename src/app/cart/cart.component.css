@@ -17,9 +17,14 @@ h4{
   padding: 1vw;
 }
 
+h3{
+  padding: 10px;
+}
+
 h3.cart-item{
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
+  gap: 5px;
 }
 
 #itemGrid{
@@ -41,10 +46,24 @@ div{
   align-items: center;
 }
 
+.quantity h3{
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
 .quantity button{
   margin: 2vw;
-  width: 4vw;
-  font-size: 3vw;
+  font-size: 2vw;
+  padding: 0;
+  width: 2vw;
+}
+
+#clear{
+  font-size: 2vw;
+  padding: 0;
+  width: 2vw;
+  float: right;
 }
 
 button{

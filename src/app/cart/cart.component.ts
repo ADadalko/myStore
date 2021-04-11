@@ -31,4 +31,8 @@ export class CartComponent implements OnInit {
   increaseQuantity(model: string) {
     this.cartService.increaseQuantity(model)
   }
+
+  removeItem(model: string) {
+    this.cartService.removeItem(model)
+  }
 }

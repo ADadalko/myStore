@@ -46,7 +46,7 @@ export class ProductDetailsComponent implements OnInit{
         map(product=>{
             let sum: number = 0;
             let marks = [];
-            if(product[0].reviews) {
+            if(product[0]?.reviews) {
               for (let i of product[0].reviews) {
                 sum += parseInt(String(i.rating));
                 marks.push(i.rating);
