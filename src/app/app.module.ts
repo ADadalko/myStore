@@ -5,6 +5,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
@@ -17,11 +18,14 @@ import { environment } from '../environments/environment';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { SearchPipe } from './search.pipe';
 import { ComparisonComponent } from './comparison/comparison.component';
+import { LoginComponent } from './login/login.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   imports: [
     RouterModule,
     BrowserModule,
+    NgxPaginationModule,
     ReactiveFormsModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -33,9 +37,10 @@ import { ComparisonComponent } from './comparison/comparison.component';
       {path: 'cart', component: CartComponent},
       {path: 'card', component: BankCardComponent},
       {path: 'checkout', component: CheckoutComponent},
-      {path: 'comparison', component: ComparisonComponent}
+      {path: 'comparison', component: ComparisonComponent},
+      {path: 'login', component: LoginComponent}
     ]),
-    FormsModule
+    FormsModule,
   ],
   declarations: [
     AppComponent,
@@ -47,7 +52,9 @@ import { ComparisonComponent } from './comparison/comparison.component';
     MainPageComponent,
     CheckoutComponent,
     SearchPipe,
-    ComparisonComponent
+    ComparisonComponent,
+    LoginComponent,
+    UserComponent
   ],
   bootstrap: [
     AppComponent

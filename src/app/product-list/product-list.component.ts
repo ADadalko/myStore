@@ -15,7 +15,8 @@ import {CartService} from '../services/cart.service';
 })
 export class ProductListComponent implements OnInit {
   products: Observable<Product[]>;
-
+  itemsPerPage: number = 6;
+  p: number;
 
   constructor(private productService: ProductService,
               private router: Router,

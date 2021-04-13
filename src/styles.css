@@ -37,10 +37,10 @@ a:hover{
 }
 
 input{
-  font-size: 20px;
+  font-size: 1vw;
+  padding: 0.5vw;
   border-radius: 2px;
-  padding: 8px 10px;
-  border: 2px solid #3d3d3d;
+  border: 2px solid #616161;
   background-color: #dedede;
 }
 
@@ -108,4 +108,10 @@ and (min-device-width: 414px)
   h4{
     font-size: 3vw;
   }
+  input{
+    font-size: 3vw;
+  }
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

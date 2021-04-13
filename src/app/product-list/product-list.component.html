@@ -1,5 +1,5 @@
 <div id="products">
-  <div id="product" *ngFor="let product of products | async" [title]="product.model">
+  <div id="product" *ngFor="let product of products | async | paginate:{itemsPerPage: itemsPerPage, currentPage: p}" [title]="product.model">
     <a id="descriptionLink" [routerLink]="['/products', product.id]">
       <h3>
         {{ product.model }}
@@ -13,4 +13,5 @@
       <a class="button fancy-button" (click)="addToCart(product)"><i class="material-icons">shopping_cart</i>Add to cart</a>
     </div>
   </div>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>

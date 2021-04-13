@@ -70,4 +70,8 @@ export class ProductDetailsComponent implements OnInit{
     )
     this.reviewForm.reset();
   }
+
+  addToComparison(product: Product) {
+    this.productService.addToComparison(product)
+  }
 }

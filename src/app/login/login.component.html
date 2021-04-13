@@ -1,0 +1,63 @@
+<div id="container">
+
+  <div *ngIf="!isSignedIn && !signInView">
+    <h3>Sign Up</h3>
+    <div class="signContainer">
+      <h4>Register With E-Mail And Password</h4>
+      <form [formGroup]="form">
+        <input type="email"
+               [class.is-invalid] = "form.get('email').invalid && form.get('email').touched"
+               placeholder="E-Mail"
+               formControlName="email">
+        <div *ngIf="(email.invalid && email.touched) || email.dirty">
+          <span *ngIf="email.errors?.required">E-Mail is required</span>
+          <span *ngIf="email.errors?.pattern">Provide A Valid E-Mail</span>
+        </div>
+        <input type="password"
+               [class.is-invalid] = "form.get('password').invalid && form.get('password').touched"
+               placeholder="Password"
+               formControlName="password">
+        <div *ngIf="(password.invalid && password.touched) || password.dirty">
+          <span *ngIf="password.errors?.required">Password is required</span>
+          <span *ngIf="password.errors?.pattern">Provide A Valid Password</span>
+        </div>
+      </form>
+      <button (click)="onSignup(email.value, password.value)">Sign up</button>
+      <h4>If You Already Have An Account</h4>
+      <button (click)="swapView()">Sign In</button>
+    </div>
+  </div>
+
+  <div *ngIf="!isSignedIn && signInView">
+    <h3>Sign In</h3>
+    <div class="signContainer">
+      <h4>With Google</h4>
+      <img *ngIf="!isSignedIn" (click)="onSignInWithGoogle()" src="assets/images/google.jpg">
+      <h4>With E-Mail And Password</h4>
+      <form [formGroup]="form">
+        <input type="email"
+               [class.is-invalid] = "form.get('email').invalid && form.get('email').touched"
+               placeholder="E-Mail"
+               formControlName="email">
+        <div *ngIf="(email.invalid && email.touched) || email.dirty">
+          <span *ngIf="email.errors?.required">E-Mail is required</span>
+          <span *ngIf="email.errors?.pattern">Provide A Valid E-Mail</span>
+        </div>
+        <input type="password"
+               [class.is-invalid] = "form.get('password').invalid && form.get('password').touched"
+               placeholder="Password"
+               formControlName="password">
+        <div *ngIf="(password.invalid && password.touched) || password.dirty">
+          <span *ngIf="password.errors?.required">Password is required</span>
+          <span *ngIf="password.errors?.pattern">Provide A Valid Password</span>
+        </div>
+      </form>
+      <button (click)="onSignin(email.value, password.value)">Sign in</button>
+      <h4>If You Don't Have Account Yet</h4>
+      <button (click)="swapView()">Register</button>
+    </div>
+  </div>
+
+  <app-user *ngIf="isSignedIn" (isLogOut)="handleLogOut()"></app-user>
+
+</div>

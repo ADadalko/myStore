@@ -1,0 +1,55 @@
+#container{
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+img{
+  width: 15%;
+  justify-self: center;
+  transition: 0.3s;
+}
+
+img:hover{
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+h4{
+  margin: 0;
+}
+
+input{
+  width: 40%;
+  margin: 0.5vh;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+button{
+  margin-bottom: 1vh;
+  margin-top: 1vh;
+  display: block;
+  width: 40%;
+  justify-self: center;
+}
+
+.signContainer{
+  display: grid;
+  background-color: white;
+  border-radius: 5px;
+  padding: 1vw;
+}
+
+a{
+  width: 40%;
+  padding: 5px;
+  justify-self: center;
+}
+
+.is-invalid{
+  border: 2px solid #f73859;
+  outline: none;
+}
