@@ -1,1 +1,91 @@
-<button (click)="logOut()">Log Out</button>
+<h3>Your Account</h3>
+
+<div id="navBar">
+  <a (click)="view = 'delivery'">Delivery Information</a>
+  <span>|</span>
+  <a (click)="view = 'personal'">User Details</a>
+  <span>|</span>
+  <a (click)="view = 'payment'">Payment Method</a>
+</div>
+
+<h4 *ngIf="view == 'personal'">Personal Information</h4>
+<div class="personal" *ngIf="(user | async).auth == 'google' && view == 'personal'">
+  <h4>{{(user | async).username}}</h4>
+  <img [src]="(user | async).photo">
+  <h4>{{(user | async).email}}</h4>
+</div>
+
+<div class="personal" *ngIf="(user | async).auth == 'ordinary' && view == 'personal'">
+  <h4>Personal Information</h4>
+  <form [formGroup]="form">
+    <input type="email"
+           [class.is-invalid] = "form.get('email').invalid && form.get('email').touched"
+           placeholder="E-Mail"
+           formControlName="email">
+    <div *ngIf="(email.invalid && email.touched) || email.dirty">
+      <span *ngIf="email.errors?.required">E-Mail is required</span>
+      <span *ngIf="email.errors?.pattern">Provide A Valid E-Mail</span>
+    </div>
+    <input type="password"
+           [class.is-invalid] = "form.get('password').invalid && form.get('password').touched"
+           placeholder="Password"
+           formControlName="password">
+    <div *ngIf="(password.invalid && password.touched) || password.dirty">
+      <span *ngIf="password.errors?.required">Password is required</span>
+      <span *ngIf="password.errors?.pattern">Provide A Valid Password</span>
+    </div>
+  </form>
+  <button [disabled]="form.invalid" (click)="loginService.updateInfo(email.value, password.value)">Update Personal Information</button>
+</div>
+
+<div *ngIf="view == 'payment'">
+  <h4>Add your bank card</h4>
+  <form>
+    <div class="bankCard">
+      <div class="card">
+        <div class="images">
+          <img width="50" src="./assets/images/visaLogo.png">
+          <img width="50" src="./assets/images/mastercardLogo.png">
+          <img width="50" src="./assets/images/belcardLogo.png">
+          <img width="50" src="./assets/images/maestroLogo.png">
+        </div>
+        <div id="cardNumber">
+          <span>Your card number</span>
+          <input id="ccn" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
+        </div>
+        <div id="expires">
+          <input type="number" max="12" min="1" placeholder="ММ">
+          <span>/</span>
+          <input type="number" min="2021" max="2025" placeholder="YY" >
+        </div>
+      </div>
+      <div class="backCard">
+        <hr id="stripe">
+        <div id="cvv">
+          <span>CVV<span class="material-icons">help</span></span>
+          <input type="number" min="0" maxlength="3" placeholder="xxx">
+        </div>
+      </div>
+    </div>
+
+    <div id="agreement">
+      <input id="agreementCheck" type="checkbox">
+      <label for="agreementCheck">I agree with all the rules</label>
+    </div>
+
+    <button type="submit">Add card</button>
+  </form>
+</div>
+
+<div id="delivery" *ngIf="view == 'delivery' && !(user | async).addressCity">
+  <h4>Add Your Delivery Information</h4>
+  <div class="personal">
+    <form [formGroup]="delivery">
+      <input type="text" formControlName="city" placeholder="City">
+      <input type="text" formControlName="street" placeholder="Street">
+      <input type="number" formControlName="house" placeholder="House Number" min="1">
+      <input type="number" formControlName="flat" placeholder="Flat" min="1">
+    </form>
+    <button [disabled]="delivery.invalid">Add Delivery Info</button>
+  </div>
+</div>

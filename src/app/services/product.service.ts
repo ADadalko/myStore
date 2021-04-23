@@ -6,7 +6,6 @@ import {map} from 'rxjs/operators';
 import firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
 import {Comparison} from '../comparison';
-import {Cart} from '../cart';
 
 
 @Injectable({
@@ -22,8 +21,7 @@ export class ProductService {
     if(value == 'all'){
       return this.db.collection<Product>('products').valueChanges();
     }else{
-    const collection = this.db.collection<Product>('products', ref => ref.where(`${key}`, '==', value))
-    return collection
+    return this.db.collection<Product>('products', ref => ref.where(`${key}`, '==', value))
       .valueChanges()
       .pipe(
         map(products => {
@@ -33,10 +31,22 @@ export class ProductService {
     }
   }
 
-  getProductById(id: number): Observable<Product[]>{
-    const collection = this.db.collection<Product>('products', ref => ref.where('id', '==', id))
-    return collection
+  getProductsByFilters(type: string, vendor: string, minPrice: string, maxPrice: string):Observable<Product[]> {
+    return this.db.collection<Product>('products', ref =>
+      ref.where('type', '==', type)
+        .where('vendor', '==', vendor)
+        .where('price', '>=', parseInt(minPrice))
+        .where('price', '<=', parseInt(maxPrice)))
       .valueChanges()
+      .pipe(
+        map(products => {
+          return products;
+        })
+      );
+  }
+
+  getProductById(id: number): Observable<Product[]>{
+    return this.db.collection<Product>('products', ref => ref.where('id', '==', id)).valueChanges()
   }
 
   addReview(user: string, review: string, rating: number, date: Timestamp, productId: number): void{
@@ -91,4 +101,5 @@ export class ProductService {
   clearComparison(){
     this.db.collection<Comparison>('comparison').doc(localStorage.getItem('cartKey')).delete();
   }
+
 }

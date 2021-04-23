@@ -1,3 +1,7 @@
+<h3 *ngIf="!(cart | async)" style="padding: 0">
+  <span>Cart Is Empty</span>
+</h3>
+
 <div *ngIf="(cart | async)">
   <h3>Cart</h3>
   <h3 class="cart-item">
@@ -10,10 +14,6 @@
   </h3>
 </div>
 
-<h3 *ngIf="!(cart | async)">
-  <span>Your cart is empty</span>
-</h3>
-
 <div class="cart-item" *ngFor="let item of (cart | async)?.items">
   <button id="clear" (click)="removeItem(item.model)" class="material-icons">clear</button>
   <div id="itemGrid" [style.opacity]="!item.quantity ? '0.3' : 'unset'">
@@ -21,7 +21,7 @@
     <img [src]="item.img">
     <h4>{{ item.description }}</h4>
     <div class="quantity">
-      <button id="-" (click)="decreaseQuantity(item.model)">-</button>
+      <button id="-" [disabled]="item.quantity == 0" (click)="decreaseQuantity(item.model)">-</button>
       <h3>{{item.quantity}}</h3>
       <button id="+" (click)="increaseQuantity(item.model)">+</button>
     </div>

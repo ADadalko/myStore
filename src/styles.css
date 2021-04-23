@@ -42,6 +42,13 @@ input{
   border-radius: 2px;
   border: 2px solid #616161;
   background-color: #dedede;
+  align-self: center;
+}
+
+select{
+  border: 2px solid #616161;
+  border-radius: 2px;
+  background-color: #dedede;
 }
 
 label {

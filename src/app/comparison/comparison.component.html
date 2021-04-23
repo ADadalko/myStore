@@ -13,4 +13,4 @@
     </div>
   </div>
 </div>
-<button (click)="clearComparison()">Clear comparison</button>
+<button *ngIf="(items | async)" (click)="clearComparison()">Clear comparison</button>

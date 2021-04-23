@@ -2,7 +2,6 @@
   box-sizing: border-box;
 }
 
-
 #price{
   font-size: 2vw;
   margin: 1vh;
@@ -67,7 +66,6 @@ img{
   justify-self: center;
   width: 60%;
 }
-
 
 @media only screen
 and (max-device-width: 736px)

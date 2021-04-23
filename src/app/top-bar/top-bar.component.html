@@ -1,26 +1,35 @@
 <div id="container">
-  <div id="mySidenav" (click)="openNav()">
-    <a [routerLink]="['/products']" [queryParams]="{'type':'all'}">All Products</a>
-    <a [routerLink]="['/products']" [queryParams]="{'type':'phones'}">Phones</a>
-    <a [routerLink]="['/products']" [queryParams]="{'type':'tablets'}">Tablets</a>
-    <a [routerLink]="['/products']" [queryParams]="{'type':'tvs'}">TVs</a>
-    <a [routerLink]="['/products']" [queryParams]="{'type':'trackers'}">Fitness Trackers</a>
-    <a [routerLink]="['/products']" [queryParams]="{'type':'watches'}">Smart Watches</a>
-    <a [routerLink]="['/products']" [queryParams]="{'vendor':'Apple'}">Apple devices</a>
-    <a [routerLink]="['/products']" [queryParams]="{'vendor':'Samsung'}">Samsung devices</a>
+  <div id="mySidenav">
+    <a (click)="openNav()" [routerLink]="['/products']" [queryParams]="{'type':'all'}">All Products</a>
+    <a (click)="openNav()" [routerLink]="['/products']" [queryParams]="{'type':'phones'}">Phones</a>
+    <a (click)="openNav()" [routerLink]="['/products']" [queryParams]="{'type':'tablets'}">Tablets</a>
+    <a (click)="openNav()" [routerLink]="['/products']" [queryParams]="{'type':'tvs'}">TVs</a>
+    <a (click)="openNav()" [routerLink]="['/products']" [queryParams]="{'type':'trackers'}">Fitness Trackers</a>
+    <a (click)="openNav()" [routerLink]="['/products']" [queryParams]="{'type':'watches'}">Smart Watches</a>
+    <a (click)="clearForm()">Filter</a>
+    <form style="text-align: center" [formGroup]="form">
+      <button *ngFor="let type of types" [id]="type" (click)="changeType(type)">{{type | uppercase}}</button>
+      <br>
+      <button *ngFor="let vendor of vendors" [id]="vendor" (click)="changeVendor(vendor)">{{vendor | uppercase}}</button>
+      <div id="price">
+        <input type="number" placeholder="Min Price" min="0" max="10000" formControlName="minPrice" #minPrice>
+        <input type="number" (focusout)="validateMax(maxPrice.value)" placeholder="Max Price" [value]="minPrice.value" [min]='minPrice' max="10000" formControlName="maxPrice" #maxPrice>
+      </div>
+    </form>
+    <button id="apply" [disabled]="form.invalid" (click)="openNav();" [routerLink]="['/products']" [queryParams]="{'type': form.value.type, 'vendor': form.value.vendor, 'minPrice': form.value.minPrice, 'maxPrice': form.value.maxPrice}">Apply Filters</button>
   </div>
   <div id="choices">
     <a (click)="openNav()" id="marker" class="button fancy-button"><i class="material-icons">reorder</i></a>
     <a [routerLink]="['/']" id="logo">
       <img src="./assets/images/Logo.png">
     </a>
+    <input class="search" type="search" #productsName1 [(ngModel)]=productsName>
     <div id="cartAndPayment">
       <a routerLink="/login" class="button fancy-button"><i class="material-icons">person</i></a>
+      <a id="logOut" *ngIf="isLogged()" (click)="logOut()" routerLink="/" class="button fancy-button"><i class="material-icons">logout</i></a>
       <a routerLink="/cart" class="button fancy-button"><i class="material-icons">shopping_cart</i></a>
       <a routerLink="/comparison" class="button fancy-button"><i class="material-icons">compare</i></a>
-      <a routerLink="/card" class="button fancy-button"><i class="material-icons">payment</i></a>
     </div>
-    <input type="search" #productsName1 [(ngModel)]=productsName>
   </div>
   <div id="searchGrid" *ngIf="productsName1.value">
     <div id="searchGridItem" *ngFor="let searchResult of productsForSearch | search: productsName">

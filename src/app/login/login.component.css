@@ -32,12 +32,17 @@ button{
   margin-bottom: 1vh;
   margin-top: 1vh;
   display: block;
-  width: 40%;
+  font-size: 2vw;
   justify-self: center;
+}
+
+button:disabled{
+  opacity: 0.5;
 }
 
 .signContainer{
   display: grid;
+  gap: 1vh;
   background-color: white;
   border-radius: 5px;
   padding: 1vw;
@@ -52,4 +57,24 @@ a{
 .is-invalid{
   border: 2px solid #f73859;
   outline: none;
+}
+
+span{
+  font-size: 1vw;
+  vertical-align: middle;
+}
+
+@media only screen
+and (max-device-width: 736px)
+and (min-device-width: 414px)
+{
+  #container{
+    width: 90%;
+  }
+  button{
+    font-size: 5vw;
+  }
+  span{
+    font-size: 2vw;
+  }
 }

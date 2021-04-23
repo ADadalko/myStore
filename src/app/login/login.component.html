@@ -31,8 +31,6 @@
   <div *ngIf="!isSignedIn && signInView">
     <h3>Sign In</h3>
     <div class="signContainer">
-      <h4>With Google</h4>
-      <img *ngIf="!isSignedIn" (click)="onSignInWithGoogle()" src="assets/images/google.jpg">
       <h4>With E-Mail And Password</h4>
       <form [formGroup]="form">
         <input type="email"
@@ -52,12 +50,15 @@
           <span *ngIf="password.errors?.pattern">Provide A Valid Password</span>
         </div>
       </form>
-      <button (click)="onSignin(email.value, password.value)">Sign in</button>
+      <button [disabled]="form.invalid" (click)="onSignin(email.value, password.value)">Sign in</button>
+      <h4>With Google</h4>
+      <img *ngIf="!isSignedIn" (click)="onSignInWithGoogle()" src="assets/images/google.jpg">
       <h4>If You Don't Have Account Yet</h4>
       <button (click)="swapView()">Register</button>
     </div>
   </div>
 
-  <app-user *ngIf="isSignedIn" (isLogOut)="handleLogOut()"></app-user>
-
 </div>
+
+<app-user *ngIf="isSignedIn" (isLogOut)="handleLogOut()"></app-user>
+

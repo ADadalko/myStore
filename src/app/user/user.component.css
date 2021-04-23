@@ -1,0 +1,184 @@
+h4{
+  text-align: center;
+}
+
+.personal{
+  text-align: center;
+  width: 50%;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: white;
+  border-radius: 5px;
+  padding: 1vw;
+  margin-top: 1vw;
+}
+
+.personal h4{
+  margin-top: 0;
+}
+
+.personal input{
+  width: 40%;
+  margin: 0.5vh;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.personal span{
+  font-size: 1vw;
+}
+
+.personal button{
+  margin-top: 1vh;
+}
+
+.is-invalid{
+  border: 2px solid #f73859;
+  outline: none;
+}
+
+button{
+  font-size: 2vw;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button:disabled{
+  opacity: 0.5;
+}
+
+#navBar{
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+
+
+form{
+  width: 100%;
+}
+
+label{
+  display: inline;
+}
+
+.bankCard{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card{
+  border: 2px solid #CEC4C4;
+  border-radius: 10px;
+  height: 170px;
+  width: 370px;
+  margin-top: 0;
+  background-color: white;
+  margin-bottom: 5px;
+}
+
+.backCard{
+  background-color: white;
+  border: 2px solid #CEC4C4;
+  border-radius: 10px;
+  height: 170px;
+  width: 370px;
+}
+
+.images{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 5px;
+}
+
+hr{
+  margin-top: 20px;
+  height: 35px;
+  border-width:0;
+  color:#CEC4C4;
+  background-color:#CEC4C4;
+  opacity: 0.4;
+}
+
+#ccn {
+  height: 30px;
+  width: 230px;
+  font-size: 18px;
+  text-indent: 20px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  border: none;
+}
+
+#cardNumber{
+  font-weight: bold;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+#expires {
+  margin-left: 20px;
+}
+
+#expires span {
+  font-size: 20px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: grey;
+}
+
+#expires input {
+  border: none;
+  height: 25px;
+  width: 80px;
+  color: grey;
+  text-align: center;
+}
+
+#cvv span {
+  display: block;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: grey;
+  font-weight: bold;
+}
+#cvv span span {
+  display: inline;
+  font-size: 14px;
+}
+
+#cvv input{
+  height: 25px;
+  width: 80px;
+  color: grey;
+  text-align: center;
+  border: none;
+}
+#cvv {
+  float: right;
+  margin-right: 4px;
+}
+
+#agreement{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+@media only screen
+and (max-device-width: 736px)
+and (min-device-width: 414px)
+{
+  .card{
+    width: 300px;
+  }
+  .backCard{
+    width: 300px;
+  }
+}
