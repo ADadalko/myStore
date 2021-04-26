@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 import { ProductService } from '../services/product.service';
 import {Observable} from 'rxjs';
-import {Product} from '../product';
+import {Product} from '../models/product';
 import {switchMap, map} from 'rxjs/operators';
 import {CartService} from '../services/cart.service';
 

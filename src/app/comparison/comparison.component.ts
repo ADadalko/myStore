@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
 import {ProductService} from '../services/product.service';
-import {Comparison} from '../comparison';
+import {Comparison} from '../models/comparison';
 import {map, retry} from 'rxjs/operators';
 
 @Component({

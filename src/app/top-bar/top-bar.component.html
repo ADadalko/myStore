@@ -1,22 +1,30 @@
 <div id="container">
   <div id="mySidenav">
     <a (click)="openNav()" [routerLink]="['/products']" [queryParams]="{'type':'all'}">All Products</a>
+    <hr>
     <a (click)="openNav()" [routerLink]="['/products']" [queryParams]="{'type':'phones'}">Phones</a>
     <a (click)="openNav()" [routerLink]="['/products']" [queryParams]="{'type':'tablets'}">Tablets</a>
     <a (click)="openNav()" [routerLink]="['/products']" [queryParams]="{'type':'tvs'}">TVs</a>
     <a (click)="openNav()" [routerLink]="['/products']" [queryParams]="{'type':'trackers'}">Fitness Trackers</a>
     <a (click)="openNav()" [routerLink]="['/products']" [queryParams]="{'type':'watches'}">Smart Watches</a>
+    <hr>
     <a (click)="clearForm()">Filter</a>
     <form style="text-align: center" [formGroup]="form">
+      <a style="padding: 0">Category</a>
       <button *ngFor="let type of types" [id]="type" (click)="changeType(type)">{{type | uppercase}}</button>
       <br>
+      <a style="padding: 0">Vendor</a>
       <button *ngFor="let vendor of vendors" [id]="vendor" (click)="changeVendor(vendor)">{{vendor | uppercase}}</button>
+      <a style="padding: 0">Price</a>
       <div id="price">
         <input type="number" placeholder="Min Price" min="0" max="10000" formControlName="minPrice" #minPrice>
         <input type="number" (focusout)="validateMax(maxPrice.value)" placeholder="Max Price" [value]="minPrice.value" [min]='minPrice' max="10000" formControlName="maxPrice" #maxPrice>
       </div>
     </form>
-    <button id="apply" [disabled]="form.invalid" (click)="openNav();" [routerLink]="['/products']" [queryParams]="{'type': form.value.type, 'vendor': form.value.vendor, 'minPrice': form.value.minPrice, 'maxPrice': form.value.maxPrice}">Apply Filters</button>
+    <div id="buttons">
+      <button id="apply" [disabled]="form.invalid" (click)="openNav();" [routerLink]="['/products']" [queryParams]="{'type': form.value.type, 'vendor': form.value.vendor, 'minPrice': form.value.minPrice, 'maxPrice': form.value.maxPrice}">Apply Filters</button>
+      <button (click)="clearForm()">Clear Filters</button>
+    </div>
   </div>
   <div id="choices">
     <a (click)="openNav()" id="marker" class="button fancy-button"><i class="material-icons">reorder</i></a>

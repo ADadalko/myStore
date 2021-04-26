@@ -2,7 +2,7 @@ import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {LoginService} from '../services/login.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {User} from '../user';
+import {User} from '../models/user';
 
 @Component({
   selector: 'app-user',
@@ -52,6 +52,10 @@ export class UserComponent implements OnInit {
 
   get street() {
     return this.form.get('street')
+  }
+
+  addDelivery(uid: string, city: string, street: string, house: string, flat: string) {
+    this.loginService.addDeliveryInfo(uid, city, street, parseInt(house), parseInt(flat))
   }
 
   logOut() {

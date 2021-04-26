@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
-import {Product} from '../product';
+import {Product} from '../models/product';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {map} from 'rxjs/operators';
 import firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
-import {Comparison} from '../comparison';
+import {Comparison} from '../models/comparison';
 
 
 @Injectable({

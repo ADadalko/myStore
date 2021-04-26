@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import Timestamp = firebase.firestore.Timestamp;
+import {Review} from './review.model';
 
 export interface Product{
   chars: Map<string,string>,
@@ -9,12 +9,7 @@ export interface Product{
   img: string,
   model: string,
   price: number,
-  reviews: [{
-    review: string,
-    rating: string,
-    user: string,
-    date: Timestamp
-  }],
+  reviews: [Review],
   type: string,
   vendor: string
 }

@@ -3,7 +3,8 @@ h4{
 }
 
 .personal{
-  text-align: center;
+  display: grid;
+  justify-items: center;
   width: 50%;
   margin-right: auto;
   margin-left: auto;
@@ -11,10 +12,6 @@ h4{
   border-radius: 5px;
   padding: 1vw;
   margin-top: 1vw;
-}
-
-.personal h4{
-  margin-top: 0;
 }
 
 .personal input{

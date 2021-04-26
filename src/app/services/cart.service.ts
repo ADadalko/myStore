@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Observable} from 'rxjs';
-import {Cart} from '../cart';
+import {Cart} from '../models/cart';
 
 @Injectable({
   providedIn: 'root'

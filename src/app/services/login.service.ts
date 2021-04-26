@@ -3,7 +3,9 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import firebase from 'firebase';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Observable} from 'rxjs';
-import {User} from '../user';
+import {User} from '../models/user';
+import TIMESTAMP = firebase.database.ServerValue.TIMESTAMP;
+import Timestamp = firebase.firestore.Timestamp;
 
 @Injectable({
   providedIn: 'root'
@@ -22,20 +24,30 @@ export class LoginService {
           .then(data=>{
             if(!data.exists){
               this.db.collection<User>('users').doc(res.user.uid).set({
-                username: res.user.displayName,
-                addressCity: '',
-                addressFlat: 0,
-                addressHouse: 0,
-                addressStreet: '',
+                uid: res.user.uid,
+                address: {
+                  addressCity: '',
+                  addressFlat: 0,
+                  addressHouse: 0,
+                  addressStreet: ''
+                },
                 auth: 'google',
-                cardCvv: 0,
-                cardMonth: 0,
-                cardNumber: 0,
-                cardYear: 0,
+                card: {
+                  cardCvv: 0,
+                  cardMonth: 0,
+                  cardNumber: 0,
+                  cardYear: 0
+                },
                 email: res.user.email,
+                id: this.db.createId(),
                 password: '',
+                personalInfo: {
+                  birthday: 0,
+                  firstName: '',
+                  secondName: ''
+                },
                 photo: res.user.photoURL,
-                uid: res.user.uid
+                username: res.user.displayName
               })
             }
           })
@@ -62,20 +74,30 @@ export class LoginService {
           .then(data=>{
             if(!data.exists){
               this.db.collection<User>('users').doc(res.user.uid).set({
-                username: '',
-                addressCity: '',
-                addressFlat: 0,
-                addressHouse: 0,
-                addressStreet: '',
+                uid: res.user.uid,
+                address: {
+                  addressCity: '',
+                  addressFlat: 0,
+                  addressHouse: 0,
+                  addressStreet: ''
+                },
                 auth: 'ordinary',
-                cardCvv: 0,
-                cardMonth: 0,
-                cardNumber: 0,
-                cardYear: 0,
+                card: {
+                  cardCvv: 0,
+                  cardMonth: 0,
+                  cardNumber: 0,
+                  cardYear: 0
+                },
                 email: res.user.email,
+                id: this.db.createId(),
                 password: password,
-                photo: '',
-                uid: res.user.uid
+                personalInfo: {
+                  birthday: 0,
+                  firstName: '',
+                  secondName: ''
+                },
+                photo: res.user.photoURL,
+                username: res.user.displayName
               })
             }
           })
@@ -100,5 +122,11 @@ export class LoginService {
   getUser(): Observable<User>{
     return this.db.collection<User>('users').doc(JSON.parse(localStorage.getItem('user')))
       .valueChanges()
+  }
+
+  addDeliveryInfo(uid: string, city: string, street: string, house: number, flat: number) {
+    this.db.collection<User>('users').doc(uid).get().toPromise()
+      .then(user=>{
+      })
   }
 }

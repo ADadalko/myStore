@@ -9,13 +9,13 @@
 </div>
 
 <h4 *ngIf="view == 'personal'">Personal Information</h4>
-<div class="personal" *ngIf="(user | async).auth == 'google' && view == 'personal'">
-  <h4>{{(user | async).username}}</h4>
-  <img [src]="(user | async).photo">
-  <h4>{{(user | async).email}}</h4>
+<div class="personal" *ngIf="(user | async)?.auth == 'google' && view == 'personal'">
+  <h4>{{(user | async)?.username}}</h4>
+  <img [src]="(user | async)?.photo">
+  <h4>{{(user | async)?.email}}</h4>
 </div>
 
-<div class="personal" *ngIf="(user | async).auth == 'ordinary' && view == 'personal'">
+<div class="personal" *ngIf="(user | async)?.auth == 'ordinary' && view == 'personal'">
   <h4>Personal Information</h4>
   <form [formGroup]="form">
     <input type="email"
@@ -77,15 +77,17 @@
   </form>
 </div>
 
-<div id="delivery" *ngIf="view == 'delivery' && !(user | async).addressCity">
-  <h4>Add Your Delivery Information</h4>
+<div id="delivery" *ngIf="view == 'delivery' && !(user | async).address.addressCity">
+  <h4>Delivery Information</h4>
   <div class="personal">
+    <h4>Add Your Delivery Information</h4>
     <form [formGroup]="delivery">
-      <input type="text" formControlName="city" placeholder="City">
-      <input type="text" formControlName="street" placeholder="Street">
-      <input type="number" formControlName="house" placeholder="House Number" min="1">
-      <input type="number" formControlName="flat" placeholder="Flat" min="1">
+      <input type="hidden" [value]="(user | async).uid" #uid>
+      <input type="text" formControlName="city" placeholder="City" #city>
+      <input type="text" formControlName="street" placeholder="Street" #street>
+      <input type="number" formControlName="house" placeholder="House Number" min="1" #house>
+      <input type="number" formControlName="flat" placeholder="Flat" min="1" #flat>
     </form>
-    <button [disabled]="delivery.invalid">Add Delivery Info</button>
+    <button (click)="addDelivery(uid.value, city.value, street.value, house.value, flat.value)" [disabled]="delivery.invalid">Add Delivery Info</button>
   </div>
 </div>

@@ -1,12 +1,9 @@
 import {Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
 import { Observable} from 'rxjs';
 import {ProductService} from '../services/product.service';
-import {Product} from '../product';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
+import {Product} from '../models/product';
+import {FormBuilder, Validators} from '@angular/forms';
 import {LoginService} from '../services/login.service';
-import localizeExtractLoader from '@angular-devkit/build-angular/src/extract-i18n/ivy-extract-loader';
-import {retry} from 'rxjs/operators';
-
 @Component({
   selector: 'app-top-bar',
   templateUrl: './top-bar.component.html',
@@ -53,39 +50,31 @@ export class TopBarComponent implements OnInit, OnChanges {
   changeType(type: string) {
     if(this.form.get('type').value) {
       document.getElementById(this.form.get('type').value).style.border = 'none'
-      document.getElementById(this.form.get('type').value).style.opacity = '0.3'
       this.form.get('type').setValue(type)
       document.getElementById(this.form.get('type').value).style.border = '2px solid #f73859'
-      document.getElementById(this.form.get('type').value).style.opacity = '1'
     } else {
       this.form.get('type').setValue(type)
       document.getElementById(this.form.get('type').value).style.border = '2px solid #f73859'
-      document.getElementById(this.form.get('type').value).style.opacity = '1'
     }
   }
 
   changeVendor(vendor: string) {
     if(this.form.get('vendor').value) {
       document.getElementById(this.form.get('vendor').value).style.border = 'none'
-      document.getElementById(this.form.get('vendor').value).style.opacity = '0.3'
       this.form.get('vendor').setValue(vendor)
       document.getElementById(this.form.get('vendor').value).style.border = '2px solid #f73859'
-      document.getElementById(this.form.get('vendor').value).style.opacity = '1'
     } else {
       this.form.get('vendor').setValue(vendor)
       document.getElementById(this.form.get('vendor').value).style.border = '2px solid #f73859'
-      document.getElementById(this.form.get('vendor').value).style.opacity = '1'
     }
   }
 
   clearForm() {
     if(document.getElementById(this.form.get('type').value)) {
       document.getElementById(this.form.get('type').value).style.border = 'none'
-      document.getElementById(this.form.get('type').value).style.opacity = '0.3'
     }
     if(document.getElementById(this.form.get('vendor').value)){
       document.getElementById(this.form.get('vendor').value).style.border = 'none'
-      document.getElementById(this.form.get('vendor').value).style.opacity = '0.3'
     }
     this.form.reset()
   }
