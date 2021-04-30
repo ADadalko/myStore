@@ -3,6 +3,11 @@
   <br>
   Added To Comparison
 </h3>
+<h3 id="addedToCart">
+  <a class="material-icons">check_circle</a>
+  <br>
+  Added To Cart
+</h3>
 <div id="products">
   <div id="product" *ngFor="let product of products | async" [title]="product.model">
     <a id="descriptionLink" [routerLink]="['/products', product.id]">

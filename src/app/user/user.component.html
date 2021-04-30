@@ -188,14 +188,24 @@
     </div>
   </div>
 
-  <div class="orders" *ngIf="view == 'orders' && user?.purchases">
+  <div *ngIf="view == 'orders' && user?.purchases[0].cart.bill != 0">
     <h4>Orders History</h4>
     <div class="personal" *ngFor="let purchase of user?.purchases">
-      <div *ngFor="let item of purchase.cart.items">
-        {{item}}
+      <div id="items">
+        <div id="item" *ngFor="let item of purchase.cart.items">
+          <h4>{{item.model}}</h4>
+          <img [src]="item.img">
+          <h4>{{item.description}}</h4>
+          <h4>{{item.price | currency}}</h4>
+          <h4>Quantity - {{item.quantity}}</h4>
+        </div>
       </div>
-      <h4>{{purchase.cart.bill}}</h4>
+      <h3>{{purchase.cart.bill | currency}}</h3>
     </div>
+  </div>
+
+  <div *ngIf="view == 'orders' && user?.purchases[0].cart.bill == 0">
+    <h4>You Have No Orders Yet</h4>
   </div>
 
 </div>

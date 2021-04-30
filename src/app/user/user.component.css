@@ -2,6 +2,22 @@ h4{
   text-align: center;
 }
 
+#item{
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+#item img{
+  width: 30%;
+  margin: 1vh;
+}
+
+#items{
+  display: flex;
+  justify-content: center;
+}
+
 .personal{
   text-align: center;
   width: 50%;

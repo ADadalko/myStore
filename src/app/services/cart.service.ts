@@ -8,9 +8,7 @@ import {Purchase} from '../models/purchase.model';
 import firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
 import {User} from '../models/user';
-import {parse} from 'jasmine-spec-reporter/built/configuration-parser';
-import {Address} from '../models/address.model';
-import {Card} from '../models/card.model';
+import {ProductService} from './product.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +20,8 @@ export class CartService {
 
   constructor(
     private http: HttpClient,
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private productService: ProductService
   ) {
     this.cartId = this.db.createId();
     if (localStorage.getItem('cartKey') == null) localStorage.setItem('cartKey', this.cartId);
@@ -74,6 +73,7 @@ export class CartService {
         })
         this.cartsRef.set((cart), {merge: true})
       })
+    this.productService.popup('addedToCart')
   }
 
 
