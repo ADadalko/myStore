@@ -1,6 +1,6 @@
 export interface Card {
-  cardNumber: number,
-  cardMonth: number,
-  cardYear: number,
-  cardCvv: number
+  cardNumber: string,
+  cardMonth: string,
+  cardYear: string,
+  cardCvv: string
 }

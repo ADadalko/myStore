@@ -3,8 +3,7 @@ h4{
 }
 
 .personal{
-  display: grid;
-  justify-items: center;
+  text-align: center;
   width: 50%;
   margin-right: auto;
   margin-left: auto;
@@ -85,6 +84,7 @@ label{
   border-radius: 10px;
   height: 170px;
   width: 370px;
+  margin-bottom: 10px;
 }
 
 .images{
@@ -107,7 +107,7 @@ hr{
   height: 30px;
   width: 230px;
   font-size: 18px;
-  text-indent: 20px;
+  text-indent: 10px;
   margin-top: 3px;
   margin-bottom: 3px;
   border: none;
@@ -117,6 +117,10 @@ hr{
   font-weight: bold;
   margin-left: 20px;
   margin-top: 10px;
+}
+
+#cardNumber input{
+  text-align: center;
 }
 
 #expires {
@@ -162,12 +166,6 @@ hr{
   margin-right: 4px;
 }
 
-#agreement{
-  margin-top: 10px;
-  margin-bottom: 10px;
-  text-align: center;
-}
-
 @media only screen
 and (max-device-width: 736px)
 and (min-device-width: 414px)
@@ -177,5 +175,8 @@ and (min-device-width: 414px)
   }
   .backCard{
     width: 300px;
+  }
+  .personal{
+    width: 90%;
   }
 }

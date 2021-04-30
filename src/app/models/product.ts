@@ -1,4 +1,3 @@
-import firebase from 'firebase';
 import {Review} from './review.model';
 
 export interface Product{
@@ -11,5 +10,6 @@ export interface Product{
   price: number,
   reviews: [Review],
   type: string,
-  vendor: string
+  vendor: string,
+  addedToComparison: boolean,
 }

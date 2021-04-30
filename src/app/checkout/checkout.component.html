@@ -1,0 +1,163 @@
+<h3 style="padding: 0; margin: 0">Checkout</h3>
+<h3 style="margin-top: 0">
+  <a [class.isPushed]="content == 'delivery'" class="material-icons">looks_one</a>
+  <a [class.isPushed]="content == 'payment'" class="material-icons">looks_two</a>
+  <a [class.isPushed]="content == 'final'" class="material-icons">looks_3</a>
+  <a [class.isPushed]="content == 'thanks'" class="material-icons">looks_4</a>
+</h3>
+
+<div *ngIf="(cart | async) as cart">
+  <div *ngIf="(user | async) as user">
+    <div class="cartView" *ngIf="content == 'delivery' || content == 'payment' || content == 'final'">
+      <div *ngFor="let item of cart?.items">
+        <h4>{{item?.model}}</h4>
+        <img style="width: 10vw" [src]="item?.img">
+        <h4>{{item?.price | currency}}</h4>
+        <h4>{{item?.quantity}} Item(s)</h4>
+      </div>
+      <h4 id="fullPrice">{{cart?.bill | currency}}</h4>
+    </div>
+
+    <h3 *ngIf="content == 'delivery'">Your Delivery Information</h3>
+    <div *ngIf="user?.address.addressCity && content == 'delivery'">
+      <div class="viewBox">
+        <h4>City - {{user?.address.addressCity}}</h4>
+        <h4>Street - {{user?.address.addressStreet}}</h4>
+        <h4>House - {{user?.address.addressHouse}}</h4>
+        <h4>Flat - {{user?.address.addressFlat}}</h4>
+        <button class="continue" (click)="content = 'payment'">Continue</button>
+      </div>
+      <div class="viewBox">
+        <h4>Or Update Your Delivery Information</h4>
+        <form [formGroup]="delivery">
+          <input type="hidden" [value]="user?.uid" #uid>
+          <input type="text" formControlName="city" placeholder="City" #city>
+          <input type="text" formControlName="street" placeholder="Street" #street>
+          <input type="number" formControlName="house" placeholder="House Number" min="1" #house>
+          <input type="number" formControlName="flat" placeholder="Flat" min="1" #flat>
+        </form>
+        <button class="centerButton" (click)="addDelivery(uid.value, city.value, street.value, house.value, flat.value)"
+                [disabled]="delivery.invalid">Update Delivery Info
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="!user?.address.addressCity && content == 'delivery'">
+      <div class="viewBox">
+        <h4>Add Delivery Information</h4>
+        <form [formGroup]="delivery">
+          <input type="hidden" [value]="user?.uid" #uid>
+          <input type="text" formControlName="city" placeholder="City" #city>
+          <input type="text" formControlName="street" placeholder="Street" #street>
+          <input type="number" formControlName="house" placeholder="House Number" min="1" #house>
+          <input type="number" formControlName="flat" placeholder="Flat" min="1" #flat>
+        </form>
+        <button class="centerButton" (click)="addDelivery(uid.value, city.value, street.value, house.value, flat.value)"
+                [disabled]="delivery.invalid">Add Delivery Info
+        </button>
+      </div>
+    </div>
+
+    <h3 *ngIf="content == 'payment'">Your Payment Information</h3>
+    <div *ngIf="content == 'payment'">
+      <div class="viewBox" *ngIf="user?.card.cardNumber">
+        <h4>Card Number - xxxx xxxx
+          xxxx {{(user.card.cardNumber)[12]}}{{(user.card.cardNumber)[13]}}{{(user.card.cardNumber)[14]}}{{(user.card.cardNumber)[15]}}</h4>
+        <h4>Month Of Expiring - {{user?.card.cardMonth}}</h4>
+        <h4>Year Of Expiring - {{user?.card.cardYear}}</h4>
+        <h4>CVV - xxx</h4>
+        <button class="continue" (click)="content = 'final'">Continue</button>
+      </div>
+      <h4 *ngIf="!user?.card.cardNumber" style="text-align: center">Add Payment Information</h4>
+      <h4 *ngIf="user?.card.cardNumber" style="text-align: center">Or Update Your Payment Information</h4>
+      <form [formGroup]="card">
+        <div class="bankCard">
+          <div class="card">
+            <div class="images">
+              <img width="50" src="./assets/images/visaLogo.png">
+              <img width="50" src="./assets/images/mastercardLogo.png">
+              <img width="50" src="./assets/images/belcardLogo.png">
+              <img width="50" src="./assets/images/maestroLogo.png">
+            </div>
+            <div id="cardNumber">
+              <span>Your card number</span>
+              <input #number id="ccn" type="tel" formControlName="number" inputmode="numeric" pattern="[0-9]{16}"
+                     autocomplete="cc-number" minlength="16" maxlength="16" placeholder="xxxxxxxxxxxxxxxx">
+            </div>
+            <div id="expires">
+              <input (focusout)="outMonth(month.value)" #month type="number" formControlName="month"
+                     autocomplete="cc-exp-month" minlength="1" maxlength="2" min="1" max="12" placeholder="ММ">
+              <span>/</span>
+              <input (focusout)="outYear(year.value)" #year type="number" formControlName="year"
+                     autocomplete="cc-exp-year" min="2021" max="2025" placeholder="YY">
+            </div>
+          </div>
+          <div class="backCard">
+            <hr id="stripe">
+            <div id="cvv">
+              <span>CVV<span class="material-icons">help</span></span>
+              <input #cvv type="tel" formControlName="cvv" pattern="[0-9]{3}" minlength="3" maxlength="3"
+                     placeholder="xxx">
+            </div>
+          </div>
+        </div>
+        <input type="hidden" [value]="user?.uid" #uid>
+        <button *ngIf="!user?.card.cardNumber" style="margin-left: 29%"
+                (click)="addCard(uid.value, number.value, month.value, year.value, cvv.value)"
+                [disabled]="card.invalid">
+          Add card
+        </button>
+        <button *ngIf="user?.card.cardNumber" style="margin-left: 27.5%"
+                (click)="addCard(uid.value, number.value, month.value, year.value, cvv.value)"
+                [disabled]="card.invalid">
+          Update card
+        </button>
+      </form>
+    </div>
+    <button *ngIf="content == 'payment'" class="continue" (click)="content = 'delivery'">Go Back</button>
+
+
+    <h3 *ngIf="content == 'final'">Your Purchase Information</h3>
+    <div class="viewBox" *ngIf="content == 'final'">
+      <h4>Delivery to {{user?.address.addressCity}}, {{user?.address.addressStreet}}
+        St., {{user?.address.addressHouse}}, {{user?.address.addressFlat}}</h4>
+      <h4>Card - xxxx xxxx
+        xxxx {{(user.card.cardNumber)[12]}}{{(user.card.cardNumber)[13]}}{{(user.card.cardNumber)[14]}}{{(user.card.cardNumber)[15]}}</h4>
+      <h4>Bill - {{cart?.bill | currency}}</h4>
+      <input type="hidden" [value]="user?.email" #email>
+      <input type="hidden" [value]="user?.address.addressCity" #city>
+      <input type="hidden" [value]="user?.address.addressStreet" #street>
+      <input type="hidden" [value]="user?.address.addressHouse" #house>
+      <input type="hidden" [value]="user?.address.addressFlat" #flat>
+      <input type="hidden" [value]="user?.card.cardNumber" #cardNumber>
+      <input type="hidden" [value]="user?.card.cardMonth" #cardMonth>
+      <input type="hidden" [value]="user?.card.cardYear" #cardYear>
+      <input type="hidden" [value]="user?.card.cardCvv" #cardCvv>
+      <input type="hidden" [value]="cart?.items" #items>
+      <input type="hidden" [value]="cart?.bill" #bill>
+      <input type="hidden" [value]="user?.uid" #uid>
+      <button class="continue" (click)="purchase(
+          email.value,
+          city.value,
+          street.value,
+          house.value,
+          flat.value,
+          cardNumber.value,
+          cardMonth.value,
+          cardYear.value,
+          cardCvv.value,
+          bill.value,
+          uid.value
+          )">
+        Complete The Purchase
+      </button>
+    </div>
+    <button *ngIf="content == 'final'" class="continue" (click)="content = 'payment'">Go Back</button>
+
+    <div id="thanks" *ngIf="content == 'thanks'">
+      <h3>Thanks For Your Purchase</h3>
+      <a class="material-icons">check_circle</a>
+      <button class="continue" [routerLink]="'/'">Go To The Main Page</button>
+    </div>
+  </div>
+</div>

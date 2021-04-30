@@ -4,6 +4,13 @@ import { HttpClient } from '@angular/common/http';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Observable} from 'rxjs';
 import {Cart} from '../models/cart';
+import {Purchase} from '../models/purchase.model';
+import firebase from 'firebase';
+import Timestamp = firebase.firestore.Timestamp;
+import {User} from '../models/user';
+import {parse} from 'jasmine-spec-reporter/built/configuration-parser';
+import {Address} from '../models/address.model';
+import {Card} from '../models/card.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,11 +32,11 @@ export class CartService {
   addToCart(product) {
     let cart: Cart;
     this.db.collection<Cart>('carts').doc(localStorage.getItem('cartKey')).get().toPromise().then(doc => {
-      if (doc.data() && doc.data().bill!=0) {
+      if (doc.data() && doc.data().bill != 0) {
         cart = doc.data();
-        cart.items.forEach(item=>{
-          if(item.model == product.model) this.increaseQuantity(item.model);
-          else{
+        cart.items.forEach(item => {
+          if (item.model == product.model) this.increaseQuantity(item.model);
+          else {
             cart.items.push({
               model: product.model,
               price: product.price,
@@ -55,15 +62,14 @@ export class CartService {
       return cart
     })
       .then(cart => {
-        console.log(cart.items)
         let flags = [], unique = [];
-        for(let i = 0; i < cart.items.length; i++) {
-          if( flags[cart.items[i].model]) continue;
+        for (let i = 0; i < cart.items.length; i++) {
+          if (flags[cart.items[i].model]) continue;
           flags[cart.items[i].model] = true;
           unique.push(cart.items[i]);
         }
         cart.items.splice(0, cart.items.length)
-        unique.forEach(item=>{
+        unique.forEach(item => {
           cart.items.push(item)
         })
         this.cartsRef.set((cart), {merge: true})
@@ -89,7 +95,7 @@ export class CartService {
     })
       .then(cart => {
         cart.items.forEach(item => {
-          if(item.model == model){
+          if (item.model == model) {
             item.quantity--;
             cart.bill -= item.price;
           }
@@ -103,43 +109,104 @@ export class CartService {
 
   increaseQuantity(model: string) {
     let cart: Cart;
-      this.db.collection<Cart>('carts').doc(localStorage.getItem('cartKey')).get().toPromise().then((doc) => {
-        cart = doc.data();
-        return cart
-      })
-        .then(cart=>{
-          cart.items.forEach(item=>{
-            if(item.model == model){
-              item.quantity++;
-              cart.bill += item.price;
-            }
-          })
-          return cart
-        })
-        .then(cart=>{
-        this.cartsRef.set((cart), { merge: true });
-      })
-    }
-
-  removeItem(model: string) {
-    let cart: Cart;
-
     this.db.collection<Cart>('carts').doc(localStorage.getItem('cartKey')).get().toPromise().then((doc) => {
       cart = doc.data();
       return cart
     })
-      .then(cart=>{
+      .then(cart => {
+        cart.items.forEach(item => {
+          if (item.model == model) {
+            item.quantity++;
+            cart.bill += item.price;
+          }
+        })
+        return cart
+      })
+      .then(cart => {
+        this.cartsRef.set((cart), {merge: true});
+      })
+  }
+
+  removeItem(model: string) {
+    let cart: Cart;
+    this.db.collection<Cart>('carts').doc(localStorage.getItem('cartKey')).get().toPromise().then((doc) => {
+      cart = doc.data();
+      return cart
+    })
+      .then(cart => {
         let newCart = [];
-        cart.items.forEach(item=>{
-          if(item.model != model) newCart.push(item)
+        cart.items.forEach(item => {
+          if (item.model != model) newCart.push(item)
         })
         cart.items.splice(0, cart.items.length)
         cart.bill = 0
-        newCart.forEach(item=>{
+        newCart.forEach(item => {
           cart.items.push(item)
           cart.bill += item.price
         })
         this.cartsRef.set((cart), {merge: true})
       })
   }
+
+  completePurchase(email: string,
+                   addressCity: string,
+                   addressStreet: string,
+                   addressHouse: string,
+                   addressFlat: string,
+                   cardNumber: string,
+                   cardMonth: string,
+                   cardYear: string,
+                   cardCvv: string,
+                   bill: string,
+                   uid: string) {
+    let cart;
+    this.db.collection<Cart>('carts').doc(localStorage.getItem('cartKey')).get()
+      .toPromise()
+      .then(data=>{
+        cart = data.data()
+        return data.data().items
+      })
+      .then(items=>{
+        this.db.collection<Purchase>('purchases').doc(this.db.createId()).set({
+          card: {
+            cardNumber: cardNumber,
+            cardMonth: cardMonth,
+            cardYear: cardYear,
+            cardCvv: cardCvv,
+          },
+          cart: {
+            bill: parseInt(bill),
+            items: items
+          },
+          customer: email,
+          date: Timestamp.now(),
+          delivery: {
+            addressCity: addressCity,
+            addressStreet: addressStreet,
+            addressHouse: parseInt(addressHouse),
+            addressFlat: parseInt(addressFlat),
+          },
+          uid: uid
+        })
+          .then(()=>{
+            this.db.collection<User>('users').doc(uid).get().toPromise().then(data=>{
+              return data.get('purchases')
+            })
+              .then(purchases=>{
+                if(purchases[0].bill == 0) {
+                  this.db.collection<User>('users').doc(uid).update({
+                    purchases: [cart]
+                  })
+                }else{
+                  let newPurchases: [Cart] = purchases;
+                  newPurchases.push(cart)
+                  this.db.collection<User>('users').doc(uid).update({
+                    purchases: newPurchases
+                  })
+                }
+              })
+          })
+      })
+  }
 }
+

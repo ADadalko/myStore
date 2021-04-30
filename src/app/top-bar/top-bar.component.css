@@ -10,7 +10,15 @@
 
 hr{
   border: none;
+  margin: 0;
   border-top: 1px solid #f73859;
+  text-align: center;
+}
+
+.smallHr{
+  grid-column: 1/3;
+  width: 75%;
+  justify-self: center
 }
 
 form{

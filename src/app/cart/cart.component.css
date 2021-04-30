@@ -15,6 +15,7 @@ img{
 
 h4{
   padding: 1vw;
+  margin: 0;
 }
 
 h3{
@@ -73,6 +74,10 @@ button{
   margin-right: auto;
 }
 
+button:disabled{
+  opacity: 0.5;
+}
+
 #buttons button{
   margin-left: 3px;
   margin-right: 3px;
@@ -84,5 +89,13 @@ and (min-device-width: 414px)
 {
   img{
     width: 100%;
+  }
+  .cart-item{
+    min-width: 90%;
+    max-width: 90%;
+  }
+  .quantity button{
+    width: 6vw;
+    font-size: 6vw;
   }
 }

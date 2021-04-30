@@ -1,16 +1,22 @@
-<h3 *ngIf="!(items | async)">Comparison Is Empty</h3>
-<h3 *ngIf="(items | async)">Comparison</h3>
-<div id="comparisonArea" *ngIf="(items | async)">
-  <div class="comparisonItem" *ngFor="let item of (items | async)?.items">
+<ng-template #emptyComparison>
+  <h3>Comparison Is Empty</h3>
+</ng-template>
+
+<div *ngIf="(items | async) as items; else emptyComparison">
+<h3>Comparison</h3>
+<div id="comparisonArea">
+  <div class="comparisonItem" *ngFor="let item of items?.items">
     <h3>{{item.model}}</h3>
     <img [src]="item.img">
     <h4>{{item.description}}</h4>
     <h3>{{item.price | currency}}</h3>
     <div id="chars">
-      <h4 id="char" *ngFor="let char of item?.chars | keyvalue; let myIndex = index" [class]="char.value != (((items)|async)?.items[0]?.chars | keyvalue)[myIndex]?.value ? 'differ' : 'unset'">
+      <h4 id="char" *ngFor="let char of item?.chars | keyvalue; let myIndex = index"
+          [class]="char.value != ((items)?.items[0]?.chars | keyvalue)[myIndex]?.value ? 'differ' : 'unset'">
         <span>{{char.key}}</span> <span>{{char.value}}</span>
       </h4>
     </div>
   </div>
 </div>
-<button *ngIf="(items | async)" (click)="clearComparison()">Clear comparison</button>
+<button (click)="clearComparison()">Clear comparison</button>
+</div>

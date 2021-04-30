@@ -7,6 +7,17 @@
   margin: 1vh;
 }
 
+button{
+  background-color: #3d3d3d;
+  padding: 1vw;
+  margin: 0.5vw;
+  color: #f73859;
+}
+
+button:disabled{
+  opacity: 0.5;
+}
+
 #description{
   height: 2.5vh;
 }
@@ -14,6 +25,45 @@
 #descriptionLink{
   display: grid;
   padding: 5px;
+}
+
+#popupComparison{
+  z-index: 3;
+  background-color: #3d3d3d;
+  position: fixed;
+  color: white;
+  right: 40%;
+  top: 40%;
+  border-radius: 5px;
+  padding: 1vw;
+  visibility: hidden;
+  display: none;
+  margin: 0 auto;
+  text-align: center;
+  width: 20%;
+  animation-name: fadeout;
+  animation-duration: 2s;
+  vertical-align: middle;
+}
+
+#popupComparison a{
+  color: #f73859;
+  font-size: 3vw;
+}
+
+@keyframes fadeout {
+  0%{
+    opacity: 0;
+  }
+  10%{
+    opacity: 1;
+  }
+  90%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
 }
 
 a{

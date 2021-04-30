@@ -1,24 +1,24 @@
- <div *ngIf="p">
-    <a (click)="itemsPerPage=3">3</a>
-    <a (click)="itemsPerPage=6">6</a>
-    <a (click)="itemsPerPage=9">9</a>
-  </div>
-  <div id="products">
-    <div id="product" *ngFor="let product of products | async | paginate:{itemsPerPage: itemsPerPage, currentPage: p}" [title]="product.model">
-      <a id="descriptionLink" [routerLink]="['/products', product.id]">
-        <h3>
-          {{ product.model }}
-        </h3>
-        <img [src]="product.img">
-        <h4 id="description">{{ product.description }}</h4>
-        <h4 id="price">{{product.price | currency}}</h4>
-      </a>
-      <div id="buttons">
-        <a class="button fancy-button" (click)="addToComparison(product)"><i class="material-icons">compare</i>+</a>
-        <a class="button fancy-button" (click)="addToCart(product)"><i class="material-icons">shopping_cart</i>Add to cart</a>
-      </div>
+<h3 id="popupComparison">
+  <a class="material-icons">check_circle</a>
+  <br>
+  Added To Comparison
+</h3>
+<div id="products">
+  <div id="product" *ngFor="let product of products | async" [title]="product.model">
+    <a id="descriptionLink" [routerLink]="['/products', product.id]">
+      <h3>
+        {{ product.model }}
+      </h3>
+      <img [src]="product.img">
+      <h4 id="description">{{ product.description }}</h4>
+      <h4 id="price">{{product.price | currency}}</h4>
+    </a>
+    <div id="buttons">
+      <button [disabled]="product.addedToComparison" class="button fancy-button" (click)="addToComparison(product)"><i class="material-icons">compare</i>+</button>
+      <button class="button fancy-button" (click)="addToCart(product)"><i class="material-icons">shopping_cart</i>Add to cart</button>
     </div>
   </div>
- <h3 *ngIf="(products | async).length == 0" style="margin: 0">
-   There Is No Such Products
- </h3>
+</div>
+<h3 *ngIf="(products | async)?.length == 0" style="margin: 0">
+  There Are No Such Products
+</h3>

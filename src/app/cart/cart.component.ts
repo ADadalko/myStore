@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from '../services/cart.service';
 import {Observable} from 'rxjs';
 import {Cart} from '../models/cart';
+import {User} from '../models/user';
+import {LoginService} from '../services/login.service';
 
 @Component({
   selector: 'app-cart',
@@ -10,6 +12,7 @@ import {Cart} from '../models/cart';
 })
 export class CartComponent implements OnInit {
   cart: Observable<Cart>;
+  user: Observable<User>;
 
   constructor(
     private cartService: CartService,
@@ -34,5 +37,9 @@ export class CartComponent implements OnInit {
 
   removeItem(model: string) {
     this.cartService.removeItem(model)
+  }
+
+  isLogged() {
+    return localStorage.getItem('user')
   }
 }

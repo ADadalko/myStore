@@ -10,17 +10,22 @@
     <hr>
     <a (click)="clearForm()">Filter</a>
     <form style="text-align: center" [formGroup]="form">
+      <hr class="smallHr">
       <a style="padding: 0">Category</a>
       <button *ngFor="let type of types" [id]="type" (click)="changeType(type)">{{type | uppercase}}</button>
       <br>
+      <hr class="smallHr">
       <a style="padding: 0">Vendor</a>
       <button *ngFor="let vendor of vendors" [id]="vendor" (click)="changeVendor(vendor)">{{vendor | uppercase}}</button>
+      <hr class="smallHr">
       <a style="padding: 0">Price</a>
       <div id="price">
         <input type="number" placeholder="Min Price" min="0" max="10000" formControlName="minPrice" #minPrice>
+        <a style="display: inline; padding: 3px;">-</a>
         <input type="number" (focusout)="validateMax(maxPrice.value)" placeholder="Max Price" [value]="minPrice.value" [min]='minPrice' max="10000" formControlName="maxPrice" #maxPrice>
       </div>
     </form>
+    <hr>
     <div id="buttons">
       <button id="apply" [disabled]="form.invalid" (click)="openNav();" [routerLink]="['/products']" [queryParams]="{'type': form.value.type, 'vendor': form.value.vendor, 'minPrice': form.value.minPrice, 'maxPrice': form.value.maxPrice}">Apply Filters</button>
       <button (click)="clearForm()">Clear Filters</button>

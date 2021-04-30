@@ -4,8 +4,9 @@ import firebase from 'firebase';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Observable} from 'rxjs';
 import {User} from '../models/user';
-import TIMESTAMP = firebase.database.ServerValue.TIMESTAMP;
-import Timestamp = firebase.firestore.Timestamp;
+import {Cart} from '../models/cart';
+import {Address} from '../models/address.model';
+import {Card} from '../models/card.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class LoginService {
   constructor(public firebaseAuth: AngularFireAuth, private db: AngularFirestore) { }
 
   async signInWithGoogle(){
-    var provider = new firebase.auth.GoogleAuthProvider()
+    let provider = new firebase.auth.GoogleAuthProvider()
     await firebase.auth()
       .signInWithPopup(provider)
       .then((res) => {
@@ -24,6 +25,16 @@ export class LoginService {
           .then(data=>{
             if(!data.exists){
               this.db.collection<User>('users').doc(res.user.uid).set({
+                purchases: [{
+                  items: [{
+                    model: '',
+                    price: 0,
+                    img: '',
+                    description: '',
+                    quantity: 0,
+                  }],
+                  bill: 0
+                }],
                 uid: res.user.uid,
                 address: {
                   addressCity: '',
@@ -33,20 +44,19 @@ export class LoginService {
                 },
                 auth: 'google',
                 card: {
-                  cardCvv: 0,
-                  cardMonth: 0,
-                  cardNumber: 0,
-                  cardYear: 0
+                  cardCvv: '',
+                  cardMonth: '',
+                  cardNumber: '',
+                  cardYear: ''
                 },
                 email: res.user.email,
                 id: this.db.createId(),
                 password: '',
                 personalInfo: {
-                  birthday: 0,
+                  birthday: '',
                   firstName: '',
                   secondName: ''
                 },
-                photo: res.user.photoURL,
                 username: res.user.displayName
               })
             }
@@ -74,6 +84,16 @@ export class LoginService {
           .then(data=>{
             if(!data.exists){
               this.db.collection<User>('users').doc(res.user.uid).set({
+                purchases: [{
+                  items: [{
+                    model: '',
+                    price: 0,
+                    img: '',
+                    description: '',
+                    quantity: 0,
+                  }],
+                  bill: 0
+                }],
                 uid: res.user.uid,
                 address: {
                   addressCity: '',
@@ -83,21 +103,20 @@ export class LoginService {
                 },
                 auth: 'ordinary',
                 card: {
-                  cardCvv: 0,
-                  cardMonth: 0,
-                  cardNumber: 0,
-                  cardYear: 0
+                  cardCvv: '',
+                  cardMonth: '',
+                  cardNumber: '',
+                  cardYear: ''
                 },
                 email: res.user.email,
                 id: this.db.createId(),
                 password: password,
                 personalInfo: {
-                  birthday: 0,
+                  birthday: '',
                   firstName: '',
                   secondName: ''
                 },
-                photo: res.user.photoURL,
-                username: res.user.displayName
+                username: ''
               })
             }
           })
@@ -112,10 +131,12 @@ export class LoginService {
     localStorage.removeItem('user')
   }
 
-  async updateInfo(email:string ,password:string) {
-    this.firebaseAuth.currentUser.then(user=>{
-      user.updateEmail(email)
-      user.updatePassword(password)
+  async updateInfo(email: string, password: string) {
+    await firebase.auth().currentUser.updateEmail(email);
+    await firebase.auth().currentUser.updatePassword(password);
+    await this.db.collection<User>('users').doc(firebase.auth().currentUser.uid).update({
+      email: email,
+      password: password
     })
   }
 
@@ -125,8 +146,34 @@ export class LoginService {
   }
 
   addDeliveryInfo(uid: string, city: string, street: string, house: number, flat: number) {
-    this.db.collection<User>('users').doc(uid).get().toPromise()
-      .then(user=>{
-      })
+    this.db.collection<User>('users').doc(uid).update({
+      address: {
+        addressCity: city,
+        addressStreet: street,
+        addressHouse: house,
+        addressFlat: flat
+      }
+    })
+  }
+
+  addCardInfo(uid: string, number: string, month: string, year: string, cvv: string) {
+    this.db.collection<User>('users').doc(uid).update({
+      card: {
+        cardNumber: number,
+        cardMonth: month,
+        cardYear: year,
+        cardCvv: cvv,
+      }
+    })
+  }
+
+  addPersonalInfo(uid: string, firstName: string, secondName: string, birthDay: string) {
+    this.db.collection<User>('users').doc(uid).update({
+      personalInfo: {
+        firstName: firstName,
+        secondName: secondName,
+        birthday: birthDay,
+      }
+    })
   }
 }

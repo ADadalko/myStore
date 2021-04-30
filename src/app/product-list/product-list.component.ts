@@ -31,7 +31,6 @@ export class ProductListComponent implements OnInit {
   ngOnInit(): void {
 
     this.products = this.activateRoute.queryParams.pipe(switchMap(product => {
-      console.log(Object.entries(product).length)
       if(Object.entries(product).length == 4) return this.productService.getProductsByFilters(
         Object.entries(product)[0][1],
         Object.entries(product)[1][1],

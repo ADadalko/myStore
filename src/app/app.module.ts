@@ -19,6 +19,7 @@ import { SearchPipe } from './search.pipe';
 import { ComparisonComponent } from './comparison/comparison.component';
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
+import {CheckoutGuard} from './checkout.guard';
 
 @NgModule({
   imports: [
@@ -34,7 +35,7 @@ import { UserComponent } from './user/user.component';
       {path: 'products', component: ProductListComponent},
       {path: 'products/:productId', component: ProductDetailsComponent},
       {path: 'cart', component: CartComponent},
-      {path: 'checkout', component: CheckoutComponent},
+      {path: 'checkout', component: CheckoutComponent, canActivate: [CheckoutGuard]},
       {path: 'comparison', component: ComparisonComponent},
       {path: 'login', component: LoginComponent},
     ]),
@@ -51,7 +52,7 @@ import { UserComponent } from './user/user.component';
     SearchPipe,
     ComparisonComponent,
     LoginComponent,
-    UserComponent
+    UserComponent,
   ],
   bootstrap: [
     AppComponent
