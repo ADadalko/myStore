@@ -73,16 +73,6 @@ export class ProductService {
 
   addToComparison(product) {
     this.previousData = [];
-    // this.previousData.push({
-    //   vendor: product.vendor,
-    //   chars: product.chars,
-    //   type: product.type,
-    //   country: product.country,
-    //   description: product.description,
-    //   img: product.img,
-    //   model: product.model,
-    //   price: product.price,
-    // });
     this.db.collection<Comparison>('comparison').doc(localStorage.getItem('cartKey')).get().toPromise().then(doc => {
       if (doc.data()) {
         for (let item of doc.data().items) {
@@ -100,8 +90,7 @@ export class ProductService {
             success = true
           }
         })
-        if(sameProduct != 0) this.popup('popupComparison', "Product Has Been Already Added To Comparison")
-        if(differentCategory != 0) this.popup('popupComparison', "You Can't Add Products From Different Categories")
+        console.log(differentCategory);
         if(success && sameProduct == 0 && differentCategory == 0) {
           this.popup('popupComparison')
           this.previousData.push({
@@ -115,6 +104,9 @@ export class ProductService {
             price: product.price,
           });
         }
+        else if(sameProduct != 0) this.popup('popupComparison', "Product Has Been Already Added To Comparison")
+        else if(differentCategory != 0) this.popup('popupComparison', "You Can't Add Products From Different Categories")
+        differentCategory = 0
       }else {
         this.previousData.push({
           vendor: product.vendor,
@@ -151,7 +143,7 @@ export class ProductService {
     setTimeout(() => {
       document.getElementById(`${id}`).style.visibility = 'hidden';
       document.getElementById(`${id}`).style.display = 'none';
-    }, 2000);
+    }, 1000);
   }
 
 }
