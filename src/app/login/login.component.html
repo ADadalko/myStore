@@ -1,12 +1,16 @@
 <div id="container">
 
+  <div id="popupLogin">
+
+  </div>
+
   <div *ngIf="!isSignedIn && !signInView">
     <h3>Sign Up</h3>
     <div class="signContainer">
       <h4>Register With E-Mail And Password</h4>
       <form [formGroup]="form">
         <input type="email"
-               [class.is-invalid] = "form.get('email').invalid && form.get('email').touched"
+               [class.is-invalid]="form.get('email').invalid && form.get('email').touched"
                placeholder="E-Mail"
                formControlName="email">
         <div *ngIf="(email.invalid && email.touched) || email.dirty">
@@ -14,7 +18,7 @@
           <span *ngIf="email.errors?.pattern">Provide A Valid E-Mail</span>
         </div>
         <input type="password"
-               [class.is-invalid] = "form.get('password').invalid && form.get('password').touched"
+               [class.is-invalid]="form.get('password').invalid && form.get('password').touched"
                placeholder="Password"
                formControlName="password">
         <div *ngIf="(password.invalid && password.touched) || password.dirty">
@@ -34,7 +38,7 @@
       <h4>With E-Mail And Password</h4>
       <form [formGroup]="form">
         <input type="email"
-               [class.is-invalid] = "form.get('email').invalid && form.get('email').touched"
+               [class.is-invalid]="form.get('email').invalid && form.get('email').touched"
                placeholder="E-Mail"
                formControlName="email">
         <div *ngIf="(email.invalid && email.touched) || email.dirty">
@@ -42,7 +46,7 @@
           <span *ngIf="email.errors?.pattern">Provide A Valid E-Mail</span>
         </div>
         <input type="password"
-               [class.is-invalid] = "form.get('password').invalid && form.get('password').touched"
+               [class.is-invalid]="form.get('password').invalid && form.get('password').touched"
                placeholder="Password"
                formControlName="password">
         <div *ngIf="(password.invalid && password.touched) || password.dirty">

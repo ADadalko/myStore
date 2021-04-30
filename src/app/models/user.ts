@@ -1,7 +1,7 @@
 import {Card} from './card.model';
 import {PersonalInfo} from './personal-info.model';
 import {Address} from './address.model';
-import {Cart} from './cart';
+import {Purchase} from './purchase.model';
 
 export interface User{
   auth: string,
@@ -13,5 +13,5 @@ export interface User{
   personalInfo: PersonalInfo,
   address: Address,
   card: Card,
-  purchases: [Cart],
+  purchases: [Purchase],
 }

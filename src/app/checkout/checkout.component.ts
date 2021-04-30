@@ -79,6 +79,7 @@ export class CheckoutComponent implements OnInit {
            cardCvv: string,
            bill: string,
            uid: string) {
+    this.content = 'thanks'
     this.cartService.completePurchase(email,
       addressCity,
       addressStreet,
@@ -91,7 +92,9 @@ export class CheckoutComponent implements OnInit {
       bill,
       uid
       );
-    this.content = 'thanks'
+  }
+
+  clearCart(){
     this.cartService.clearCart()
   }
 }

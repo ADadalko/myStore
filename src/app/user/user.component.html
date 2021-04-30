@@ -191,10 +191,10 @@
   <div class="orders" *ngIf="view == 'orders' && user?.purchases">
     <h4>Orders History</h4>
     <div class="personal" *ngFor="let purchase of user?.purchases">
-      <div *ngFor="let item of purchase.items">
-        {{item.model}}
+      <div *ngFor="let item of purchase.cart.items">
+        {{item}}
       </div>
-      <h4>{{purchase.bill}}</h4>
+      <h4>{{purchase.cart.bill}}</h4>
     </div>
   </div>
 

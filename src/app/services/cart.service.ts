@@ -159,11 +159,31 @@ export class CartService {
                    cardCvv: string,
                    bill: string,
                    uid: string) {
-    let cart;
+    let purchase: Purchase;
     this.db.collection<Cart>('carts').doc(localStorage.getItem('cartKey')).get()
       .toPromise()
       .then(data=>{
-        cart = data.data()
+        purchase = {
+          card: {
+            cardNumber: cardNumber,
+            cardMonth: cardMonth,
+            cardYear: cardYear,
+            cardCvv: cardCvv,
+          },
+          cart: {
+            bill: data.data().bill,
+            items: data.data().items
+          },
+          customer: email,
+          date: Timestamp.now(),
+          delivery: {
+            addressCity: addressCity,
+            addressStreet: addressStreet,
+            addressHouse: parseInt(addressHouse),
+            addressFlat: parseInt(addressFlat),
+          },
+          uid: uid
+        }
         return data.data().items
       })
       .then(items=>{
@@ -193,13 +213,13 @@ export class CartService {
               return data.get('purchases')
             })
               .then(purchases=>{
-                if(purchases[0].bill == 0) {
+                if(purchases[0].cart.bill == 0) {
                   this.db.collection<User>('users').doc(uid).update({
-                    purchases: [cart]
+                    purchases: [purchase]
                   })
                 }else{
-                  let newPurchases: [Cart] = purchases;
-                  newPurchases.push(cart)
+                  let newPurchases: [Purchase] = purchases;
+                  newPurchases.push(purchase)
                   this.db.collection<User>('users').doc(uid).update({
                     purchases: newPurchases
                   })

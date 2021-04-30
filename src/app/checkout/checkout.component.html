@@ -157,7 +157,7 @@
     <div id="thanks" *ngIf="content == 'thanks'">
       <h3>Thanks For Your Purchase</h3>
       <a class="material-icons">check_circle</a>
-      <button class="continue" [routerLink]="'/'">Go To The Main Page</button>
+      <button class="continue" [routerLink]="'/'" (click)="clearCart()">Go To The Main Page</button>
     </div>
   </div>
 </div>

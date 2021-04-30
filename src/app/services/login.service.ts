@@ -7,6 +7,8 @@ import {User} from '../models/user';
 import {Cart} from '../models/cart';
 import {Address} from '../models/address.model';
 import {Card} from '../models/card.model';
+import Timestamp = firebase.firestore.Timestamp;
+import {ProductService} from './product.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,7 @@ import {Card} from '../models/card.model';
 export class LoginService {
 
   isLoggedIn = false
-  constructor(public firebaseAuth: AngularFireAuth, private db: AngularFirestore) { }
+  constructor(public firebaseAuth: AngularFireAuth, private db: AngularFirestore, private productService: ProductService) { }
 
   async signInWithGoogle(){
     let provider = new firebase.auth.GoogleAuthProvider()
@@ -26,14 +28,31 @@ export class LoginService {
             if(!data.exists){
               this.db.collection<User>('users').doc(res.user.uid).set({
                 purchases: [{
-                  items: [{
-                    model: '',
-                    price: 0,
-                    img: '',
-                    description: '',
-                    quantity: 0,
-                  }],
-                  bill: 0
+                  customer: '',
+                  delivery: {
+                    addressCity: '',
+                    addressStreet: '',
+                    addressFlat: 0,
+                    addressHouse: 0
+                  },
+                  card: {
+                    cardNumber: '',
+                    cardMonth: '',
+                    cardCvv: '',
+                    cardYear: ''
+                  },
+                  date: Timestamp.now(),
+                  cart: {
+                    items: [{
+                      model: '',
+                      price: 0,
+                      img: '',
+                      description: '',
+                      quantity: 0
+                    }],
+                    bill: 0
+                  },
+                  uid: '',
                 }],
                 uid: res.user.uid,
                 address: {
@@ -72,7 +91,7 @@ export class LoginService {
         this.isLoggedIn = true
         localStorage.setItem('user', JSON.stringify(res.user.uid))
       }).catch((error)=>{
-        alert(error)
+        this.productService.popup('popupLogin', 'There Is No User With This Password Or E-Mail')
         this.isLoggedIn = false
       })
   }
@@ -85,14 +104,31 @@ export class LoginService {
             if(!data.exists){
               this.db.collection<User>('users').doc(res.user.uid).set({
                 purchases: [{
-                  items: [{
-                    model: '',
-                    price: 0,
-                    img: '',
-                    description: '',
-                    quantity: 0,
-                  }],
-                  bill: 0
+                  customer: '',
+                  delivery: {
+                    addressCity: '',
+                    addressStreet: '',
+                    addressFlat: 0,
+                    addressHouse: 0
+                  },
+                  card: {
+                    cardNumber: '',
+                    cardMonth: '',
+                    cardCvv: '',
+                    cardYear: ''
+                  },
+                  date: Timestamp.now(),
+                  cart: {
+                    items: [{
+                      model: '',
+                      price: 0,
+                      img: '',
+                      description: '',
+                      quantity: 0
+                    }],
+                    bill: 0
+                  },
+                  uid: '',
                 }],
                 uid: res.user.uid,
                 address: {
@@ -123,7 +159,7 @@ export class LoginService {
         this.isLoggedIn = true
         localStorage.setItem('user', JSON.stringify(res.user.uid))
       }).catch(error=>{
-        alert(error)
+        this.productService.popup('popupLogin', error)
       })
   }
   logOut(){
