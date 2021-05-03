@@ -2,6 +2,25 @@ h4{
   text-align: center;
 }
 
+#popupInvalidConfirm{
+  z-index: 3;
+  background-color: #3d3d3d;
+  position: fixed;
+  color: white;
+  right: 40%;
+  top: 40%;
+  border-radius: 5px;
+  padding: 1vw;
+  visibility: hidden;
+  display: none;
+  margin: 0 auto;
+  text-align: center;
+  width: 20%;
+  animation-name: fadeout;
+  animation-duration: 2s;
+  vertical-align: middle;
+}
+
 #item{
   display: grid;
   justify-items: center;
@@ -48,6 +67,10 @@ h4{
 .is-invalid{
   border: 2px solid #f73859;
   outline: none;
+}
+
+.red{
+  color: #f73859;
 }
 
 button{
@@ -194,5 +217,8 @@ and (min-device-width: 414px)
   }
   .personal{
     width: 90%;
+  }
+  button{
+    font-size: 4vw;
   }
 }

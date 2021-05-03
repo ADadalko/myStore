@@ -19,7 +19,7 @@
       <h4 id="price">{{product.price | currency}}</h4>
     </a>
     <div id="buttons">
-      <button [disabled]="product.addedToComparison" class="button fancy-button" (click)="addToComparison(product)"><i class="material-icons">compare</i>+</button>
+      <button [disabled]="itemsInComparison.includes(product.id)" class="button fancy-button" (click)="addToComparison(product)"><i class="material-icons">compare</i>+</button>
       <button class="button fancy-button" (click)="addToCart(product)"><i class="material-icons">shopping_cart</i>Add to cart</button>
     </div>
   </div>

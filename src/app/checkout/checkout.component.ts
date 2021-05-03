@@ -15,6 +15,9 @@ export class CheckoutComponent implements OnInit {
 
   cart: Observable<Cart>;
   user: Observable<User>;
+  currentYear: number = new Date().getFullYear();
+  updateDelivery: boolean = false;
+  updateCard: boolean = false;
   @ViewChild('month') month: ElementRef;
   @ViewChild('year') year: ElementRef;
   content: string = 'delivery';
@@ -47,6 +50,7 @@ export class CheckoutComponent implements OnInit {
   addDelivery(uid: string, city: string, street: string, house: string, flat: string) {
     this.loginService.addDeliveryInfo(uid, city, street, parseInt(house), parseInt(flat))
     this.delivery.reset()
+    this.updateDelivery = false;
   }
 
   addCard(uid: string, number: string, month: string, year: string, cvv: string) {
@@ -56,16 +60,25 @@ export class CheckoutComponent implements OnInit {
       this.year.nativeElement.value = 2021
     this.loginService.addCardInfo(uid, number, month, year, cvv)
     this.card.reset()
+    this.updateCard = false;
   }
 
   outMonth(month: string) {
-    if(parseInt(month) < 1 || parseInt(month) > 12)
-      this.month.nativeElement.value = 1
+    if (month.length == 1) {
+      this.month.nativeElement.value = 0 + month;
+    }
+    if (month == '0' || month == '00') {
+      this.month.nativeElement.value = '01';
+    }
+    if (parseInt(month) > 12) {
+      this.month.nativeElement.value = '12';
+    }
   }
 
   outYear(year: string) {
-    if(parseInt(year) < 2021 || parseInt(year) > 2025)
-      this.year.nativeElement.value = 2021
+    if (parseInt(year) < this.currentYear || parseInt(year) > this.currentYear + 50) {
+      this.year.nativeElement.value = this.currentYear;
+    }
   }
 
   purchase(email: string,
@@ -92,9 +105,5 @@ export class CheckoutComponent implements OnInit {
       bill,
       uid
       );
-  }
-
-  clearCart(){
-    this.cartService.clearCart()
   }
 }

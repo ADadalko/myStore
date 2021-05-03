@@ -91,7 +91,6 @@ export class LoginService {
         this.isLoggedIn = true
         localStorage.setItem('user', JSON.stringify(res.user.uid))
       }).catch((error)=>{
-        this.productService.popup('popupLogin', 'There Is No User With This Password Or E-Mail')
         this.isLoggedIn = false
       })
   }
@@ -173,11 +172,13 @@ export class LoginService {
     await this.db.collection<User>('users').doc(firebase.auth().currentUser.uid).update({
       email: email,
       password: password
+    }).catch(error=>{
+      this.productService.popup('popupInvalidConfirm', error)
     })
   }
 
   getUser(): Observable<User>{
-    return this.db.collection<User>('users').doc(JSON.parse(localStorage.getItem('user')))
+    return this.db.collection<User>('users', ref => ref.orderBy('purchases', 'desc')).doc(JSON.parse(localStorage.getItem('user')))
       .valueChanges()
   }
 

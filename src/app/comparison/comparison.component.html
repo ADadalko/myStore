@@ -3,20 +3,32 @@
 </ng-template>
 
 <div *ngIf="(items | async) as items; else emptyComparison">
-<h3>Comparison</h3>
-<div id="comparisonArea">
-  <div class="comparisonItem" *ngFor="let item of items?.items">
-    <h3>{{item.model}}</h3>
-    <img [src]="item.img">
-    <h4>{{item.description}}</h4>
-    <h3>{{item.price | currency}}</h3>
-    <div id="chars">
-      <h4 id="char" *ngFor="let char of item?.chars | keyvalue; let myIndex = index"
-          [class]="char.value != ((items)?.items[0]?.chars | keyvalue)[myIndex]?.value ? 'differ' : 'unset'">
-        <span>{{char.key}}</span> <span>{{char.value}}</span>
-      </h4>
+  <h3>Comparison</h3>
+  <div id="comparisonArea">
+    <div id="side" class="comparisonItem">
+      <h3>{{items[0].model}}</h3>
+      <img [src]="items[0].img">
+      <h4 class="description">{{items[0].description}}</h4>
+      <h3>{{items[0].price | currency}}</h3>
+      <div class="chars">
+        <h4 class="char keys" *ngFor="let char of items[0]?.chars | keyvalue; let myIndex = index">
+          <span>{{char.key}}</span>
+        </h4>
+      </div>
+    </div>
+    <div class="comparisonItem" *ngFor="let item of items">
+      <button class="material-icons" (click)="deleteComparisonItem(item.id)">clear</button>
+      <h3 class="model">{{item.model}}</h3>
+      <img [src]="item.img">
+      <h4 class="description">{{item.description}}</h4>
+      <h3>{{item.price | currency}}</h3>
+      <div class="chars">
+        <h4 class="char" *ngFor="let char of item?.chars | keyvalue; let myIndex = index"
+            [class]="char.value != (items[0].chars | keyvalue)[myIndex]?.value ? 'differ' : 'unset'">
+          <span>{{char.value}}</span>
+        </h4>
+      </div>
     </div>
   </div>
-</div>
-<button (click)="clearComparison()">Clear comparison</button>
+  <button (click)="clearComparison()" [routerLink]="'/'">Clear comparison</button>
 </div>

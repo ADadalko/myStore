@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, Output, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
 import {CartService} from '../services/cart.service';
@@ -9,6 +9,9 @@ import firebase from 'firebase';
 import {Observable, Subscription} from 'rxjs';
 import Timestamp = firebase.firestore.Timestamp;
 import {map, switchMap} from 'rxjs/operators';
+import {LocalstorageService} from '../services/localstorage.service';
+import {User} from '../models/user';
+import {LoginService} from '../services/login.service';
 
 @Component({
   selector: 'app-product-details',
@@ -17,12 +20,16 @@ import {map, switchMap} from 'rxjs/operators';
 })
 export class ProductDetailsComponent implements OnInit{
   products: Observable<Product[]>;
-  averageMark;
-  numberOfMarks;
-  productId;
+  user: Observable<User>;
+  @ViewChild('userName') userName: ElementRef;
+  comparison: Observable<any>;
+  averageMark: number = 0;
+  numberOfMarks: number = 0;
+  productId: number = 0;
+  isLogged: boolean = false;
+  itemsInComparison = [];
 
   reviewForm : FormGroup = new FormGroup({
-    "userName": new FormControl("", Validators.required),
     "review": new FormControl("", Validators.required),
     "rating": new FormControl(null, [Validators.required])
   })
@@ -30,16 +37,21 @@ export class ProductDetailsComponent implements OnInit{
   constructor(
     private activateRoute: ActivatedRoute,
     private cartService: CartService,
-    private productService: ProductService
+    private productService: ProductService,
+    private localSt: LocalstorageService,
+    private loginService: LoginService,
   ) { }
 
   addToCart(product): void {
     this.cartService.addToCart(product);
-    window.alert('Товар был добавлен в корзину!');
   }
 
   ngOnInit(): void {
-
+    if(localStorage.getItem('user')) {
+      this.isLogged = true
+      this.user = this.loginService.getUser();
+    }
+    if(this.localSt.get('comparison')) this.itemsInComparison = this.localSt.get('comparison').id
     this.products = this.activateRoute.params.pipe(switchMap(params=>{
       this.productId = parseInt(params['productId']);
       return this.productService.getProductById(this.productId).pipe(
@@ -62,7 +74,7 @@ export class ProductDetailsComponent implements OnInit{
 
   submit() {
     this.productService.addReview(
-      this.reviewForm.value.userName,
+      this.userName.nativeElement.value,
       this.reviewForm.value.review,
       this.reviewForm.value.rating,
       Timestamp.now(),
@@ -73,5 +85,9 @@ export class ProductDetailsComponent implements OnInit{
 
   addToComparison(product: Product) {
     this.productService.addToComparison(product)
+    if(this.localSt.get('comparison')){
+      this.itemsInComparison = this.localSt.get('comparison').id;
+    }
+    this.comparison = this.productService.getComparison()
   }
 }

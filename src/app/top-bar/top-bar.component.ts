@@ -1,20 +1,34 @@
-import {Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
-import { Observable} from 'rxjs';
+import {Component, Injectable, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {Observable} from 'rxjs';
 import {ProductService} from '../services/product.service';
 import {Product} from '../models/product';
 import {FormBuilder, Validators} from '@angular/forms';
 import {LoginService} from '../services/login.service';
+import {LocalstorageService} from '../services/localstorage.service';
+import {Cart} from '../models/cart';
+import {CartService} from '../services/cart.service';
+import {SearchPipe} from '../pipes/search.pipe';
+import {Router} from '@angular/router';
+import {FullSearchPipe} from '../pipes/full-search.pipe';
+
 @Component({
   selector: 'app-top-bar',
   templateUrl: './top-bar.component.html',
   styleUrls: ['./top-bar.component.css']
 })
+
+@Injectable({
+  providedIn: 'root'
+})
 export class TopBarComponent implements OnInit, OnChanges {
   products: Observable<Product[]>;
+  cart: Observable<Cart>;
   @ViewChild('minPrice') min;
   @ViewChild('maxPrice') max;
   productsForSearch = [];
   productsName: string;
+  comparisonLength: number = 0;
+  comparison
   types = [];
   vendors = [];
   form = this.fb.group({
@@ -25,9 +39,24 @@ export class TopBarComponent implements OnInit, OnChanges {
   })
   logged: string = localStorage.getItem('user');
 
-  constructor(private productService: ProductService, private fb: FormBuilder, public loginService: LoginService) { }
+
+  constructor(private productService: ProductService,
+              private fb: FormBuilder,
+              public loginService: LoginService,
+              public localSt: LocalstorageService,
+              public cartService: CartService,
+              private fullSearchPipe: FullSearchPipe,
+              private router: Router,
+  ) {
+  }
 
   ngOnInit(): void {
+    this.cart = this.cartService.getCart()
+    this.comparison = this.localSt.watch('comparison').subscribe(t=>{
+      this.comparisonLength = t?.id.length
+      this.productService.getComparison()
+      if(t?.id.length) document.getElementById('comparisonDiv').style.display = 'block'
+    });
     this.productService.getProducts('type', 'all').subscribe(products=>{
       products.forEach(product => {
         this.productsForSearch.push(product);
@@ -91,5 +120,23 @@ export class TopBarComponent implements OnInit, OnChanges {
 
   isLogged(): boolean {
     return Boolean(localStorage.getItem('user'))
+  }
+
+  isComparisonDisabled(): boolean {
+    if(localStorage.getItem('comparison')) return JSON.parse(localStorage.getItem('comparison')).id.length >= 2;
+    else return false
+  }
+
+  clearComparison() {
+    this.productService.clearComparison()
+  }
+
+  searchFor(productsName: string) {
+    let searchItems = this.fullSearchPipe.transform(this.productsForSearch, productsName)
+    let ids = [];
+    searchItems.forEach(item=>{
+      ids.push(item.id)
+    })
+    this.router.navigate(['/products'], { queryParams: { ids: ids.toString(), type: 'search'} });
   }
 }

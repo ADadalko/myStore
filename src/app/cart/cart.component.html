@@ -14,7 +14,7 @@
         <button [routerLink]="['/checkout']" [disabled]="cart?.bill == 0 || !isLogged()" class="button"
                 type="submit">Checkout
         </button>
-        <button (click)="clearCart()">Clear cart</button>
+        <button (click)="clearCart()" [routerLink]="'/'">Clear cart</button>
       </div>
       <h4 *ngIf="!isLogged()"><a style="text-decoration: underline" [routerLink]="'/login'">Sign In</a>To Complete The
         Purchase</h4>

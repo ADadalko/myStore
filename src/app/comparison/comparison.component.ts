@@ -1,34 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {ProductService} from '../services/product.service';
-import {Comparison} from '../models/comparison';
-import {map, retry} from 'rxjs/operators';
+import {Product} from '../models/product';
+import {LocalstorageService} from '../services/localstorage.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-comparison',
   templateUrl: './comparison.component.html',
   styleUrls: ['./comparison.component.css']
 })
-export class ComparisonComponent implements OnInit {
-  items: Observable<Comparison>;
+export class ComparisonComponent implements OnInit, OnDestroy {
+  items: Observable<Product[]>;
   chars = [];
 
   constructor(
-    private productService: ProductService
+    private productService: ProductService,
+    private localSt: LocalstorageService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.items = this.productService.getComparison().pipe(
-      map(comparison=>{
-        comparison?.items.forEach(item=>{
-          console.log(item.chars)
-        })
-        return comparison
-      })
-    );
+    this.localSt.watch('comparison').subscribe(t=>{
+      if(t.id.length < 2 && this.router.url == '/comparison') this.router.navigateByUrl('/')
+      this.items = this.productService.getComparison()
+      document.getElementById('comparisonDiv').style.display = 'none'
+    })
   }
 
   clearComparison() {
     this.productService.clearComparison();
+  }
+
+  ngOnDestroy(): void {
+    if(this.productService.getComparison()) document.getElementById('comparisonDiv').style.display = 'block'
+  }
+
+  deleteComparisonItem(id: number) {
+    this.productService.deleteComparisonItem(id)
   }
 }

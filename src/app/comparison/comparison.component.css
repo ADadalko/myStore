@@ -5,11 +5,31 @@
   border-radius: 5px;
   margin-bottom: 2vh;
   text-align: center;
+  padding: 1vw;
+}
+
+.model{
+  font-size: 1.5vw;
+}
+
+#side h3{
+  visibility: hidden;
+}
+
+#side img{
+  visibility: hidden;
+}
+
+#side .description{
+  visibility: hidden;
+}
+
+#categories{
+  display: grid;
 }
 
 .comparisonItem{
   display: grid;
-  width: 30%;
   justify-items: center;
   align-items: center;
 }
@@ -21,9 +41,50 @@ button{
 }
 
 img{
-  width: 40%;
+  width: 50%;
 }
 
 .differ{
   background-color: #f73859;
+}
+
+.differ span{
+  color: white;
+}
+
+.chars{
+  display: grid;
+  width: 100%;
+  justify-items: stretch;
+  align-items: stretch;
+  border-collapse: collapse;
+}
+
+.keys{
+  background-color: #616161;
+  color: white;
+}
+
+.char{
+  border-radius: 10px;
+  padding: 3px;
+}
+
+.keys span{
+  color: white;
+}
+
+
+@media only screen
+and (max-device-width: 736px)
+and (min-device-width: 414px)
+{
+  h4.char.keys span{
+  }
+  img{
+    width: 80%;
+  }
+  .description{
+    display: none;
+  }
 }

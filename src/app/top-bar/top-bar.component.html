@@ -36,12 +36,12 @@
     <a [routerLink]="['/']" id="logo">
       <img src="./assets/images/Logo.png">
     </a>
-    <input class="search" type="search" #productsName1 [(ngModel)]=productsName>
+    <input (keyup.enter)="searchFor(productsName1.value)" class="search" type="search" #productsName1 [(ngModel)]=productsName>
     <div id="cartAndPayment">
-      <a routerLink="/login" class="button fancy-button"><i class="material-icons">person</i></a>
-      <a id="logOut" *ngIf="isLogged()" (click)="logOut()" routerLink="/" class="button fancy-button"><i class="material-icons">logout</i></a>
-      <a routerLink="/cart" class="button fancy-button"><i class="material-icons">shopping_cart</i></a>
-      <a routerLink="/comparison" class="button fancy-button"><i class="material-icons">compare</i></a>
+      <button routerLink="/login" class="button fancy-button"><i class="material-icons">person</i></button>
+      <button id="logOut" *ngIf="isLogged()" (click)="logOut()" routerLink="/" class="button fancy-button"><i class="material-icons">logout</i></button>
+      <button [disabled]="(cart | async)?.items == undefined" routerLink="/cart" class="button fancy-button"><i class="material-icons">shopping_cart</i></button>
+      <button [disabled]="!isComparisonDisabled()" routerLink="/comparison" class="button fancy-button"><i class="material-icons">compare</i></button>
     </div>
   </div>
   <div id="searchGrid" *ngIf="productsName1.value">
@@ -52,3 +52,7 @@
   </div>
 </div>
 
+<button [disabled]="comparisonLength<2" [routerLink]="'/comparison'" id="comparisonDiv">
+  <button style="display: inline" (click)="clearComparison()" class="material-icons">clear</button>
+  {{comparisonLength}} Item(s) In Comparison
+</button>

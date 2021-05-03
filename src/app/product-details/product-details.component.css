@@ -11,6 +11,30 @@
   margin-bottom: 1vh;
 }
 
+#popupComparison, #addedToCart{
+  z-index: 3;
+  background-color: #3d3d3d;
+  position: fixed;
+  color: white;
+  right: 40%;
+  top: 40%;
+  border-radius: 5px;
+  padding: 1vw;
+  visibility: hidden;
+  display: none;
+  margin: 0 auto;
+  text-align: center;
+  width: 20%;
+  animation-name: fadeout;
+  animation-duration: 2s;
+  vertical-align: middle;
+}
+
+#popupComparison a, #addedToCart a{
+  color: #97dc32;
+  font-size: 3vw;
+}
+
 input{
   border: 1px solid white;
 }
@@ -129,12 +153,12 @@ textarea{
   padding: 10px;
 }
 
-#inputName{
+.inputName{
   align-self: center;
   justify-self: left;
 }
 
-#inputName input{
+.inputName input{
   font-size: 1vw;
   padding: 5px;
   background-color: white;
@@ -183,7 +207,7 @@ img{
   grid-template-columns: 1fr 1fr;
 }
 
-#buttons a{
+#buttons button{
   color: #f73859;
   background-color: #3d3d3d;
   margin: 2px;
@@ -192,6 +216,10 @@ img{
   padding: 0.5vw;
   align-self: center;
   justify-self: end;
+}
+
+#buttons button:disabled{
+  opacity: 0.5;
 }
 
 #buttons i{
@@ -310,5 +338,30 @@ and (min-device-width: 414px)
 
   #reviews{
     width: 100%;
+  }
+
+  span{
+    font-size: 3vw;
+  }
+
+  #reviews h3, #reviews a{
+    font-size: 3vw;
+  }
+
+  #chars h3{
+    font-size: 3vw;
+  }
+
+  #price{
+    font-size: 4vw;
+  }
+
+  #buttons button{
+    font-size: 5vw;
+    padding: 1vw;
+  }
+
+  #buttons i{
+    font-size: 4vw;
   }
 }

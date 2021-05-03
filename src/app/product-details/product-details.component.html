@@ -1,3 +1,13 @@
+<h3 id="popupComparison">
+  <a class="material-icons">check_circle</a>
+  <br>
+  Added To Comparison
+</h3>
+<h3 id="addedToCart">
+  <a class="material-icons">check_circle</a>
+  <br>
+  Added To Cart
+</h3>
 <div id="page" *ngFor="let product of products | async" xmlns="http://www.w3.org/1999/html">
 
   <div id="head">
@@ -8,7 +18,7 @@
     <div id="reviewsNumber">
       <div class="rating-result" [ngSwitch]="averageMark">
         <ng-template ngSwitchDefault>
-          <h4>There is no user reviews yet</h4>
+          <h4>No User Reviews Yet</h4>
         </ng-template>
         <ng-template ngSwitchCase="1">
           <h4>{{numberOfMarks}} reviews</h4>
@@ -58,8 +68,8 @@
     </h4>
     <div id="buttons">
       <h4 id="price">{{product.price | currency}}</h4>
-      <a class="button fancy-button" (click)="addToComparison(product)"><i class="material-icons">compare</i>+</a>
-      <a class="button fancy-button" (click)="addToCart(product)"><i class="material-icons">shopping_cart</i>Add to cart</a>
+      <button [disabled]="itemsInComparison.includes(product.id)" class="button fancy-button" (click)="addToComparison(product)"><i class="material-icons">compare</i>+</button>
+      <button class="button fancy-button" (click)="addToCart(product)"><i class="material-icons">shopping_cart</i>Add to cart</button>
     </div>
   </div>
 
@@ -71,13 +81,21 @@
   </div>
 
   <div id="reviews">
-    <h3>Reviews</h3>
-      <form [formGroup]="reviewForm" (ngSubmit)="submit()">
-        <p>Add your review</p>
-        <p id="inputName">
-          Your name
-          <input type="text" name="userName" formControlName="userName">
+    <h3 *ngIf="product?.reviews;else noReviews">Reviews</h3>
+    <h3 *ngIf="!isLogged"><a [routerLink]="'/login'" style="text-decoration: underline">Log In</a> To Send Your Review</h3>
+    <ng-template #noReviews><h3>No User Reviews Yet</h3></ng-template>
+      <form [formGroup]="reviewForm" (ngSubmit)="submit()" *ngIf="(user | async) as user">
+        <p>Add Your Review</p>
+        <p class="inputName" *ngIf="user?.personalInfo.firstName;else noPersonalInfo">
+          Your Username: {{user?.personalInfo.firstName}} {{user?.personalInfo.secondName}}
+          <input type="hidden" value="{{user?.personalInfo.firstName}} {{user?.personalInfo.secondName}}" #userName>
         </p>
+        <ng-template #noPersonalInfo>
+          <p class="inputName">
+            Your Username: id{{user?.uid.slice(0, 6)}}
+            <input type="hidden" value="id{{user?.uid.slice(0, 6)}}" #userName>
+          </p>
+        </ng-template>
         <div id="formContainer">
           <div class="rating-area">
             <input type="radio" id="star-5" name="rating" value="5" formControlName="rating">
@@ -139,4 +157,3 @@
     </h4>
   </div>
 </div>
-

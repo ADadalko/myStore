@@ -142,7 +142,7 @@ export class CartService {
         cart.bill = 0
         newCart.forEach(item => {
           cart.items.push(item)
-          cart.bill += item.price
+          cart.bill += item.price * item.quantity
         })
         this.cartsRef.set((cart), {merge: true})
       })
@@ -227,6 +227,7 @@ export class CartService {
               })
           })
       })
+    this.clearCart()
   }
 }
 

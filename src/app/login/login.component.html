@@ -14,16 +14,16 @@
                placeholder="E-Mail"
                formControlName="email">
         <div *ngIf="(email.invalid && email.touched) || email.dirty">
-          <span *ngIf="email.errors?.required">E-Mail is required</span>
-          <span *ngIf="email.errors?.pattern">Provide A Valid E-Mail</span>
+          <span class="redMessage" *ngIf="email.errors?.required">E-Mail is required</span>
+          <span class="redMessage" *ngIf="email.errors?.pattern">Provide A Valid E-Mail</span>
         </div>
         <input type="password"
                [class.is-invalid]="form.get('password').invalid && form.get('password').touched"
                placeholder="Password"
                formControlName="password">
         <div *ngIf="(password.invalid && password.touched) || password.dirty">
-          <span *ngIf="password.errors?.required">Password is required</span>
-          <span *ngIf="password.errors?.pattern">Provide A Valid Password</span>
+          <span class="redMessage" *ngIf="password.errors?.required">Password is required</span>
+          <span class="redMessage" *ngIf="password.errors?.pattern">Provide A Valid Password</span>
         </div>
       </form>
       <button [disabled]="form.invalid" (click)="onSignup(email.value, password.value)">Sign up</button>
@@ -42,16 +42,16 @@
                placeholder="E-Mail"
                formControlName="email">
         <div *ngIf="(email.invalid && email.touched) || email.dirty">
-          <span *ngIf="email.errors?.required">E-Mail is required</span>
-          <span *ngIf="email.errors?.pattern">Provide A Valid E-Mail</span>
+          <span class="redMessage" *ngIf="email.errors?.required">E-Mail is required</span>
+          <span class="redMessage" *ngIf="email.errors?.pattern">Provide A Valid E-Mail</span>
         </div>
         <input type="password"
                [class.is-invalid]="form.get('password').invalid && form.get('password').touched"
                placeholder="Password"
                formControlName="password">
         <div *ngIf="(password.invalid && password.touched) || password.dirty">
-          <span *ngIf="password.errors?.required">Password is required</span>
-          <span *ngIf="password.errors?.pattern">Provide A Valid Password</span>
+          <span class="redMessage" *ngIf="password.errors?.required">Password is required</span>
+          <span class="redMessage" *ngIf="password.errors?.pattern">Provide A Valid Password</span>
         </div>
       </form>
       <button [disabled]="form.invalid" (click)="onSignin(email.value, password.value)">Sign in</button>

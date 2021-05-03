@@ -8,11 +8,50 @@
   z-index: 1;
 }
 
+#cartAndPayment button{
+  display: inline;
+  padding: 0;
+}
+
 hr{
   border: none;
   margin: 0;
   border-top: 1px solid #f73859;
   text-align: center;
+}
+
+#comparisonDiv {
+  position: fixed;
+  background-color: #3d3d3d;
+  right: 5%;
+  bottom: 5%;
+  z-index: 3;
+  padding: 1vw;
+  font-size: 2vw;
+  display: none;
+  transition: 0.3s;
+  color: #97dc32;
+}
+
+#comparisonDiv button{
+  font-size: 1.5vw;
+  padding: 0;
+}
+
+#comparisonDiv button:hover{
+  opacity: 0.7;
+  background-color: #616161;
+}
+
+#comparisonDiv:hover{
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+#comparisonDiv:disabled{
+  opacity: 1;
+  color: #f73859;
+  cursor: auto;
 }
 
 .smallHr{
@@ -96,6 +135,7 @@ button:disabled{
   position: fixed;
   display: grid;
   background-color: #3d3d3d;
+  margin-left: 7vw;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
@@ -104,7 +144,6 @@ button:disabled{
   display: flex;
   align-items: center;
   padding: 10px;
-  width: 1fr;
   vertical-align: center;
 }
 
@@ -213,6 +252,10 @@ i.material-icons{
   font-size: 1.5vw;
 }
 
+.search:focus{
+  outline: none;
+}
+
 @media only screen
 and (max-device-width: 736px)
 and (min-device-width: 414px)
@@ -221,17 +264,31 @@ and (min-device-width: 414px)
     display: grid;
     width: 100%;
     grid-template-columns: 0.1fr 0.1fr 1fr 1fr;
+    justify-items: center;
     gap: 5px;
     align-items: center;
+  }
+  #cartAndPayment{
+    text-align: center;
   }
   input{
     border-radius: 20px;
   }
   .search{
-    margin: 0;
+    font-size: 4vw;
+    width: 100%;
   }
-  #cartAndPayment a:nth-child(3), #cartAndPayment a:nth-child(4){
-    display: none;
+  #comparisonDiv{
+    font-size: 3vw;
+    padding: 2vw;
+  }
+  #comparisonDiv button{
+    font-size: 2.5vw;
+    padding: 2vw;
+    background-color: #616161;
+  }
+  #mySidenav{
+    margin-top: 90px;
   }
 }
 

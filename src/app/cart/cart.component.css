@@ -98,4 +98,11 @@ and (min-device-width: 414px)
     width: 6vw;
     font-size: 6vw;
   }
+  #clear{
+    font-size: 5vw;
+    width: 5vw;
+  }
+  button{
+    font-size: 4vw;
+  }
 }

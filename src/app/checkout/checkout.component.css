@@ -12,6 +12,10 @@
   margin-right: 10px;
 }
 
+button:disabled{
+  opacity: 0.5;
+}
+
 .viewBox{
   text-align: center;
   width: 50%;
@@ -64,7 +68,7 @@ button{
 }
 
 #thanks a{
-  color: #f73859;
+  color: #97dc32;
   font-size: 20vw;
 }
 
@@ -185,10 +189,11 @@ hr{
 and (max-device-width: 736px)
 and (min-device-width: 414px)
 {
-  .card{
-    width: 300px;
+  button{
+    font-size: 4vw;
   }
-  .backCard{
-    width: 300px;
+  .viewBox{
+    width: 65%;
+    margin: 1.5%;
   }
 }

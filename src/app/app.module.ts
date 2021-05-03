@@ -15,11 +15,13 @@ import { CartComponent } from './cart/cart.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { environment } from '../environments/environment';
 import { CheckoutComponent } from './checkout/checkout.component';
-import { SearchPipe } from './search.pipe';
+import { SearchPipe } from './pipes/search.pipe';
 import { ComparisonComponent } from './comparison/comparison.component';
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
-import {CheckoutGuard} from './checkout.guard';
+import {CheckoutGuard} from './guards/checkout.guard';
+import {ComparisonGuard} from './guards/comparison.guard';
+import { FullSearchPipe } from './pipes/full-search.pipe';
 
 @NgModule({
   imports: [
@@ -36,7 +38,7 @@ import {CheckoutGuard} from './checkout.guard';
       {path: 'products/:productId', component: ProductDetailsComponent},
       {path: 'cart', component: CartComponent},
       {path: 'checkout', component: CheckoutComponent, canActivate: [CheckoutGuard]},
-      {path: 'comparison', component: ComparisonComponent},
+      {path: 'comparison', component: ComparisonComponent, canActivate: [ComparisonGuard]},
       {path: 'login', component: LoginComponent},
     ]),
     FormsModule,
@@ -53,10 +55,14 @@ import {CheckoutGuard} from './checkout.guard';
     ComparisonComponent,
     LoginComponent,
     UserComponent,
+    FullSearchPipe,
+  ],
+  providers: [
+    FullSearchPipe,
   ],
   bootstrap: [
     AppComponent
-  ]
+  ],
 })
 export class AppModule { }
 

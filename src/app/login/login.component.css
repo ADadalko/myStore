@@ -5,6 +5,10 @@
   text-align: center;
 }
 
+.redMessage{
+  color: #f73859;
+}
+
 img{
   width: 15%;
   justify-self: center;
