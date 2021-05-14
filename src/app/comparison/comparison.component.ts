@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
   templateUrl: './comparison.component.html',
   styleUrls: ['./comparison.component.css']
 })
-export class ComparisonComponent implements OnInit, OnDestroy {
+export class ComparisonComponent implements OnInit {
   items: Observable<Product[]>;
   chars = [];
 
@@ -24,7 +24,6 @@ export class ComparisonComponent implements OnInit, OnDestroy {
     this.localSt.watch('comparison').subscribe(t=>{
       if(t.id.length < 2 && this.router.url == '/comparison') this.router.navigateByUrl('/')
       this.items = this.productService.getComparison()
-      document.getElementById('comparisonDiv').style.display = 'none'
     })
   }
 
@@ -32,11 +31,9 @@ export class ComparisonComponent implements OnInit, OnDestroy {
     this.productService.clearComparison();
   }
 
-  ngOnDestroy(): void {
-    if(this.productService.getComparison()) document.getElementById('comparisonDiv').style.display = 'block'
-  }
 
-  deleteComparisonItem(id: number) {
-    this.productService.deleteComparisonItem(id)
+  deleteComparisonItem(id: number, length: number) {
+    if(length == 2) this.clearComparison()
+    else this.productService.deleteComparisonItem(id)
   }
 }

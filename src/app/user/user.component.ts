@@ -44,10 +44,10 @@ export class UserComponent implements OnInit, AfterViewInit {
   });
 
   delivery = this.fb.group({
-    city: ['', [Validators.required]],
-    street: ['', [Validators.required]],
-    house: ['', [Validators.required]],
-    flat: ['', [Validators.required]]
+    city: ['', [Validators.required, Validators.maxLength(40)]],
+    street: ['', [Validators.required, Validators.maxLength(40)]],
+    house: ['', [Validators.required, Validators.min(1)]],
+    flat: ['', [Validators.required, Validators.min(1)]]
   });
 
   card = this.fb.group({
@@ -60,7 +60,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   personalInfo = this.fb.group({
     firstName: ['', [Validators.required]],
     secondName: ['', [Validators.required]],
-    birthDay: ['', [Validators.required]],
+    birthDay: ['', [Validators.required, Validators.minLength(10), Validators.pattern('[1-2]{1}[0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])')]],
   });
 
   constructor(public loginService: LoginService,
@@ -71,7 +71,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
     let yyyy = today.getFullYear();
     this.max = `${yyyy}-${mm}-${dd}`;
   }
@@ -104,13 +104,9 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
 
   addCard(uid: string, number: string, month: string, year: string, cvv: string) {
-    if (parseInt(month) < 1 || parseInt(month) > 12) {
-      this.month.nativeElement.value = 1;
-    }
-    if (parseInt(year) < 2021 || parseInt(year) > 2025) {
-      this.year.nativeElement.value = 2021;
-    }
-    this.loginService.addCardInfo(uid, number, month, year, cvv);
+    if (parseInt(year) == parseInt(this.max.slice(0, 4)) && parseInt(month) < parseInt(this.max.slice(5, 7)) ) {
+      this.loginService.addCardInfo(uid, number, this.max.slice(5, 7), year, cvv);
+    }else this.loginService.addCardInfo(uid, number, month, year, cvv);
     this.card.reset();
     this.updateCardInfo = false;
   }
@@ -126,23 +122,6 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.isLogOut.emit();
   }
 
-  outMonth(month: string) {
-    if (month.length == 1) {
-      this.month.nativeElement.value = 0 + month;
-    }
-    if (month == '0') {
-      this.month.nativeElement.value = '01';
-    }
-    if (parseInt(month) > 12) {
-      this.month.nativeElement.value = '12';
-    }
-  }
-
-  outYear(year: string) {
-    if (parseInt(year) < this.currentYear || parseInt(year) > this.currentYear + 50) {
-      this.year.nativeElement.value = this.currentYear;
-    }
-  }
 
   updateInfo(oldEmail: string, oldPassword: string, email: string, password: string, confirmPassword: string) {
     this.loginService.signIn(oldEmail, oldPassword)
@@ -152,6 +131,12 @@ export class UserComponent implements OnInit, AfterViewInit {
       this.updateUserInfo = false
     } else {
       this.productService.popup('popupInvalidConfirm', "Passwords Doesn't Match")
+    }
+  }
+
+  setBirthday(value: string) {
+    if(parseInt(value.slice(0, 4)) < 1920 || parseInt(value.slice(0, 4)) > 2020) {
+      this.birthDay.nativeElement.value =  ''
     }
   }
 }

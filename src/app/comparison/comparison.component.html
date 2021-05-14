@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="comparisonItem" *ngFor="let item of items">
-      <button class="material-icons" (click)="deleteComparisonItem(item.id)">clear</button>
+      <button class="material-icons" (click)="deleteComparisonItem(item.id, items.length)">clear</button>
       <h3 class="model">{{item.model}}</h3>
       <img [src]="item.img">
       <h4 class="description">{{item.description}}</h4>

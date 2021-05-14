@@ -28,15 +28,11 @@ export class TopBarComponent implements OnInit, OnChanges {
   productsForSearch = [];
   productsName: string;
   comparisonLength: number = 0;
-  comparison
+  comparison;
   types = [];
   vendors = [];
-  form = this.fb.group({
-    type: ['', [Validators.required]],
-    vendor: ['', [Validators.required]],
-    minPrice: ['', [Validators.required]],
-    maxPrice: ['', [Validators.required]]
-  })
+  filters = [];
+  disableType;
   logged: string = localStorage.getItem('user');
 
 
@@ -51,92 +47,117 @@ export class TopBarComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.cart = this.cartService.getCart()
-    this.comparison = this.localSt.watch('comparison').subscribe(t=>{
-      this.comparisonLength = t?.id.length
-      this.productService.getComparison()
-      if(t?.id.length) document.getElementById('comparisonDiv').style.display = 'block'
+    this.cart = this.cartService.getCart();
+    this.comparison = this.localSt.watch('comparison').subscribe(t => {
+      this.comparisonLength = t?.id.length;
+      this.productService.getComparison();
+      if (t?.id.length) {
+        document.getElementById('comparisonDiv').style.display = 'block';
+      }
     });
-    this.productService.getProducts('type', 'all').subscribe(products=>{
+    this.productService.getProducts('type', 'all').subscribe(products => {
       products.forEach(product => {
         this.productsForSearch.push(product);
-        if(!this.types.includes(product.type)) this.types.push(product.type)
-        if(!this.vendors.includes(product.vendor)) this.vendors.push(product.vendor)
-      })
-    })
+        if (!this.types.includes(product.type)) {
+          this.types.push(product.type);
+        }
+        if (!this.vendors.includes(product.vendor)) {
+          this.vendors.push(product.vendor);
+        }
+      });
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if(!this.logged) document.getElementById('logOut').style.display = 'none'
-  }
-
-  openNav(): void{
-    document.getElementById("mySidenav").style.width == "0px"?
-      document.getElementById("mySidenav").style.width = "250px":
-        document.getElementById("mySidenav").style.width = "0px";
-  }
-
-  changeType(type: string) {
-    if(this.form.get('type').value) {
-      document.getElementById(this.form.get('type').value).style.border = 'none'
-      this.form.get('type').setValue(type)
-      document.getElementById(this.form.get('type').value).style.border = '2px solid #f73859'
-    } else {
-      this.form.get('type').setValue(type)
-      document.getElementById(this.form.get('type').value).style.border = '2px solid #f73859'
+    if (!this.logged) {
+      document.getElementById('logOut').style.display = 'none';
     }
   }
 
-  changeVendor(vendor: string) {
-    if(this.form.get('vendor').value) {
-      document.getElementById(this.form.get('vendor').value).style.border = 'none'
-      this.form.get('vendor').setValue(vendor)
-      document.getElementById(this.form.get('vendor').value).style.border = '2px solid #f73859'
-    } else {
-      this.form.get('vendor').setValue(vendor)
-      document.getElementById(this.form.get('vendor').value).style.border = '2px solid #f73859'
-    }
-  }
-
-  clearForm() {
-    if(document.getElementById(this.form.get('type').value)) {
-      document.getElementById(this.form.get('type').value).style.border = 'none'
-    }
-    if(document.getElementById(this.form.get('vendor').value)){
-      document.getElementById(this.form.get('vendor').value).style.border = 'none'
-    }
-    this.form.reset()
-  }
-
-  validateMax(value: string) {
-    if(value < this.min.nativeElement.value)
-      this.max.nativeElement.value = this.min.nativeElement.value
+  openNav(): void {
+    document.getElementById('mySidenav').style.width == '0px' ?
+      document.getElementById('mySidenav').style.width = '250px' :
+      document.getElementById('mySidenav').style.width = '0px';
   }
 
   logOut() {
-    document.getElementById('logOut').style.display = 'none'
-    this.loginService.logOut()
+    document.getElementById('logOut').style.display = 'none';
+    this.loginService.logOut();
   }
 
   isLogged(): boolean {
-    return Boolean(localStorage.getItem('user'))
+    return Boolean(localStorage.getItem('user'));
   }
 
   isComparisonDisabled(): boolean {
-    if(localStorage.getItem('comparison')) return JSON.parse(localStorage.getItem('comparison')).id.length >= 2;
-    else return false
+    if (localStorage.getItem('comparison')) {
+      return JSON.parse(localStorage.getItem('comparison')).id.length >= 2;
+    } else {
+      return false;
+    }
   }
 
   clearComparison() {
-    this.productService.clearComparison()
+    this.productService.clearComparison();
   }
 
   searchFor(productsName: string) {
-    let searchItems = this.fullSearchPipe.transform(this.productsForSearch, productsName)
-    let ids = [];
-    searchItems.forEach(item=>{
-      ids.push(item.id)
+    this.router.navigate(['/products'], {queryParams: {q: productsName}});
+  }
+
+  pushedButton(cat: string, value: string) {
+    let agree = true
+    if(cat == 'minPrice' || cat == 'maxPrice'){
+      this.filters.forEach(filter=>{
+        if(filter[0] == cat) {
+          filter[1] = value
+          agree = false
+        }
+      })
+    }
+    if(agree){
+      if(value!= '') this.filters.push([cat, value]);
+      if (cat != 'minPrice' && cat != 'maxPrice' && cat != 'types') document.getElementById(value).style.border = '2px solid #f73859';
+    }
+    if(cat == 'types') {
+      document.getElementById('phones').style.border = 'none';
+      document.getElementById('trackers').style.border = 'none';
+      document.getElementById('watches').style.border = 'none';
+      document.getElementById('tablets').style.border = 'none';
+      document.getElementById('tvs').style.border = 'none';
+      document.getElementById(value).style.border = '2px solid #f73859';
+    }
+  }
+
+  clearFilters() {
+    this.min.nativeElement.value = '';
+    this.max.nativeElement.value = '';
+    this.filters.forEach(item => {
+      if (item[0] != 'minPrice' && item[0] != 'maxPrice') {
+        document.getElementById(item[1]).style.border = 'none';
+      }
     })
-    this.router.navigate(['/products'], { queryParams: { ids: ids.toString(), type: 'search'} });
+    this.filters = []
+  }
+
+  submitFilters() {
+    let types = [];
+    let type = ''
+    let vendors = [];
+    let minPrice = 0;
+    let maxPrice = 0;
+    this.filters.forEach(filter=>{
+      if(filter[0] == 'types') {
+        if(!types.includes(filter[1])) types.push(filter[1])
+      }
+      if(filter[0] == 'vendors') {
+        if(!vendors.includes(filter[1])) vendors.push(filter[1])
+      }
+      if(filter[0] == 'minPrice') minPrice = filter[1]
+      if(filter[0] == 'maxPrice') maxPrice = filter[1]
+    })
+    if(types.length > 0) type = types[types.length-1]
+    this.router.navigate(['/products'], {queryParams: {types: type, vendors: vendors, minPrice: minPrice, maxPrice: maxPrice}});
+    this.clearFilters()
   }
 }

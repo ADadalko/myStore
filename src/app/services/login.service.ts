@@ -4,9 +4,6 @@ import firebase from 'firebase';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Observable} from 'rxjs';
 import {User} from '../models/user';
-import {Cart} from '../models/cart';
-import {Address} from '../models/address.model';
-import {Card} from '../models/card.model';
 import Timestamp = firebase.firestore.Timestamp;
 import {ProductService} from './product.service';
 

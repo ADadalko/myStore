@@ -1,17 +1,18 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Cart} from '../models/cart';
 import {CartService} from '../services/cart.service';
 import {User} from '../models/user';
 import {LoginService} from '../services/login.service';
 import {FormBuilder, Validators} from '@angular/forms';
+import {luhnValidator} from '../luhnValidator';
 
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css']
 })
-export class CheckoutComponent implements OnInit {
+export class CheckoutComponent implements OnInit, AfterViewInit {
 
   cart: Observable<Cart>;
   user: Observable<User>;
@@ -21,16 +22,18 @@ export class CheckoutComponent implements OnInit {
   @ViewChild('month') month: ElementRef;
   @ViewChild('year') year: ElementRef;
   content: string = 'delivery';
+  max: string;
+
 
   delivery = this.fb.group({
-    city: ['', [Validators.required]],
-    street: ['', [Validators.required]],
-    house: ['', [Validators.required]],
-    flat: ['', [Validators.required]]
+    city: ['', [Validators.required, Validators.maxLength(40)]],
+    street: ['', [Validators.required, Validators.maxLength(40)]],
+    house: ['', [Validators.required, Validators.min(1)]],
+    flat: ['', [Validators.required, Validators.min(1)]]
   });
 
   card = this.fb.group({
-    number: ['', [Validators.required]],
+    number: ['', [Validators.required, luhnValidator()]],
     month: ['', [Validators.required]],
     year: ['', [Validators.required]],
     cvv: ['', [Validators.required]]
@@ -41,6 +44,14 @@ export class CheckoutComponent implements OnInit {
     private loginService: LoginService,
     private fb: FormBuilder
     ) {}
+
+  ngAfterViewInit(): void{
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
+    let yyyy = today.getFullYear();
+    this.max = `${yyyy}-${mm}-${dd}`;
+  }
 
   ngOnInit(): void {
    this.cart = this.cartService.getCart();
@@ -54,31 +65,11 @@ export class CheckoutComponent implements OnInit {
   }
 
   addCard(uid: string, number: string, month: string, year: string, cvv: string) {
-    if(parseInt(month) < 1 || parseInt(month) > 12)
-      this.month.nativeElement.value = 1
-    if(parseInt(year) < 2021 || parseInt(year) > 2025)
-      this.year.nativeElement.value = 2021
-    this.loginService.addCardInfo(uid, number, month, year, cvv)
+    if (parseInt(year) == parseInt(this.max.slice(0, 4)) && parseInt(month) < parseInt(this.max.slice(5, 7)) ) {
+      this.loginService.addCardInfo(uid, number, this.max.slice(5, 7), year, cvv);
+    }else this.loginService.addCardInfo(uid, number, month, year, cvv);
     this.card.reset()
     this.updateCard = false;
-  }
-
-  outMonth(month: string) {
-    if (month.length == 1) {
-      this.month.nativeElement.value = 0 + month;
-    }
-    if (month == '0' || month == '00') {
-      this.month.nativeElement.value = '01';
-    }
-    if (parseInt(month) > 12) {
-      this.month.nativeElement.value = '12';
-    }
-  }
-
-  outYear(year: string) {
-    if (parseInt(year) < this.currentYear || parseInt(year) > this.currentYear + 50) {
-      this.year.nativeElement.value = this.currentYear;
-    }
   }
 
   purchase(email: string,

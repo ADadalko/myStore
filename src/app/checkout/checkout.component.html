@@ -15,8 +15,8 @@
           <img style="width: 10vw" [src]="item?.img">
           <h4>{{item?.price | currency}}</h4>
           <h4>{{item?.quantity}} Item(s)</h4>
-          <h4 id="fullPrice">{{cart?.bill | currency}}</h4>
         </div>
+        <h4 id="fullPrice">{{cart?.bill | currency}}</h4>
       </div>
     </div>
 
@@ -34,12 +34,12 @@
         <h4>Update Your Delivery Information</h4>
         <form [formGroup]="delivery">
           <input type="hidden" [value]="user?.uid" #uid>
-          <input [(ngModel)]="user?.address.addressCity" type="text" formControlName="city" placeholder="City" #city>
-          <input [(ngModel)]="user?.address.addressStreet" type="text" formControlName="street" placeholder="Street"
+          <input type="text" formControlName="city" placeholder="City" #city>
+          <input type="text" formControlName="street" placeholder="Street"
                  #street>
-          <input [(ngModel)]="user?.address.addressHouse" type="number" formControlName="house"
-                 placeholder="House Number" min="1" #house>
-          <input [(ngModel)]="user?.address.addressFlat" type="number" formControlName="flat" placeholder="Flat" min="1"
+          <input type="number" formControlName="house" placeholder="House Number"
+                 #house>
+          <input type="number" formControlName="flat" placeholder="Flat"
                  #flat>
         </form>
         <button class="continue" (click)="updateDelivery = false">Go Back</button>
@@ -56,8 +56,8 @@
           <input type="hidden" [value]="user?.uid" #uid>
           <input type="text" formControlName="city" placeholder="City" #city>
           <input type="text" formControlName="street" placeholder="Street" #street>
-          <input type="number" formControlName="house" placeholder="House Number" min="1" #house>
-          <input type="number" formControlName="flat" placeholder="Flat" min="1" #flat>
+          <input type="number" formControlName="house" placeholder="House Number" #house>
+          <input type="number" formControlName="flat" placeholder="Flat" #flat>
         </form>
         <button class="centerButton" (click)="addDelivery(uid.value, city.value, street.value, house.value, flat.value)"
                 [disabled]="delivery.invalid">Add Delivery Info
@@ -93,11 +93,12 @@
                      autocomplete="cc-number" minlength="16" maxlength="16" placeholder="xxxxxxxxxxxxxxxx">
             </div>
             <div id="expires">
-              <input (focusout)="outMonth(month.value)" #month type="tel" formControlName="month"
-                     autocomplete="cc-exp-month" placeholder="ММ" maxlength="2">
+              <input #month type="tel" formControlName="month" pattern="0[1-9]|1[0-2]"
+                     autocomplete="cc-exp-month" placeholder="ММ" minlength="2" maxlength="2">
               <span>/</span>
-              <input (focusout)="outYear(year.value)" #year type="tel" formControlName="year"
-                     autocomplete="cc-exp-year" placeholder="YY">
+              <input #year type="tel" formControlName="year"
+                     pattern="20(2[1-9]|3[0-9]|4[0-9]|5[0-9]|6[0-9]|7[0-9]|8[0-9]|9[0-9])"
+                     autocomplete="cc-exp-year" placeholder="YYYY" maxlength="4" minlength="4">
             </div>
           </div>
           <div class="backCard">

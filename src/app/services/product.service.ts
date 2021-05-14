@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
+import {async, Observable, of} from 'rxjs';
 import {Product} from '../models/product';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {map} from 'rxjs/operators';
+import {map, max} from 'rxjs/operators';
 import firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
 import {LocalstorageService} from './localstorage.service';
@@ -33,31 +33,101 @@ export class ProductService {
     }
   }
 
-  getProductsByFilters(type: string, vendor: string, minPrice: string, maxPrice: string): Observable<Product[]> {
-    return this.db.collection<Product>('products', ref =>
-      ref.where('type', '==', type)
-        .where('vendor', '==', vendor)
-        .where('price', '>=', parseInt(minPrice))
-        .where('price', '<=', parseInt(maxPrice)))
-      .valueChanges()
-      .pipe(
-        map(products => {
-          return products;
-        })
-      );
+  getProductsByFilters(type, vendors, minPrice, maxPrice): Observable<Product[]> {
+    if(type && vendors.length && minPrice != 0 && maxPrice != 0) {
+      return this.db.collection<Product>('products', ref =>
+        ref.where('type', '==', type)
+          .where('vendor', 'in', vendors)
+          .where('price', '>=', parseInt(minPrice))
+          .where('price', '<=', parseInt(maxPrice))).valueChanges()
+    }
+    if(!type && vendors.length && minPrice != 0 && maxPrice != 0) {
+      return this.db.collection<Product>('products', ref =>
+        ref.where('vendor', 'in', vendors)
+          .where('price', '>=', parseInt(minPrice))
+          .where('price', '<=', parseInt(maxPrice))).valueChanges()
+    }
+    if(type && !vendors.length && minPrice != 0 && maxPrice != 0) {
+      return this.db.collection<Product>('products', ref =>
+        ref.where('type', '==', type)
+          .where('price', '>=', parseInt(minPrice))
+          .where('price', '<=', parseInt(maxPrice))).valueChanges()
+    }
+    if(type && vendors.length && minPrice == 0 && maxPrice != 0) {
+      return this.db.collection<Product>('products', ref =>
+        ref.where('type', '==', type)
+          .where('vendor', 'in', vendors)
+          .where('price', '<=', parseInt(maxPrice))).valueChanges()
+    }
+    if(type && vendors.length && minPrice != 0 && maxPrice == 0) {
+      return this.db.collection<Product>('products', ref =>
+        ref.where('type', '==', type)
+          .where('vendor', 'in', vendors)
+          .where('price', '>=', parseInt(minPrice))).valueChanges()
+    }
+    if(type && !vendors.length && minPrice == 0 && maxPrice == 0) {
+      return this.db.collection<Product>('products', ref =>
+        ref.where('type', '==', type)).valueChanges()
+    }
+    if(!type && vendors.length && minPrice == 0 && maxPrice == 0) {
+      console.log(vendors)
+      return this.db.collection<Product>('products', ref =>
+        ref.where('vendor', 'in', vendors)).valueChanges()
+    }
+    if(!type && !vendors.length && minPrice != 0 && maxPrice == 0) {
+      return this.db.collection<Product>('products', ref =>
+        ref.where('price', '>=', parseInt(minPrice))).valueChanges()
+    }
+    if(!type && !vendors.length && minPrice == 0 && maxPrice != 0) {
+      return this.db.collection<Product>('products', ref =>
+        ref.where('price', '<=', parseInt(maxPrice))).valueChanges()
+    }
+    if(!type && !vendors.length && minPrice != 0 && maxPrice != 0) {
+      return this.db.collection<Product>('products', ref =>
+        ref.where('price', '<=', parseInt(maxPrice))
+          .where('price', '>=', parseInt(minPrice))).valueChanges()
+    }
+    if(type && vendors.length && minPrice == 0 && maxPrice == 0) {
+      return this.db.collection<Product>('products', ref =>
+        ref.where('type', '==', type)
+          .where('vendor', 'in', vendors)).valueChanges()
+    }
+    if(type && !vendors.length && minPrice == 0 && maxPrice != 0) {
+      return this.db.collection<Product>('products', ref =>
+        ref.where('type', '==', type)
+          .where('price', '<=', parseInt(maxPrice))).valueChanges()
+    }
+    if(!type && vendors.length && minPrice != 0 && maxPrice == 0) {
+      return this.db.collection<Product>('products', ref =>
+        ref.where('vendor', 'in', vendors)
+          .where('price', '>=', parseInt(minPrice))).valueChanges()
+    }
+    if(type && !vendors.length && minPrice != 0 && maxPrice == 0) {
+      return this.db.collection<Product>('products', ref =>
+        ref.where('type', '==', type)
+          .where('price', '>=', parseInt(minPrice))).valueChanges()
+    }
+    if(!type && vendors.length && minPrice == 0 && maxPrice != 0) {
+      return this.db.collection<Product>('products', ref =>
+        ref.where('vendor', 'in', vendors)
+          .where('price', '<=', parseInt(maxPrice))).valueChanges()
+    }
+    return this.db.collection<Product>('products').valueChanges()
   }
 
   getProductById(id: number): Observable<Product[]> {
     return this.db.collection<Product>('products', ref => ref.where('id', '==', id)).valueChanges();
   }
 
-  getSearchProducts(ids: string): Observable<Product[]> {
-    let arr = [];
-    ids.split(',').forEach(item=>{
-      arr.push(parseInt(item))
-    })
-    return this.db.collection<Product>('products', ref => ref.where('id', 'in', arr)).valueChanges()
+  getSearchProducts(q: string, models): Observable<Product[]> {
+    let arr = []
+    if(typeof models != 'string'){
+      arr = models.filter(val => val.toLowerCase().indexOf(q.toLowerCase()) >= 0)
+      if(arr.length != 0) return this.db.collection<Product>('products', ref => ref.where('model', 'in', arr.slice(0, 9))).valueChanges()
+      else return this.db.collection<Product>('products', ref => ref.where('model', 'in', [100])).valueChanges()
+    }
   }
+
 
   addReview(user: string, review: string, rating: number, date: Timestamp, productId: number): void {
     const product = {

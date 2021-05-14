@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { ProductService } from '../services/product.service';
 import {Observable} from 'rxjs';
 import {Product} from '../models/product';
-import {switchMap} from 'rxjs/operators';
+import {map, switchMap} from 'rxjs/operators';
 import {CartService} from '../services/cart.service';
 import {LocalstorageService} from '../services/localstorage.service';
 
@@ -18,6 +18,8 @@ export class ProductListComponent implements OnInit {
   products: Observable<Product[]>;
   itemsInComparison = [];
   comparison
+  ddd
+  models = []
 
   constructor(private productService: ProductService,
               private router: Router,
@@ -37,16 +39,21 @@ export class ProductListComponent implements OnInit {
         this.itemsInComparison = t?.id
       }
     })
-    this.products = this.activateRoute.queryParams.pipe(switchMap(product => {
-      if(Object.entries(product).length == 4) return this.productService.getProductsByFilters(
-        Object.entries(product)[0][1],
-        Object.entries(product)[1][1],
-        Object.entries(product)[2][1],
-        Object.entries(product)[3][1],
+    this.ddd = this.productService.getProducts('type', 'all').subscribe(t=>{
+      t.forEach(models=>{
+        this.models.push(models.model)
+      })
+      this.products = this.activateRoute.queryParams.pipe(switchMap(product => {
+        if(Object.entries(product).length == 4) return this.productService.getProductsByFilters(
+          Object.entries(product)[0][1],
+          Object.entries(product)[1][1],
+          Object.entries(product)[2][1],
+          Object.entries(product)[3][1],
         );
-      if(Object.entries(product).length == 2) return this.productService.getSearchProducts(Object.entries(product)[0][1])
-      else return this.productService.getProducts(Object.entries(product)[0][0], Object.entries(product)[0][1]);
-    }));
+        if(Object.entries(product)[0][0] == 'q') return this.productService.getSearchProducts(Object.entries(product)[0][1], this.models)
+        else return this.productService.getProducts(Object.entries(product)[0][0], Object.entries(product)[0][1]);
+      }));
+    })
   }
 
   addToComparison(product: Product){

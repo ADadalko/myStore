@@ -51,7 +51,11 @@ export class ProductDetailsComponent implements OnInit{
       this.isLogged = true
       this.user = this.loginService.getUser();
     }
-    if(this.localSt.get('comparison')) this.itemsInComparison = this.localSt.get('comparison').id
+    this.localSt.watch('comparison').subscribe(t=>{
+      if(t?.id) {
+        this.itemsInComparison = t?.id
+      }
+    })
     this.products = this.activateRoute.params.pipe(switchMap(params=>{
       this.productId = parseInt(params['productId']);
       return this.productService.getProductById(this.productId).pipe(

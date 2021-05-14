@@ -22,7 +22,7 @@
   </div>
 
   <div class="cart-item" *ngFor="let item of cart?.items">
-    <button id="clear" (click)="removeItem(item.model)" class="material-icons">clear</button>
+    <button id="clear" (click)="removeItem(item.model, cart.items.length)" class="material-icons">clear</button>
     <div id="itemGrid" [style.opacity]="!item.quantity ? '0.3' : 'unset'">
       <h3>{{ item.model }}</h3>
       <img [src]="item.img">

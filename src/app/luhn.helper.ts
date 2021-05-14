@@ -1,5 +1,5 @@
 export const luhnCheck = (cardNumber: string): boolean => {
-  if(!cardNumber.length){
+  if(!cardNumber?.length){
     return;
   }
   cardNumber = cardNumber.replace(/\s/g,'');
