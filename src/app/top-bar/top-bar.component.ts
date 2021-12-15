@@ -148,7 +148,9 @@ export class TopBarComponent implements OnInit, OnChanges {
     let maxPrice = 0;
     this.filters.forEach(filter=>{
       if(filter[0] == 'types') {
-        if(!types.includes(filter[1])) types.push(filter[1])
+        if(!types.includes(filter[1])) {
+          types.push(filter[1])
+        }
       }
       if(filter[0] == 'vendors') {
         if(!vendors.includes(filter[1])) vendors.push(filter[1])

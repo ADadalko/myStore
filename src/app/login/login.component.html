@@ -23,7 +23,7 @@
                formControlName="password">
         <div *ngIf="(password.invalid && password.touched) || password.dirty">
           <span class="redMessage" *ngIf="password.errors?.required">Password is required</span>
-          <span class="redMessage" *ngIf="password.errors?.pattern">Provide A Valid Password</span>
+          <span class="redMessage" *ngIf="password.errors?.pattern">Input string with at least 6 symbols</span>
         </div>
       </form>
       <button [disabled]="form.invalid" (click)="onSignup(email.value, password.value)">Sign up</button>
@@ -51,7 +51,7 @@
                formControlName="password">
         <div *ngIf="(password.invalid && password.touched) || password.dirty">
           <span class="redMessage" *ngIf="password.errors?.required">Password is required</span>
-          <span class="redMessage" *ngIf="password.errors?.pattern">Provide A Valid Password</span>
+          <span class="redMessage" *ngIf="password.errors?.pattern">Input string with at least 6 symbols</span>
         </div>
       </form>
       <button [disabled]="form.invalid" (click)="onSignin(email.value, password.value)">Sign in</button>
