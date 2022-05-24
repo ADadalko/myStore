@@ -1,34 +1,34 @@
 <div id="container">
   <div id="mySidenav">
-    <a (click)="openNav()" [routerLink]="['/products']" [queryParams]="{'type':'all'}">All Products</a>
+    <a (click)="openNav()" [routerLink]="['/products']" [queryParams]="{'type':'all'}">Все продукты</a>
     <hr>
-    <a (click)="openNav()" [routerLink]="['/products']" [queryParams]="{'type':'phones'}">Phones</a>
-    <a (click)="openNav()" [routerLink]="['/products']" [queryParams]="{'type':'tablets'}">Tablets</a>
-    <a (click)="openNav()" [routerLink]="['/products']" [queryParams]="{'type':'tvs'}">TVs</a>
-    <a (click)="openNav()" [routerLink]="['/products']" [queryParams]="{'type':'trackers'}">Fitness Trackers</a>
-    <a (click)="openNav()" [routerLink]="['/products']" [queryParams]="{'type':'watches'}">Smart Watches</a>
+    <a (click)="openNav()" [routerLink]="['/products']" [queryParams]="{'type':'phones'}">Смартфоны</a>
+    <a (click)="openNav()" [routerLink]="['/products']" [queryParams]="{'type':'tablets'}">Планшеты</a>
+    <a (click)="openNav()" [routerLink]="['/products']" [queryParams]="{'type':'tvs'}">Телевизоры</a>
+    <a (click)="openNav()" [routerLink]="['/products']" [queryParams]="{'type':'trackers'}">Фитнес-трекеры</a>
+    <a (click)="openNav()" [routerLink]="['/products']" [queryParams]="{'type':'watches'}">Смарт-часы</a>
     <hr>
-    <a>Filter</a>
+    <a>Фильтр</a>
     <div class="almostForm" style="text-align: center">
       <hr class="smallHr">
-      <a style="padding: 0">Category</a>
+      <a style="padding: 0">Категория</a>
       <button [class.clickedButton]="disableType == type" (click)="pushedButton('types', type)" *ngFor="let type of types" [id]="type">{{type | uppercase}}</button>
       <br>
       <hr class="smallHr">
-      <a style="padding: 0">Vendor</a>
+      <a style="padding: 0">Производитель</a>
       <button (click)="pushedButton('vendors', vendor)" *ngFor="let vendor of vendors" [id]="vendor">{{vendor | uppercase}}</button>
       <hr class="smallHr">
-      <a style="padding: 0">Price</a>
+      <a style="padding: 0">Цена</a>
       <div id="price">
-        <input (focusout)="pushedButton('minPrice', minPrice.value)" type="tel" pattern="[1-9]" placeholder="Min Price" #minPrice>
+        <input (focusout)="pushedButton('minPrice', minPrice.value)" type="tel" pattern="[1-9]" placeholder="Минимальная" #minPrice>
         <a style="display: inline; padding: 3px;">-</a>
-        <input (focusout)="pushedButton('maxPrice', maxPrice.value)" type="tel" pattern="[1-9]" placeholder="Max Price" #maxPrice>
+        <input (focusout)="pushedButton('maxPrice', maxPrice.value)" type="tel" pattern="[1-9]" placeholder="Максимальная" #maxPrice>
       </div>
     </div>
     <hr>
     <div id="buttons">
-      <button id="apply" (click)="openNav(); submitFilters()">Apply Filters</button>
-      <button (click)="clearFilters()">Clear Filters</button>
+      <button id="apply" (click)="openNav(); submitFilters()">Применить</button>
+      <button (click)="clearFilters()">Очистить</button>
     </div>
   </div>
   <div id="choices">
@@ -54,5 +54,5 @@
 
 <button [disabled]="comparisonLength<2" [routerLink]="'/comparison'" id="comparisonDiv">
   <button style="display: inline" (click)="clearComparison()" class="material-icons">clear</button>
-  {{comparisonLength}} Item(s) In Comparison
+  {{comparisonLength}} Товар(ов) в сравнении
 </button>

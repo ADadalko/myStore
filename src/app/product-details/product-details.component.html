@@ -1,12 +1,12 @@
 <h3 id="popupComparison">
   <a class="material-icons">check_circle</a>
   <br>
-  Added To Comparison
+  Добавлен в сравнение
 </h3>
 <h3 id="addedToCart">
   <a class="material-icons">check_circle</a>
   <br>
-  Added To Cart
+  Добавлен в корзину
 </h3>
 <div id="page" *ngFor="let product of products | async" xmlns="http://www.w3.org/1999/html">
 
@@ -18,10 +18,10 @@
     <div id="reviewsNumber">
       <div class="rating-result" [ngSwitch]="averageMark">
         <ng-template ngSwitchDefault>
-          <h4>No User Reviews Yet</h4>
+          <h4>Отзывов еще нет</h4>
         </ng-template>
         <ng-template ngSwitchCase="1">
-          <h4>{{numberOfMarks}} reviews</h4>
+          <h4>{{numberOfMarks}} отзыв(ов)</h4>
           <span class="active"></span>
           <span></span>
           <span></span>
@@ -29,7 +29,7 @@
           <span></span>
         </ng-template>
         <ng-template ngSwitchCase="2">
-          <h4>{{numberOfMarks}} reviews</h4>
+          <h4>{{numberOfMarks}} от</h4>
           <span class="active"></span>
           <span class="active"></span>
           <span></span>
@@ -37,7 +37,7 @@
           <span></span>
         </ng-template>
         <ng-template ngSwitchCase="3">
-          <h4>{{numberOfMarks}} reviews</h4>
+          <h4>{{numberOfMarks}} отзыв(ов)</h4>
           <span class="active"></span>
           <span class="active"></span>
           <span class="active"></span>
@@ -45,7 +45,7 @@
           <span></span>
         </ng-template>
         <ng-template ngSwitchCase="4">
-          <h4>{{numberOfMarks}} reviews</h4>
+          <h4>{{numberOfMarks}} отзыв(ов)</h4>
           <span class="active"></span>
           <span class="active"></span>
           <span class="active"></span>
@@ -53,7 +53,7 @@
           <span></span>
         </ng-template>
         <ng-template ngSwitchCase="5">
-          <h4>{{numberOfMarks}} reviews</h4>
+          <h4>{{numberOfMarks}} отзыв(ов)</h4>
           <span class="active"></span>
           <span class="active"></span>
           <span class="active"></span>
@@ -69,30 +69,30 @@
     <div id="buttons">
       <h4 id="price">{{product.price | currency}}</h4>
       <button [disabled]="itemsInComparison.includes(product.id)" class="button fancy-button" (click)="addToComparison(product)"><i class="material-icons">compare</i>+</button>
-      <button class="button fancy-button" (click)="addToCart(product)"><i class="material-icons">shopping_cart</i>Add to cart</button>
+      <button class="button fancy-button" (click)="addToCart(product)"><i class="material-icons">shopping_cart</i>Добавить в корзину</button>
     </div>
   </div>
 
   <div id="chars">
-    <h3>Main Features</h3>
+    <h3>Основные характеристики</h3>
     <h4 id="char" *ngFor="let char of product.chars | keyvalue">
       <span>{{char.key}}</span> <span>{{char.value}}</span>
     </h4>
   </div>
 
   <div id="reviews">
-    <h3 *ngIf="product?.reviews;else noReviews">Reviews</h3>
-    <h3 *ngIf="!isLogged"><a [routerLink]="'/login'" style="text-decoration: underline">Log In</a> To Send Your Review</h3>
-    <ng-template #noReviews><h3>No User Reviews Yet</h3></ng-template>
+    <h3 *ngIf="product?.reviews;else noReviews">Отзывы</h3>
+    <h3 *ngIf="!isLogged"><a [routerLink]="'/login'" style="text-decoration: underline">Войдите</a> чтобы оставить отзыв</h3>
+    <ng-template #noReviews><h3>Нет пользовательских отзывов</h3></ng-template>
       <form [formGroup]="reviewForm" (ngSubmit)="submit()" *ngIf="(user | async) as user">
-        <p>Add Your Review</p>
+        <p>Оставить свой отзыв</p>
         <p class="inputName" *ngIf="user?.personalInfo.firstName;else noPersonalInfo">
-          Your Username: {{user?.personalInfo.firstName}} {{user?.personalInfo.secondName}}
+          Ваш логин: {{user?.personalInfo.firstName}} {{user?.personalInfo.secondName}}
           <input type="hidden" value="{{user?.personalInfo.firstName}} {{user?.personalInfo.secondName}}" #userName>
         </p>
         <ng-template #noPersonalInfo>
           <p class="inputName">
-            Your Username: id{{user?.uid.slice(0, 6)}}
+            Ваш логин: id{{user?.uid.slice(0, 6)}}
             <input type="hidden" value="id{{user?.uid.slice(0, 6)}}" #userName>
           </p>
         </ng-template>
@@ -109,7 +109,7 @@
             <input type="radio" id="star-1" name="rating" value="1" formControlName="rating">
             <label for="star-1" title="Mark «1»"></label>
           </div>
-          <button (click)="submit()" [disabled]="reviewForm.invalid">Send review</button>
+          <button (click)="submit()" [disabled]="reviewForm.invalid">Отправить отзыв</button>
         </div>
         <textarea maxlength="500" formControlName="review"></textarea>
       </form>

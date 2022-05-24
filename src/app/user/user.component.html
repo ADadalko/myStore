@@ -1,63 +1,63 @@
-<h3>Your Account</h3>
+<h3>Личный кабинет</h3>
 
 <div id="popupInvalidConfirm"></div>
 
 <div id="navBar">
-  <a (click)="view = 'delivery'">Delivery Information</a>
+  <a (click)="view = 'delivery'">Информация о доставке</a>
   <span>|</span>
-  <a (click)="view = 'personal'">User Details</a>
+  <a (click)="view = 'personal'">Персональная информация</a>
   <span>|</span>
-  <a (click)="view = 'payment'">Payment Method</a>
+  <a (click)="view = 'payment'">Платежная информация</a>
   <span>|</span>
-  <a (click)="view = 'orders'">Orders History</a>
+  <a (click)="view = 'orders'">История покупок</a>
 </div>
 
-<h4 *ngIf="view == 'personal'">Personal Information</h4>
+<h4 *ngIf="view == 'personal'">Персональная информация</h4>
 
 <div *ngIf="(user | async) as user">
 
   <div class="personal" *ngIf="user?.auth == 'google' && view == 'personal' && !updateUserInfo && !updatePersonalInfo">
-    <h4>Your Personal Information</h4>
-    <h4>Google Username -  {{user?.username}}</h4>
+    <h4>Ваша персональная информация</h4>
+    <h4>Google имя пользователя -  {{user?.username}}</h4>
     <h4>E-Mail - {{user?.email}}</h4>
     <div *ngIf="user?.personalInfo.firstName">
-      <h4>First Name - {{user?.personalInfo.firstName}}</h4>
-      <h4>Second Name - {{user?.personalInfo.secondName}}</h4>
-      <h4>Birthday - {{user?.personalInfo.birthday}}</h4>
-      <button (click)="updatePersonalInfo = true">Update</button>
+      <h4>Имя - {{user?.personalInfo.firstName}}</h4>
+      <h4>Фамилия - {{user?.personalInfo.secondName}}</h4>
+      <h4>День рождения - {{user?.personalInfo.birthday}}</h4>
+      <button (click)="updatePersonalInfo = true">Обновить</button>
     </div>
   </div>
 
 
   <div class="personal" *ngIf="user?.auth == 'ordinary' && view == 'personal' && !updateUserInfo && !updatePersonalInfo">
-    <h4>Your Personal Information</h4>
+    <h4>Ваша персональная информация</h4>
     <h4>E-Mail - {{user?.email}}</h4>
-    <button (click)="updateUserInfo = true">Update</button>
+    <button (click)="updateUserInfo = true">Обновить</button>
   </div>
 
   <div class="personal" *ngIf="user?.personalInfo.firstName && user?.auth == 'ordinary' && view == 'personal' && !updateUserInfo && !updatePersonalInfo">
-    <h4>First Name - {{user?.personalInfo.firstName}}</h4>
-    <h4>Second Name - {{user?.personalInfo.secondName}}</h4>
-    <h4>Birthday - {{user?.personalInfo.birthday}}</h4>
-    <button (click)="updatePersonalInfo = true">Update</button>
+    <h4>Имя - {{user?.personalInfo.firstName}}</h4>
+    <h4>Фамилия - {{user?.personalInfo.secondName}}</h4>
+    <h4>День рождения - {{user?.personalInfo.birthday}}</h4>
+    <button (click)="updatePersonalInfo = true">Обновить</button>
   </div>
 
   <div class="personal" *ngIf="view == 'personal' && !user?.personalInfo.firstName && !updateUserInfo">
-    <h4>Add Your Additional Personal Information</h4>
+    <h4>Добавить дополнительную персональную информацию</h4>
     <form [formGroup]="personalInfo">
       <input type="hidden" [value]="user?.uid" #uid>
-      <input type="text" formControlName="firstName" placeholder="First Name" #firstName>
-      <input type="text" formControlName="secondName" placeholder="Second Name" #secondName>
-      <input type="date" (focusout)="setBirthday(birthDay.value)" [min]="'1920-01-01'" [max]="max" pattern="(19[4-9][0-9]|200[0-9])-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])" formControlName="birthDay" placeholder="Birthday" #birthDay>
+      <input type="text" formControlName="firstName" placeholder="Имя" #firstName>
+      <input type="text" formControlName="secondName" placeholder="Фамилия" #secondName>
+      <input type="date" (focusout)="setBirthday(birthDay.value)" [min]="'1920-01-01'" [max]="max" pattern="(19[4-9][0-9]|200[0-9])-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])" formControlName="birthDay" placeholder="День рождения" #birthDay>
       <button [disabled]="personalInfo.invalid"
-              (click)="addPersonal(uid.value, firstName.value, secondName.value, birthDay.value)">Add Additional
-        Personal Information
+              (click)="addPersonal(uid.value, firstName.value, secondName.value, birthDay.value)">
+        Добавить дополнительную персональную информацию
       </button>
     </form>
   </div>
 
   <div class="personal" *ngIf="user?.auth == 'ordinary' && view == 'personal' && updateUserInfo">
-    <h4>Update Your Personal Information</h4>
+    <h4>Обновить персональную информацию</h4>
     <form [formGroup]="form">
       <input type="email"
              [(ngModel)]="user.email"
@@ -65,63 +65,62 @@
              placeholder="E-Mail"
              formControlName="email">
       <div *ngIf="(email.invalid && email.touched) || email.dirty">
-        <span class="red" *ngIf="email.errors?.required">E-Mail is required</span>
-        <span class="red" *ngIf="email.errors?.pattern">Provide A Valid E-Mail</span>
+        <span class="red" *ngIf="email.errors?.required">Электронная почта обязательна</span>
+        <span class="red" *ngIf="email.errors?.pattern">Введите валидную электронную почту</span>
       </div>
       <input type="password"
              [class.is-invalid]="form.get('password').invalid && form.get('password').touched"
-             placeholder="Password"
+             placeholder="Пароль"
              formControlName="password">
       <div *ngIf="(password.invalid && password.touched) || password.dirty">
-        <span class="red" *ngIf="password.errors?.required">Password is required</span>
-        <span class="red" *ngIf="password.errors?.pattern">Provide A Valid Password</span>
+        <span class="red" *ngIf="password.errors?.required">Пароль обязателен</span>
+        <span class="red" *ngIf="password.errors?.pattern">Введите валидный пароль</span>
       </div>
       <input type="password"
              [class.is-invalid]="form.get('confirmPassword').invalid && form.get('confirmPassword').touched"
-             placeholder="Confirm Password"
+             placeholder="Подтвердите пароль"
              formControlName="confirmPassword">
       <div *ngIf="(confirmPassword.invalid && confirmPassword.touched && confirmPassword != password) || confirmPassword.dirty">
-        <span class="red" *ngIf="confirmPassword.errors?.required">Password is required</span>
-        <span class="red" *ngIf="confirmPassword.errors?.pattern">Provide A Valid Password</span>
+        <span class="red" *ngIf="confirmPassword.errors?.required">Пароль обязателен</span>
+        <span class="red" *ngIf="confirmPassword.errors?.pattern">Введите валидный пароль</span>
       </div>
     </form>
     <button (click)="updateUserInfo = false">Go Back</button>
     <button [disabled]="form.invalid" (click)="updateInfo(user?.email, user?.password, email.value, password.value, confirmPassword.value)">
-      Update Personal Information
+       Обновите персональную информацию
     </button>
   </div>
 
   <div class="personal" *ngIf="view == 'personal' && user?.personalInfo.firstName && updatePersonalInfo">
-    <h4>Update Your Additional Personal Information</h4>
+    <h4>Обновите дополнительную персональную информацию</h4>
     <form [formGroup]="personalInfo">
       <input type="hidden" [value]="user?.uid" #uid>
-      <input type="text" formControlName="firstName" placeholder="First Name" #firstName>
-      <input type="text" formControlName="secondName" placeholder="Second Name" #secondName>
-      <input type="date" [max]="max" (focusout)="setBirthday(birthDay.value)" [min]="'1920-01-01'" [max]="max" pattern="(19[4-9][0-9]|200[0-9])-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])" formControlName="birthDay" placeholder="Birthday" #birthDay>
-      <button (click)="updatePersonalInfo = false">Go Back</button>
+      <input type="text" formControlName="firstName" placeholder="Имя" #firstName>
+      <input type="text" formControlName="secondName" placeholder="Фамилия" #secondName>
+      <input type="date" [max]="max" (focusout)="setBirthday(birthDay.value)" [min]="'1920-01-01'" [max]="max" pattern="(19[4-9][0-9]|200[0-9])-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])" formControlName="birthDay" placeholder="День рождения" #birthDay>
+      <button (click)="updatePersonalInfo = false">Вернуться</button>
       <button [disabled]="personalInfo.invalid"
-              (click)="addPersonal(uid.value, firstName.value, secondName.value, birthDay.value)">Update Additional
-        Personal Information
+              (click)="addPersonal(uid.value, firstName.value, secondName.value, birthDay.value)">Обновите дополнительную персональную информацию
       </button>
     </form>
   </div>
 
   <div *ngIf="view == 'payment' && user?.card.cardNumber && !updateCardInfo">
-    <h4>Card Information</h4>
+    <h4>Платежная информация</h4>
     <div class="personal">
-      <h4>Your Bank Card Information</h4>
-      <h4>Card Number - xxxx xxxx
+      <h4>Ваша банковская информация</h4>
+      <h4>Номер карты - xxxx xxxx
         xxxx {{(user.card.cardNumber)[12]}}{{(user.card.cardNumber)[13]}}{{(user.card.cardNumber)[14]}}{{(user.card.cardNumber)[15]}}</h4>
-      <h4>Month Of Expiring - {{user?.card.cardMonth}}</h4>
-      <h4>Year Of Expiring - {{user?.card.cardYear}}</h4>
+      <h4>Месяц истечения - {{user?.card.cardMonth}}</h4>
+      <h4>Год истечения - {{user?.card.cardYear}}</h4>
       <h4>CVV - xxx</h4>
-      <button (click)="updateCardInfo = true">Update</button>
+      <button (click)="updateCardInfo = true">Обновить</button>
     </div>
   </div>
 
   <div *ngIf="view == 'payment'">
-    <h4 *ngIf="!user?.card.cardNumber">Add your bank card</h4>
-    <h4 *ngIf="user?.card.cardNumber && updateCardInfo">Update your bank card</h4>
+    <h4 *ngIf="!user?.card.cardNumber">Добавить банковскую карту</h4>
+    <h4 *ngIf="user?.card.cardNumber && updateCardInfo">Обновить банковскую карту</h4>
     <form [formGroup]="card" *ngIf="updateCardInfo || !user?.card.cardNumber">
       <div class="bankCard">
         <div class="card">
@@ -132,7 +131,7 @@
             <img width="50" src="./assets/images/maestroLogo.png">
           </div>
           <div id="cardNumber">
-            <span>Your card number</span>
+            <span>Номер карты</span>
             <input #number id="ccn" type="tel" formControlName="number" inputmode="numeric" pattern="[0-9]{16}"
                    autocomplete="cc-number" minlength="16" maxlength="16" placeholder="xxxxxxxxxxxxxxxx">
           </div>
@@ -157,20 +156,20 @@
       <input type="hidden" [value]="user?.uid" #uid>
       <button style="margin-bottom: 1vh" *ngIf="!user?.card.cardNumber"
               (click)="addCard(uid.value, number.value, month.value, year.value, cvv.value)" [disabled]="card.invalid">
-        Add card
+        Добавить карту
       </button>
-      <button style="margin-bottom: 1vh" (click)="updateCardInfo = false">Go Back</button>
+      <button style="margin-bottom: 1vh" (click)="updateCardInfo = false">Вернуться</button>
       <button *ngIf="user?.card.cardNumber && updateCardInfo"
               (click)="addCard(uid.value, number.value, month.value, year.value, cvv.value)" [disabled]="card.invalid">
-        Update card
+        Обновить карту
       </button>
     </form>
   </div>
 
   <div class="delivery" *ngIf="view == 'delivery' && !user?.address.addressCity">
-    <h4>Delivery Information</h4>
+    <h4>Информация о доставке</h4>
     <div class="personal">
-      <h4>Add Your Delivery Information</h4>
+      <h4>Добавить информацию о доставке</h4>
       <form [formGroup]="delivery">
         <input type="hidden" [value]="user?.uid" #uid>
         <input type="text" formControlName="city" placeholder="City" #city>
@@ -179,44 +178,44 @@
         <input type="number" formControlName="flat" placeholder="Flat" #flat>
       </form>
       <button (click)="addDelivery(uid.value, city.value, street.value, house.value, flat.value)"
-              [disabled]="delivery.invalid">Add Delivery Info
+              [disabled]="delivery.invalid">Добавить информацию о доставке
       </button>
     </div>
   </div>
 
   <div class="delivery" *ngIf="view == 'delivery' && user?.address.addressCity">
-    <h4>Delivery Information</h4>
+    <h4>Информация о доставке</h4>
     <div class="personal" *ngIf="!updateDeliveryInfo">
-      <h4>Your Delivery Information</h4>
-      <h4>City - {{user?.address.addressCity}}</h4>
-      <h4>Street - {{user?.address.addressStreet}}</h4>
-      <h4>House - {{user?.address.addressHouse}}</h4>
-      <h4>Flat - {{user?.address.addressFlat}}</h4>
-      <button (click)="updateDeliveryInfo = true">Update</button>
+      <h4>Ваша информация о доставке</h4>
+      <h4>Город - {{user?.address.addressCity}}</h4>
+      <h4>Улица - {{user?.address.addressStreet}}</h4>
+      <h4>Дом - {{user?.address.addressHouse}}</h4>
+      <h4>Квартира - {{user?.address.addressFlat}}</h4>
+      <button (click)="updateDeliveryInfo = true">Обновить</button>
     </div>
     <div class="personal" *ngIf="updateDeliveryInfo">
-      <h4>Update Your Delivery Information</h4>
+      <h4>Обновить информацию о доставке</h4>
       <form [formGroup]="delivery">
         <input type="hidden" [value]="user?.uid" #uid>
-        <input type="text" formControlName="city" placeholder="City" #city>
-        <input type="text" formControlName="street" placeholder="Street"
+        <input type="text" formControlName="city" placeholder="Город" #city>
+        <input type="text" formControlName="street" placeholder="Улица"
                #street>
-        <input type="number" formControlName="house" placeholder="House Number"
+        <input type="number" formControlName="house" placeholder="Номер дома"
                 #house>
-        <input type="number" formControlName="flat" placeholder="Flat"
+        <input type="number" formControlName="flat" placeholder="Квартира"
                #flat>
       </form>
       <button (click)="updateDeliveryInfo = false">
-        Go Back
+        Вернуться
       </button>
       <button (click)="addDelivery(uid.value, city.value, street.value, house.value, flat.value)"
-              [disabled]="delivery.invalid">Update Delivery Info
+              [disabled]="delivery.invalid">Обновить информацию о доставке
       </button>
     </div>
   </div>
 
   <div *ngIf="view == 'orders' && user?.purchases[0].cart.bill != 0">
-    <h4>Orders History</h4>
+    <h4>История покупок</h4>
     <div class="personal" *ngFor="let purchase of user?.purchases">
       <div id="items">
         <div id="item" *ngFor="let item of purchase.cart.items">
@@ -224,16 +223,16 @@
           <img [src]="item.img">
           <h4>{{item.description}}</h4>
           <h4>{{item.price | currency}}</h4>
-          <h4>Quantity - {{item.quantity}}</h4>
+          <h4>Количество - {{item.quantity}}</h4>
         </div>
       </div>
-      <h4>Transaction Date - {{purchase.date.toDate() | date: 'medium'}}</h4>
+      <h4>Дата транзакции - {{purchase.date.toDate() | date: 'medium'}}</h4>
       <h3>{{purchase.cart.bill | currency}}</h3>
     </div>
   </div>
 
   <div *ngIf="view == 'orders' && user?.purchases[0].cart.bill == 0">
-    <h4>You Have No Orders Yet</h4>
+    <h4>У вас пока что нет покупок</h4>
   </div>
 
 </div>

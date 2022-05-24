@@ -170,11 +170,11 @@ export class ProductService {
       if(!newArr.includes(product.id) && comparison.category == product.type) {
         newArr.push(product.id)
         newCat = product.type
-        this.popup('popupComparison', '✅ <br> Added To Comparison');
+        this.popup('popupComparison', '✅ <br> Добавлено в сравнение');
       }else if(newArr.includes(product.id)){
-        this.popup('popupComparison', 'Product Has Been Already Added To Comparison');
+        this.popup('popupComparison', 'Продукт уже в сравнении');
       }else if(comparison.category != product.type){
-        this.popup('popupComparison', 'You Can\'t Add Products From Different Categories');
+        this.popup('popupComparison', 'Вы не можете добавлять в сравнение продукты из разных категорий');
       }
       this.localSt.set('comparison', {
         category: newCat,

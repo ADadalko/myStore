@@ -5,60 +5,60 @@
   </div>
 
   <div *ngIf="!isSignedIn && !signInView">
-    <h3>Sign Up</h3>
+    <h3>Зарегистрироваться</h3>
     <div class="signContainer">
-      <h4>Register With E-Mail And Password</h4>
+      <h4>Зарегистрироваться с электронной почтой и паролем</h4>
       <form [formGroup]="form">
         <input type="email"
                [class.is-invalid]="form.get('email').invalid && form.get('email').touched"
                placeholder="E-Mail"
                formControlName="email">
         <div *ngIf="(email.invalid && email.touched) || email.dirty">
-          <span class="redMessage" *ngIf="email.errors?.required">E-Mail is required</span>
-          <span class="redMessage" *ngIf="email.errors?.pattern">Provide A Valid E-Mail</span>
+          <span class="redMessage" *ngIf="email.errors?.required">Электронная почта обязательна</span>
+          <span class="redMessage" *ngIf="email.errors?.pattern">Введите валидный пароль</span>
         </div>
         <input type="password"
                [class.is-invalid]="form.get('password').invalid && form.get('password').touched"
-               placeholder="Password"
+               placeholder="Пароль"
                formControlName="password">
         <div *ngIf="(password.invalid && password.touched) || password.dirty">
-          <span class="redMessage" *ngIf="password.errors?.required">Password is required</span>
-          <span class="redMessage" *ngIf="password.errors?.pattern">Input string with at least 6 symbols</span>
+          <span class="redMessage" *ngIf="password.errors?.required">Пароль обезателен</span>
+          <span class="redMessage" *ngIf="password.errors?.pattern">Введите пароль как минимум с 6 символами</span>
         </div>
       </form>
-      <button [disabled]="form.invalid" (click)="onSignup(email.value, password.value)">Sign up</button>
-      <h4>If You Already Have An Account</h4>
-      <a (click)="swapView()" style="text-decoration: underline">Sign In</a>
+      <button [disabled]="form.invalid" (click)="onSignup(email.value, password.value)">Зарегистрироваться</button>
+      <h4>Если у вас уже есть аккаунт</h4>
+      <a (click)="swapView()" style="text-decoration: underline">Войти</a>
     </div>
   </div>
 
   <div *ngIf="!isSignedIn && signInView">
-    <h3>Sign In</h3>
+    <h3>Войти</h3>
     <div class="signContainer">
-      <h4>With E-Mail And Password</h4>
+      <h4>С электронной почтой и паролем</h4>
       <form [formGroup]="form">
         <input type="email"
                [class.is-invalid]="form.get('email').invalid && form.get('email').touched"
                placeholder="E-Mail"
                formControlName="email">
         <div *ngIf="(email.invalid && email.touched) || email.dirty">
-          <span class="redMessage" *ngIf="email.errors?.required">E-Mail is required</span>
-          <span class="redMessage" *ngIf="email.errors?.pattern">Provide A Valid E-Mail</span>
+          <span class="redMessage" *ngIf="email.errors?.required">Электронная почта обязательна</span>
+          <span class="redMessage" *ngIf="email.errors?.pattern">Введите валидную электронную почту</span>
         </div>
         <input type="password"
                [class.is-invalid]="form.get('password').invalid && form.get('password').touched"
-               placeholder="Password"
+               placeholder="Пароль"
                formControlName="password">
         <div *ngIf="(password.invalid && password.touched) || password.dirty">
-          <span class="redMessage" *ngIf="password.errors?.required">Password is required</span>
-          <span class="redMessage" *ngIf="password.errors?.pattern">Input string with at least 6 symbols</span>
+          <span class="redMessage" *ngIf="password.errors?.required">Пароль обязателен</span>
+          <span class="redMessage" *ngIf="password.errors?.pattern">Введите пароль как минимум с 6 символами</span>
         </div>
       </form>
-      <button [disabled]="form.invalid" (click)="onSignin(email.value, password.value)">Sign in</button>
-      <h4>With Google</h4>
+      <button [disabled]="form.invalid" (click)="onSignin(email.value, password.value)">Войти</button>
+      <h4>Через Google</h4>
       <img *ngIf="!isSignedIn" (click)="onSignInWithGoogle()" src="assets/images/google.jpg">
-      <h4>If You Don't Have Account Yet</h4>
-      <a (click)="swapView()" style="text-decoration: underline">Register</a>
+      <h4>Если у вас еще нет аккаунта</h4>
+      <a (click)="swapView()" style="text-decoration: underline">Зарегистрируйтесь</a>
     </div>
   </div>
 

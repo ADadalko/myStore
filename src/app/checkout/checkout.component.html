@@ -14,70 +14,70 @@
           <h4>{{item?.model}}</h4>
           <img style="width: 10vw" [src]="item?.img">
           <h4>{{item?.price | currency}}</h4>
-          <h4>{{item?.quantity}} Item(s)</h4>
+          <h4>{{item?.quantity}} Товар(ов)</h4>
         </div>
         <h4 id="fullPrice">{{cart?.bill | currency}}</h4>
       </div>
     </div>
 
-    <h3 *ngIf="content == 'delivery'">Your Delivery Information</h3>
+    <h3 *ngIf="content == 'delivery'">Информация о доставке</h3>
     <div *ngIf="user?.address.addressCity && content == 'delivery'">
       <div class="viewBox" *ngIf="!updateDelivery">
-        <h4>City - {{user?.address.addressCity}}</h4>
-        <h4>Street - {{user?.address.addressStreet}}</h4>
-        <h4>House - {{user?.address.addressHouse}}</h4>
-        <h4>Flat - {{user?.address.addressFlat}}</h4>
-        <button class="continue" (click)="updateDelivery = true">Update</button>
-        <button class="continue" (click)="content = 'payment'">Continue</button>
+        <h4>Город - {{user?.address.addressCity}}</h4>
+        <h4>Улица - {{user?.address.addressStreet}}</h4>
+        <h4>Дом - {{user?.address.addressHouse}}</h4>
+        <h4>Квартира - {{user?.address.addressFlat}}</h4>
+        <button class="continue" (click)="updateDelivery = true">Обновить</button>
+        <button class="continue" (click)="content = 'payment'">Продолжить</button>
       </div>
       <div class="viewBox" *ngIf="updateDelivery">
-        <h4>Update Your Delivery Information</h4>
+        <h4>Обновите информацию о доставке</h4>
         <form [formGroup]="delivery">
           <input type="hidden" [value]="user?.uid" #uid>
-          <input type="text" formControlName="city" placeholder="City" #city>
-          <input type="text" formControlName="street" placeholder="Street"
+          <input type="text" formControlName="city" placeholder="Город" #city>
+          <input type="text" formControlName="street" placeholder="Улица"
                  #street>
-          <input type="number" formControlName="house" placeholder="House Number"
+          <input type="number" formControlName="house" placeholder="Дом"
                  #house>
-          <input type="number" formControlName="flat" placeholder="Flat"
+          <input type="number" formControlName="flat" placeholder="Квартира"
                  #flat>
         </form>
-        <button class="continue" (click)="updateDelivery = false">Go Back</button>
+        <button class="continue" (click)="updateDelivery = false">Вернуться</button>
         <button class="centerButton" (click)="addDelivery(uid.value, city.value, street.value, house.value, flat.value)"
-                [disabled]="delivery.invalid">Update Delivery Info
+                [disabled]="delivery.invalid">Обновить
         </button>
       </div>
     </div>
 
     <div *ngIf="!user?.address.addressCity && content == 'delivery'">
       <div class="viewBox">
-        <h4>Add Delivery Information</h4>
+        <h4>Добавить информацию о доставке</h4>
         <form [formGroup]="delivery">
           <input type="hidden" [value]="user?.uid" #uid>
-          <input type="text" formControlName="city" placeholder="City" #city>
-          <input type="text" formControlName="street" placeholder="Street" #street>
-          <input type="number" formControlName="house" placeholder="House Number" #house>
-          <input type="number" formControlName="flat" placeholder="Flat" #flat>
+          <input type="text" formControlName="city" placeholder="Город" #city>
+          <input type="text" formControlName="street" placeholder="Улица" #street>
+          <input type="number" formControlName="house" placeholder="Дом" #house>
+          <input type="number" formControlName="flat" placeholder="Квартира" #flat>
         </form>
         <button class="centerButton" (click)="addDelivery(uid.value, city.value, street.value, house.value, flat.value)"
-                [disabled]="delivery.invalid">Add Delivery Info
+                [disabled]="delivery.invalid">Добавить информацию о доставке
         </button>
       </div>
     </div>
 
-    <h3 *ngIf="content == 'payment'">Your Payment Information</h3>
+    <h3 *ngIf="content == 'payment'">Информация об оплате</h3>
     <div *ngIf="content == 'payment'">
       <div class="viewBox" *ngIf="user?.card.cardNumber && !updateCard">
-        <h4>Card Number - xxxx xxxx
+        <h4>Номер карты - xxxx xxxx
           xxxx {{(user.card.cardNumber)[12]}}{{(user.card.cardNumber)[13]}}{{(user.card.cardNumber)[14]}}{{(user.card.cardNumber)[15]}}</h4>
-        <h4>Month Of Expiring - {{user?.card.cardMonth}}</h4>
-        <h4>Year Of Expiring - {{user?.card.cardYear}}</h4>
+        <h4>Месяц истечения - {{user?.card.cardMonth}}</h4>
+        <h4>Год истечения - {{user?.card.cardYear}}</h4>
         <h4>CVV - xxx</h4>
-        <button class="continue" (click)="updateCard = true">Update</button>
-        <button class="continue" (click)="content = 'final'">Continue</button>
+        <button class="continue" (click)="updateCard = true">Обновить</button>
+        <button class="continue" (click)="content = 'final'">Продолжить</button>
       </div>
-      <h4 *ngIf="!user?.card.cardNumber" style="text-align: center">Add Payment Information</h4>
-      <h4 *ngIf="user?.card.cardNumber && updateCard" style="text-align: center">Update Your Payment Information</h4>
+      <h4 *ngIf="!user?.card.cardNumber" style="text-align: center">Добавить информацию о доставке</h4>
+      <h4 *ngIf="user?.card.cardNumber && updateCard" style="text-align: center">Обновить информацию о доставке</h4>
       <form [formGroup]="card" *ngIf="updateCard || !user?.card.cardNumber">
         <div class="bankCard">
           <div class="card">
@@ -88,7 +88,7 @@
               <img width="50" src="./assets/images/maestroLogo.png">
             </div>
             <div id="cardNumber">
-              <span>Your card number</span>
+              <span>Номер карты</span>
               <input #number id="ccn" type="tel" formControlName="number" inputmode="numeric" pattern="[0-9]{16}"
                      autocomplete="cc-number" minlength="16" maxlength="16" placeholder="xxxxxxxxxxxxxxxx">
             </div>
@@ -114,28 +114,28 @@
         <button *ngIf="!user?.card.cardNumber" style="margin-left: 29%"
                 (click)="addCard(uid.value, number.value, month.value, year.value, cvv.value)"
                 [disabled]="card.invalid">
-          Add card
+          Добавить карту
         </button>
         <button style="margin-left: auto; margin-right: auto" *ngIf="user?.card.cardNumber && updateCard" (click)="updateCard = false">Go
-          Back
+          Вернуться
         </button>
         <button *ngIf="user?.card.cardNumber" style="margin-left: auto; margin-right: auto"
                 (click)="addCard(uid.value, number.value, month.value, year.value, cvv.value)"
                 [disabled]="card.invalid">
-          Update card
+          Обновить карту
         </button>
       </form>
     </div>
-    <button *ngIf="content == 'payment'" class="continue" (click)="content = 'delivery'">Back To Delivery</button>
+    <button *ngIf="content == 'payment'" class="continue" (click)="content = 'delivery'">Вернуться к доставке</button>
 
 
-    <h3 *ngIf="content == 'final'">Your Purchase Information</h3>
+    <h3 *ngIf="content == 'final'">Информация о доставке</h3>
     <div class="viewBox" *ngIf="content == 'final'">
-      <h4>Delivery to {{user?.address.addressCity}}, {{user?.address.addressStreet}}
-        St., {{user?.address.addressHouse}}, {{user?.address.addressFlat}}</h4>
-      <h4>Card - xxxx xxxx
+      <h4>Доставка в {{user?.address.addressCity}}, {{user?.address.addressStreet}}
+        Ул., {{user?.address.addressHouse}}, {{user?.address.addressFlat}}</h4>
+      <h4>Карта - xxxx xxxx
         xxxx {{(user.card.cardNumber)[12]}}{{(user.card.cardNumber)[13]}}{{(user.card.cardNumber)[14]}}{{(user.card.cardNumber)[15]}}</h4>
-      <h4>Bill - {{cart?.bill | currency}}</h4>
+      <h4>Стоимость - {{cart?.bill | currency}}</h4>
       <input type="hidden" [value]="user?.email" #email>
       <input type="hidden" [value]="user?.address.addressCity" #city>
       <input type="hidden" [value]="user?.address.addressStreet" #street>
@@ -161,15 +161,15 @@
           bill.value,
           uid.value
           )">
-        Complete The Purchase
+        Завершить покупку
       </button>
     </div>
-    <button *ngIf="content == 'final'" class="continue" (click)="content = 'payment'">Back To Payment</button>
+    <button *ngIf="content == 'final'" class="continue" (click)="content = 'payment'">Вернуться</button>
   </div>
 </div>
 
 <div id="thanks" *ngIf="content == 'thanks'">
-  <h3>Thanks For Your Purchase</h3>
+  <h3>Спасибо за покупку</h3>
   <a class="material-icons">check_circle</a>
-  <button class="continue" [routerLink]="'/'">Go To The Main Page</button>
+  <button class="continue" [routerLink]="'/'">Вернуться к начальной странице</button>
 </div>

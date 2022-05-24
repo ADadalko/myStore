@@ -1,12 +1,12 @@
 <h3 id="popupComparison">
   <a class="material-icons">check_circle</a>
   <br>
-  Added To Comparison
+  Добавлено в сравнение
 </h3>
 <h3 id="addedToCart">
   <a class="material-icons">check_circle</a>
   <br>
-  Added To Cart
+  Добавлено в корзину
 </h3>
 <div id="products">
   <div id="product" *ngFor="let product of products | async" [title]="product.model">
@@ -20,10 +20,10 @@
     </a>
     <div id="buttons">
       <button [disabled]="itemsInComparison.includes(product.id)" class="button fancy-button" (click)="addToComparison(product)"><i class="material-icons">compare</i>+</button>
-      <button class="button fancy-button" (click)="addToCart(product)"><i class="material-icons">shopping_cart</i>Add to cart</button>
+      <button class="button fancy-button" (click)="addToCart(product)"><i class="material-icons">shopping_cart</i>Добавить в корзину</button>
     </div>
   </div>
 </div>
 <h3 *ngIf="(products | async)?.length == 0" style="margin: 0">
-  There Are No Such Products
+ Продукты отсутствуют
 </h3>

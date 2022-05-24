@@ -1,23 +1,22 @@
 <ng-template #emptyCart>
   <h3 style="padding: 0">
-    <span>Cart Is Empty</span>
+    <span>Корзина пуста</span>
   </h3>
 </ng-template>
 
 <div *ngIf="(cart | async) as cart; else emptyCart">
   <div>
-    <h3>Cart</h3>
+    <h3>Корзина</h3>
     <h3 class="cart-item">
-      <span>Cart price is</span>
+      <span>Стоимость корзины</span>
       <span>{{cart?.bill | currency}}</span>
       <div id="buttons">
         <button [routerLink]="['/checkout']" [disabled]="cart?.bill == 0 || !isLogged()" class="button"
-                type="submit">Checkout
+                type="submit">К покупке
         </button>
-        <button (click)="clearCart()" [routerLink]="'/'">Clear cart</button>
+        <button (click)="clearCart()" [routerLink]="'/'">Очистить корзину</button>
       </div>
-      <h4 *ngIf="!isLogged()"><a style="text-decoration: underline" [routerLink]="'/login'">Sign In</a>To Complete The
-        Purchase</h4>
+      <h4 *ngIf="!isLogged()"><a style="text-decoration: underline" [routerLink]="'/login'">Войдите </a>Чтобы завершить покупку</h4>
     </h3>
   </div>
 

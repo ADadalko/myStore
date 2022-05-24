@@ -130,7 +130,7 @@ export class UserComponent implements OnInit, AfterViewInit {
       this.form.reset();
       this.updateUserInfo = false
     } else {
-      this.productService.popup('popupInvalidConfirm', "Passwords Doesn't Match")
+      this.productService.popup('popupInvalidConfirm', "Пароли не совпадают")
     }
   }
 
